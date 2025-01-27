@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu Dual Connect</title>
+    <link rel="icon" href="/intertec/img/sie256.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #FFFFFF;
+            color: #FFFFFF;
+        }
+        .navbar-custom {
+            background-color: #611232;
+        }
+        .footer-custom {
+            background-color: #611232;
+            color: #FFFFFF;
+        }
+        .module-box img {
+            width: 50px;
+        }
+        .module-box h4 {
+            margin-top: 1rem;
+        }
+    </style>
+	
+	<style>
+    .carousel-item img {
+        width: 50%; /* Las imágenes ocuparán el ancho completo del carrusel */
+        height: 400px; /* Altura fija para todas las imágenes */
+        object-fit: cover; /* Recorta la imagen para llenar el espacio sin distorsión */
+        object-position: center; /* Centra la imagen si se recorta */
+    }
+    .carousel-control-prev, .carousel-control-next {
+        width: 40px;
+        height: 40px;
+        top: 50%; /* Alinea los botones verticalmente al centro */
+        transform: translateY(-50%); /* Ajusta la posición para centrar verticalmente */
+    }
+    .carousel-control-prev {
+        left: 10%; /* Ajusta la distancia desde el borde izquierdo */
+    }
+    .carousel-control-next {
+        right: 10%; /* Ajusta la distancia desde el borde derecho */
+    }
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        filter: invert(1); /* Cambia el ícono a blanco para contraste */
+    }
+</style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-custom navbar-expand-lg fixed-top">
+        <div class="container text-center">
+            <h3 class="text-white w-100 mb-0">Sistema de Educación Dual</h3>
+        </div>
+		
+    </nav>
+
+    <!-- Logo e Información -->
+    <div class="container text-center my-5 pt-5">
+        <img src="img/dgeti.png" alt="Logo EduDual" class="img-fluid my-4" style="max-width: 150px;">
+        <h2><p class="fs-5" style="color: black;">Dirección General de Educaci&oacute;n Tecnol&oacute;gica Industrial y de Servicios (DGETI) Yucat&aacute;n</p></h2>
+
+    </div>
+	
+	<!-- Slider o Carrusel -->
+<!-- Slider o Carrusel -->
+<div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="img/slider/1.jpg" class="d-block mx-auto" alt="Imagen 1">
+        </div>
+        <div class="carousel-item">
+            <img src="img/slider/2.jpg" class="d-block mx-auto" alt="Imagen 2">
+        </div>
+        <div class="carousel-item">
+            <img src="img/slider/3.jpg" class="d-block mx-auto" alt="Imagen 3">
+        </div>
+        <!-- Agrega más imágenes según sea necesario -->
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" style="background-color: #611232; border-radius: 50%; left: 10%;">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1);"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" style="background-color: #611232; border-radius: 50%; right: 10%;">
+        <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1);"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
+</div>
+
+
+    <!-- Modulos -->
+    <div class="container py-5 bg-light rounded">
+       <!-- <div class="row text-center g-4"> -->
+	   <div class="row text-center g-4" style="background-color: #f8f9fa;">
+    <!-- Contenido -->
+
+
+            <!-- Reutilizando un diseño modular para las opciones -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="module-box">
+                    <a href="admin/index.php">
+                        <img src="img/admin.png" alt="Administrador">
+                        <h4>Edu-Dual <strong>Administrador</strong></h4>
+                        <p>M&oacute;dulo del Administrador</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="module-box">
+                    <a href="/intertec/indexestudiante.html">
+                        <img src="img/student.png" alt="Estudiante">
+                        <h4>Edu-Dual <strong>Estudiante</strong></h4>
+                        <p>M&oacute;dulo del Estudiante Dual</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="module-box">
+                    <a href="/intertec/indexcliente.html">
+                        <img src="img/empresa.png" alt="Cliente">
+                        <h4>Edu-Dual <strong>Empresa</strong></h4>
+                        <p>M&oacute;dulo de Empresas Dual</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="module-box">
+                    <a href="/intertec/indexdocente.html">
+                        <img src="img/teacher.png" alt="Docente">
+                        <h4>Edu-Dual <strong>Docente</strong></h4>
+                        <p>M&oacute;dulo de Tutor Dual</p>
+                    </a>
+                </div>
+            </div>
+			<!--
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="module-box">
+                    <a href="/intertec/indexaspirante.html">
+                        <img src="/intertec/ficha.svg" alt="Aspirante">
+                        <h4>SIE <strong>Aspirante</strong></h4>
+                        <p>Proceso de Selección de Aspirantes a Nuevo Ingreso</p>
+                    </a>
+                </div>
+            </div>
+			-->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-custom text-center py-3 mt-4">
+        &copy; 2024 Copyright:
+        <a href="http://www.santamasoft.mx" target="_blank" class="text-white">Santama Soft</a>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

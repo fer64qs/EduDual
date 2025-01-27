@@ -1,0 +1,84 @@
+<?php
+namespace Phppot;
+
+use \Phppot\DataSource;
+
+class Alumno
+{
+    private $ds;
+
+    function __construct()
+    {
+        require_once "DataSource.php"; // Asegúrate de que la clase DataSource esté disponible
+        $this->ds = new DataSource();
+    }
+
+    // Método para comprobar si ya existe un alumno con el mismo CURP o correo
+    private function existsAlumno($curp, $correo, $idAlumno = null)
+    {
+        $query = "SELECT COUNT(*) FROM alumnos WHERE (curp = ? OR correo = ?)";
+		//echo $query;
+        if ($idAlumno) {
+            $query .= " AND idalumno != ?";
+        }
+
+        $paramType = $idAlumno ? "sss" : "ss";
+        $paramArray = $idAlumno ? array($curp, $correo, $idAlumno) : array($curp, $correo);
+
+        $result = $this->ds->select($query, $paramType, $paramArray);
+        return $result[0]["COUNT(*)"] > 0;
+    }
+
+    // Método para agregar un alumno
+    function addAlumno($idCarrera, $apellidoP, $apellidoM, $nombre, $sexo, $numControl, $curp, $correo, $celular)
+    {
+        if ($this->existsAlumno($curp, $correo)) {
+            return ["status" => "error", "message" => "El CURP o correo ya está en uso."];
+        }
+
+        $query = "INSERT INTO alumnos (idcarrera, apellidop, apellidom, nombre, sexo, num_control, curp, correo, celular) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $paramType = "issssssss";
+        $paramArray = array($idCarrera, $apellidoP, $apellidoM, $nombre, $sexo, $numControl, $curp, $correo, $celular);
+        return $this->ds->insert($query, $paramType, $paramArray);
+    }
+
+    // Método para editar un alumno
+    function editAlumno($idAlumno, $idCarrera, $apellidoP, $apellidoM, $nombre, $sexo, $numControl, $curp, $correo, $celular)
+    {
+        if ($this->existsAlumno($curp, $correo, $idAlumno)) {
+            return ["status" => "error", "message" => "El CURP o correo ya está en uso."];
+        }
+
+        $query = "UPDATE alumnos SET idcarrera = ?, apellidop = ?, apellidom = ?, nombre = ?, sexo = ?, num_control = ?, curp = ?, correo = ?, celular = ? WHERE idalumno = ?";
+        $paramType = "issssssssi";
+        $paramArray = array($idCarrera, $apellidoP, $apellidoM, $nombre, $sexo, $numControl, $curp, $correo, $celular, $idAlumno);
+        return $this->ds->update($query, $paramType, $paramArray);
+    }
+
+    // Método para obtener un alumno por ID
+    function getAlumnoById($idAlumno)
+    {
+        $query = "SELECT * FROM alumnos WHERE idalumno = ?";
+        $paramType = "i";
+        $paramArray = array($idAlumno);
+        return $this->ds->select($query, $paramType, $paramArray);
+    }
+
+    // Método para obtener todos los alumnos
+    function getAllAlumnos()
+    {
+        $query = "SELECT * FROM alumnos";
+        return $this->ds->select($query);
+    }
+
+    // Método para eliminar un alumno
+    function deleteAlumno($idAlumno)
+    {
+        $query = "DELETE FROM alumnos WHERE idalumno = ?";
+        $paramType = "i";
+        $paramArray = array($idAlumno);
+        return $this->ds->delete($query, $paramType, $paramArray);
+    }
+}
+?>
