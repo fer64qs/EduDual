@@ -112,7 +112,7 @@ if (!empty($_SESSION["userId"])) {
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">
+                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_carreras.php'); cerrarMenu();">
                                 <i class="fas fa-graduation-cap"></i> Carreras
                             </a>
                         </li>
@@ -132,7 +132,7 @@ if (!empty($_SESSION["userId"])) {
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">
+                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_planteles.php'); cerrarMenu();">
                                 <i class="fas fa-school"></i> Planteles
                             </a>
                         </li>
