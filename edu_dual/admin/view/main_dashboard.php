@@ -122,7 +122,7 @@ if (!empty($_SESSION["userId"])) {
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">
+                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_empresas.php'); cerrarMenu();">
                                 <i class="fas fa-building"></i> Empresas
                             </a>
                         </li>

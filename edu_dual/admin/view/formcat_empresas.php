@@ -1,11 +1,11 @@
-<?php include('cat_alumnos/alumnos.php'); ?>
+<?php include('cat_empresas/empresas.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cat de Alumnos</title>
+  <title>Cat de Empresas</title>
   <!--
  <link href="js/bootstrap.min.css" rel="stylesheet">
   <script src="js/bootstrap.bundle.min.js"></script>
@@ -24,9 +24,6 @@
   
   <!-- SweetAlert2 -->
 <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
-
-
-
   <style>
     .alert-custom {
       position: fixed;
@@ -47,7 +44,7 @@
         type="text"
         id="buscador"
         class="form-control"
-        placeholder="Buscar Empresas..."
+        placeholder="Buscar Empresa..."
         oninput="filtrarCards()"
       >
     </div>
@@ -67,8 +64,8 @@
     <!--cards begin -->
 <div class="row">
   <?php
-  $alumnos = cargarAlumnos();
-  $totalRegistros = count($alumnos); // Cuenta la cantidad de registros
+  $empresas = cargarEmpresas();
+  $totalRegistros = count($empresas); // Cuenta la cantidad de registros
   ?>
   <script>
   // Actualiza el contenido del label con PHP
@@ -77,34 +74,34 @@
   });
 </script>
   <?php
-  foreach ($alumnos as $alumno) {
-    $sexo = $alumno['sexo'];
-    $icono = ($sexo == 'HOMBRE') ? 'fa-male' : 'fa-female';
-    $color = ($sexo == 'HOMBRE') ? 'black' : '#d093b6';
+  foreach ($empresas as $empresa) {
+    $icono = 'fa-building';
+    $color = 'black'; 
 
+    
     echo "<div class='col-md-4 mb-4'>";
     echo "<div class='card' style='width: 20rem;'>";
     echo "<div class='text-center mt-3'>";
     echo "<i class='fas {$icono}' style='font-size: 64px; color: {$color};'></i>";
     echo "</div>";
     echo "<div class='card-body'>";
-    echo "<h5 class='card-title text-center'><b>{$alumno['nombre']} {$alumno['apellidop']} {$alumno['apellidom']}</b></h5>";
+    echo "<h5 class='card-title text-center'><b>{$empresa['nombre_empresa']}  </b></h5>";
 
     echo "<p class='card-text'>";
-    echo "<b>CURP:</b> {$alumno['curp']}<br>";
-	echo "<b>Número de Control:</b> {$alumno['num_control']}<br>";
-    echo "<b>G&eacute;nero:</b> {$alumno['sexo']}<br>";
-    echo "<b>Correo:</b> {$alumno['correo']}<br>";
-    echo "<b>Celular:</b> {$alumno['celular']}<br>";
-    echo "<b>Carrera:</b> {$alumno['nombre_carrera']}<br>";
+    echo "<b>Representante:</b> {$empresa['representante']}<br>";
+    echo "<b>RFC:</b> {$empresa['rfc']}<br>";
+	echo "<b>Direccion:</b> {$empresa['direccion']}<br>";
+    echo "<b>Telefono:</b> {$empresa['telefono']}<br>";
+    echo "<b>Email:</b> {$empresa['email']}<br>";
+    
     echo "</p>";
-    echo "<button class='btn btn-warning' onclick='editarAlumno({$alumno['idalumno']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-warning' onclick='editarEmpresa({$empresa['idempresa']})' style='font-size: 14px;'>
             <i class='fas fa-edit'></i> Editar
           </button>&nbsp;";
-    echo "<button class='btn btn-danger' onclick='eliminarAlumno({$alumno['idalumno']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-danger' onclick='eliminarEmpresa({$empresa['idempresa']})' style='font-size: 14px;'>
             <i class='fas fa-trash'></i> Eliminar
           </button>&nbsp;";
-    echo "<button class='btn btn-info' onclick='crearCuenta(\"{$alumno['idalumno']}\", \"{$alumno['nombre']}\", \"{$alumno['apellidop']}\", \"{$alumno['apellidom']}\", \"{$alumno['correo']}\", \"{$alumno['celular']}\")' style='font-size: 14px;'>
+    echo "<button class='btn btn-info' onclick='crearCuenta(\"{$empresa['idempresa']}\", \"{$empresa['nombre_empresa']}\", \"{$empresa['rfc']}\", \"{$empresa['representante']}\", \"{$empresa['email']}\", \"{$empresa['telefono']}\")' style='font-size: 14px;'>
             <i class='fas fa-user'></i> Acceso
           </button>";
 
@@ -120,58 +117,43 @@
 	<!-- cards end-->
   </div>
 
-  <!-- Modal para agregar alumno -->
-  <!-- Modal para agregar alumno -->
+  
+  <!-- Modal para agregar empresa -->
   <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalAgregarLabel">Agregar Tut@r</h5>
+          <h5 class="modal-title" id="modalAgregarLabel">Agregar Empresa</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form id="formAgregar">
             <div class="mb-3">
-              <label for="nombre" class="form-label"><b>Nombre:</b></label>
-              <input type="text" class="form-control" id="nombre" name="nombre" style="text-transform: uppercase;" required>
+              <label for="nombre_empresa" class="form-label"><b>Nombre Empresa:</b></label>
+              <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" style="text-transform: uppercase;" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="rfc" class="form-label"><b>RFC:</b></label>
+              <input type="text" class="form-control" id="rfc" name="rfc" style="text-transform: uppercase;" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="direccion" class="form-label"><b>Direccion:</b></label>
+              <input type="text" class="form-control" id="direccion" name="direccion" style="text-transform: uppercase;" required>
             </div>
             <div class="mb-3">
-              <label for="apellidop" class="form-label"><b>Apellido Paterno:</b></label>
-              <input type="text" class="form-control" id="apellidop" name="apellidop" style="text-transform: uppercase;" required>
+              <label for="telefono" class="form-label"><b>Telefono:</b></label>
+              <input type="number" class="form-control" id="telefono" name="telefono" style="text-transform: uppercase;" required>
             </div>
             <div class="mb-3">
-              <label for="apellidom" class="form-label"><b>Apellido Materno:</b></label>
-              <input type="text" class="form-control" id="apellidom" name="apellidom" style="text-transform: uppercase;" required>
+              <label for="email" class="form-label"><b>Correo:</b></label>
+              <input type="email" class="form-control" id="email" name="email" required>
             </div>
             <div class="mb-3">
-              <label for="correo" class="form-label"><b>Correo:</b></label>
-              <input type="email" class="form-control" id="correo" name="correo" required>
+              <label for="representante" class="form-label"><b>Representante:</b></label>
+              <input type="text" class="form-control" id="representante" name="representante" style="text-transform: uppercase;" required>
             </div>
-            <div class="mb-3">
-              <label for="curp" class="form-label"><b>CURP:</b></label>
-              <input type="text" class="form-control" id="curp" name="curp" style="text-transform: uppercase;" required>
-            </div>
-            <div class="mb-3">
-              <label for="sexo" class="form-label"><b>G&eacute;nero:</b></label>
-              <select class="form-control" id="sexo" name="sexo" required>
-                <option value="HOMBRE">HOMBRE</option>
-                <option value="MUJER">MUJER</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="num_control" class="form-label"><b>N&uacute;mero de Control:</b></label>
-              <input type="text" class="form-control" id="num_control" name="num_control" style="text-transform: uppercase;" required>
-            </div>
-            <div class="mb-3">
-              <label for="celular" class="form-label"><b>Celular:</b></label>
-              <input type="number" class="form-control" id="celular" name="celular" required>
-            </div>
-            <div class="mb-3">
-  <label for="idcarrera" class="form-label"><b>Carrera:</b></label>
-  <select class="form-control" id="idcarrera" name="idcarrera" required>
-    <option value="">SELECCIONE UNA CARRERA</option>
-  </select>
-</div>
 
             <button type="submit" class="btn btn-success">Guardar</button>
           </form>
@@ -180,59 +162,43 @@
     </div>
   </div>
   <!-- Código del modal ya incluido en la pregunta -->
-  <!-- Modal para editar Alumno -->
+  <!-- Modal para editar empresa -->
 <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalEditarLabel">Editar Alumn@</h5>
+                <h5 class="modal-title" id="modalEditarLabel">Editar Empresa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="formEditar">
-                    <input type="hidden" id="id_alumno" name="id_alumno">
+                    <input type="hidden" id="id_empresa" name="id_empresa">
                     <div class="mb-3">
-                        <label for="nombreEditar" class="form-label"><b>Nombre:</b></label>
-                        <input type="text" class="form-control" id="nombreEditar" name="nombre" style="text-transform: uppercase;" required>
+                        <label for="nombre_empresaEditar" class="form-label"><b>Nombre:</b></label>
+                        <input type="text" class="form-control" id="nombre_empresaEditar" name="nombre_empresa" style="text-transform: uppercase;" required>
                     </div>
                     <div class="mb-3">
-                        <label for="apellidopEditar" class="form-label"><b>Apellido Paterno:</b></label>
-                        <input type="text" class="form-control" id="apellidopEditar" name="apellidop" style="text-transform: uppercase;" required>
+                        <label for="rfcEditar" class="form-label"><b>RFC:</b></label>
+                        <input type="text" class="form-control" id="rfcEditar" name="rfc" style="text-transform: uppercase;" required>
                     </div>
                     <div class="mb-3">
-                        <label for="apellidomEditar" class="form-label"><b>Apellido Materno:</b></label>
-                        <input type="text" class="form-control" id="apellidomEditar" name="apellidom" style="text-transform: uppercase;" required>
+                        <label for="direccionEditar" class="form-label"><b>Direccion:</b></label>
+                        <input type="text" class="form-control" id="direccionEditar" name="direccion" style="text-transform: uppercase;" required>
                     </div>
                     <div class="mb-3">
-                        <label for="correoEditar" class="form-label"><b>Correo:</b></label>
-                        <input type="email" class="form-control" id="correoEditar" name="correo" required>
+                        <label for="telefonoEditar" class="form-label"><b>Telefono:</b></label>
+                        <input type="number" class="form-control" id="telefonoEditar" name="telefono" required>
                     </div>
                     <div class="mb-3">
-                        <label for="curpEditar" class="form-label"><b>CURP:</b></label>
-                        <input type="text" class="form-control" id="curpEditar" name="curp" style="text-transform: uppercase;" required>
+                        <label for="emailEditar" class="form-label"><b>Correo:</b></label>
+                        <input type="email" class="form-control" id="emailEditar" name="email" required>
                     </div>
+                    
                     <div class="mb-3">
-                        <label for="sexoEditar" class="form-label"><b>G&eacute;nero:</b></label>
-                        <select class="form-control" id="sexoEditar" name="sexo" required>
-                            <option value="HOMBRE">HOMBRE</option>
-                            <option value="MUJER">MUJER</option>
-                        </select>
+                        <label for="representanteEditar" class="form-label"><b>Representante:</b></label>
+                        <input type="text" class="form-control" id="representanteEditar" name="representante" style="text-transform: uppercase;" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="num_controlEditar" class="form-label"><b>N&uacute;mero de Control:</b></label>
-                        <input type="text" class="form-control" id="num_controlEditar" name="num_control" style="text-transform: uppercase;" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="celularEditar" class="form-label"><b>Celular:</b></label>
-                        <input type="number" class="form-control" id="celularEditar" name="celular" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="idcarreraEditar" class="form-label"><b>Carrera:</b></label>
-                        <select class="form-control" id="idcarreraEditar" name="idcarrera" required>
-                            <option value="">SELECCIONE UNA CARRERA</option>
-                            <!-- Aquí se llenarán las carreras dinámicamente -->
-                        </select>
-                    </div>
+                    
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
             </div>
@@ -247,37 +213,9 @@
 <!-- -->
 
   
-<script>
 
-	function cargarCarreras() {
-  axios.get('cat_alumnos/carreras.php')
-    .then(response => {
-      const carreras = response.data;
 
-      if (carreras.error) {
-        alertaPersonalizada('danger', carreras.error);
-        return;
-      }
 
-      const carreraSelect = document.getElementById('idcarrera');
-      carreraSelect.innerHTML = '<option value="">SELECCIONE UNA CARRERA</option>'; // Limpiamos las opciones previas
-
-      carreras.forEach(carrera => {
-        const option = document.createElement('option');
-        option.value = carrera.idcarrera;
-        option.textContent = carrera.nombre_carrera;
-        carreraSelect.appendChild(option);
-      });
-    })
-    .catch(error => {
-      alertaPersonalizada('danger', 'Error al cargar las carreras: ' + error.message);
-    });
-}
-
-// Llamar a la función al cargar la página
-document.addEventListener('DOMContentLoaded', cargarCarreras);
-
-</script>
   <script>
   /*
 function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
@@ -288,29 +226,25 @@ function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
     window.location.href = url;
 }
 */
-function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
-    // Verificar si el alumno ya tiene una cuenta
-    axios.post('cat_alumnos/alumnos.php', new URLSearchParams({
-        action: 'verificarcuenta',
-        correo: correo,
-        idperfil: 5 // ID del perfil "Alumno"
-    }))
-    .then(function (response) {
-        if (response.data.success) {
-            // Alumno ya tiene cuenta, detener el flujo
-            swal("¡Atención!", response.data.message, "info");
-            return; // Detener aquí
-        } 
-        
-        // Alumno no tiene cuenta, proceder a la creación
-        const url = `add_user.php?idalumno=${encodeURIComponent(idAlumno)}&nombre=${encodeURIComponent(nombre)}&apellidop=${encodeURIComponent(apellidoP)}&apellidom=${encodeURIComponent(apellidoM)}&correo=${encodeURIComponent(correo)}&celular=${encodeURIComponent(celular)}`;
-        window.location.href = url; // Redirigir al archivo
-    })
-    .catch(function (error) {
-        // Manejo del error en la solicitud
-        console.error('Error en la solicitud:', error);
-        swal("¡Error!", "Error al conectar con el servidor.", "error");
-    });
+function crearCuenta(idEmpresa, nombre_empresa, rfc, representante, email, telefono) {
+    axios.post('cat_empresas/empresas.php', new URLSearchParams({
+    action: 'verificarcuenta',
+    email: email,
+    idperfil: 6 // ID del perfil de empresa
+}))
+.then(function (response) {
+    if (response.data.success) {
+        swal("¡Atención!", response.data.message, "info");
+        return;
+    }
+    const url = `add_user_empresa.php?idempresa=.php?idempresa=${encodeURIComponent(idEmpresa)}&nombre_empresa=${encodeURIComponent(nombre_empresa)}&representante=${encodeURIComponent(representante)}&rfc=${encodeURIComponent(rfc)}&email=${encodeURIComponent(email)}&telefono=${encodeURIComponent(telefono)}`;
+        window.location.href = url;
+})
+.catch(function (error) {
+    console.error('Error en la solicitud:', error);
+    swal("¡Error!", "Error al conectar con el servidor.", "error");
+});
+
 }
 
 
@@ -329,7 +263,7 @@ function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
 	
     function filtrarTabla() {
       const busqueda = document.getElementById('buscador').value.toLowerCase();
-      const filas = document.querySelectorAll('#tablaAlumnos tr');
+      const filas = document.querySelectorAll('#tablaEmpresa tr');
       filas.forEach(fila => {
         const textoFila = fila.textContent.toLowerCase();
         if (textoFila.includes(busqueda)) {
@@ -370,48 +304,30 @@ function filtrarCards() {
 	
     // Editar alumno
     // Función para editar el alumno
-function editarAlumno(id) {
-  axios.post('cat_alumnos/alumnos.php', new URLSearchParams({
-    action: 'obtenerAlumno',
+function editarEmpresa(id) {
+  axios.post('cat_empresas/empresas.php', new URLSearchParams({
+    action: 'obtenerEmpresa',
     id: id
   }))
   .then(function (response) {
     if (response.data.success) {
-      const alumno = response.data.alumno;
-      const carreras = response.data.carreras;
+      
+      const empresa = response.data.empresa;
 
-      document.getElementById('id_alumno').value = alumno.idalumno;
-      document.getElementById('nombreEditar').value = alumno.nombre;
-      document.getElementById('apellidopEditar').value = alumno.apellidop;
-      document.getElementById('apellidomEditar').value = alumno.apellidom;
-      document.getElementById('correoEditar').value = alumno.correo;
-      document.getElementById('curpEditar').value = alumno.curp;
-      document.getElementById('sexoEditar').value = alumno.sexo;
-      document.getElementById('num_controlEditar').value = alumno.num_control;
-      document.getElementById('celularEditar').value = alumno.celular;
-      document.getElementById('idcarreraEditar').value = alumno.idcarrera;
-
-      // Llenar el select de carreras
-      const carreraSelect = document.getElementById('idcarreraEditar');
-      carreraSelect.innerHTML = ''; // Limpiar las opciones existentes
-
-      carreras.forEach(function(carrera) {
-        const option = document.createElement('option');
-        option.value = carrera.idcarrera;
-        option.textContent = carrera.nombre_carrera;
-
-        if (carrera.idcarrera == alumno.idcarrera) {
-          option.selected = true;
-        }
-
-        carreraSelect.appendChild(option);
-      });
-
+      document.getElementById('id_empresa').value = empresa.idempresa;
+      document.getElementById('nombre_empresaEditar').value = empresa.nombre_empresa;
+      document.getElementById('rfcEditar').value = empresa.rfc;
+      document.getElementById('direccionEditar').value = empresa.direccion;
+      document.getElementById('telefonoEditar').value = empresa.telefono;
+      document.getElementById('emailEditar').value = empresa.email;
+      
+      document.getElementById('representanteEditar').value = empresa.representante;
+      
       const modal = new bootstrap.Modal(document.getElementById('modalEditar'));
       modal.show();
     } else {
       //alert('No se pudo obtener el alumno.');
-	  swal("¡Error!", "No se pudo obtener el alumno.", "error");
+	  swal("¡Error!", "No se pudo obtener la empresa.", "error");
     }
   })
   .catch(function (error) {
@@ -426,13 +342,13 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
   e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
   // Obtener el id del alumno
-  const id = document.getElementById('id_alumno').value;
+  const id = document.getElementById('id_empresa').value;
 
   const formData = new FormData(this);
   formData.append('action', 'editar');
-  formData.append('id', id); // Añadir el id del alumno al FormData
+  formData.append('id_empresa', id); // Añadir el id del alumno al FormData
 
-  axios.post('cat_alumnos/alumnos.php', formData)
+  axios.post('cat_empresas/empresas.php', formData)
   .then(function (response) {
     if (response.data.success) {
       //alert('Alumno actualizado correctamente');
@@ -441,7 +357,7 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
 	  
 	  */
 	                alertaPersonalizada('success', response.data.message);
-                    swal("¡Éxito!", "Alumno actualizado correctamente", "success")
+                    swal("¡Éxito!", "Empresa actualizado correctamente", "success")
                     .then(() => {
                         // Esperar 3 segundos antes de hacer la recarga
                         setTimeout(() => {
@@ -459,7 +375,7 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
 	  
     } else {
      // alert('No se pudo actualizar el alumno.');
-	  swal("¡Error!", "No se pudo actualizar el alumno.", "error");
+	  swal("¡Error!", "No se pudo actualizar la Empresa.", "error");
     }
   })
   .catch(function (error) {
@@ -474,7 +390,7 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
     // Eliminar alumno
 	
 // Función para eliminar un alumno
-function eliminarAlumno(id) {
+function eliminarEmpresa(id) {
 	
 	swal({
   title: "¿Estás seguro?",
@@ -485,7 +401,7 @@ function eliminarAlumno(id) {
   if (willDelete) {
     // Acciones si el usuario acepta
     console.log("Elemento eliminado");
-	axios.post('cat_alumnos/alumnos.php', new URLSearchParams({
+	axios.post('cat_empresas/empresas.php', new URLSearchParams({
             action: 'eliminar',
             id: id
         }))
@@ -501,7 +417,7 @@ function eliminarAlumno(id) {
 				/*
 				*/
 				alertaPersonalizada('success', response.data.message);
-                    swal("¡Éxito!", "El alumno ha sido eliminado correctamente", "success")
+                    swal("¡Éxito!", "La empresa ha sido eliminado correctamente", "success")
                     .then(() => {
                         // Esperar 3 segundos antes de hacer la recarga
                         setTimeout(() => {
@@ -514,8 +430,8 @@ function eliminarAlumno(id) {
 				
 				
             } else {
-                alertaPersonalizada('danger', response.data.message || 'Error al eliminar el alumno');
-				swal("¡Error!", response.data.message || 'Error al eliminar el alumno', "error");
+                alertaPersonalizada('danger', response.data.message || 'Error al eliminar la empresa');
+				swal("¡Error!", response.data.message || 'Error al eliminar la empresa', "error");
             }
         })
         .catch(error => {
@@ -541,8 +457,7 @@ function eliminarAlumno(id) {
   <script>
         // Cargar carreras y manejar el formulario al cargar la página
     document.addEventListener('DOMContentLoaded', function () {
-        cargarCarreras(); // Llenar el select con las carreras disponibles
-
+        
         // Manejar el envío del formulario
         document.getElementById('formAgregar').addEventListener('submit', function (event) {
             event.preventDefault(); // Evitar el envío tradicional del formulario
@@ -553,22 +468,20 @@ function eliminarAlumno(id) {
             const formData = new FormData(this);
 
             // Enviar los datos al servidor usando Axios
-            axios.post('cat_alumnos/alumnos.php', new URLSearchParams({
+            axios.post('cat_empresas/empresas.php', new URLSearchParams({
                 action: 'agregar',
-                nombre: formData.get('nombre'),
-                apellidop: formData.get('apellidop'),
-                apellidom: formData.get('apellidom'),
-                correo: formData.get('correo'),
-                curp: formData.get('curp'),
-                sexo: formData.get('sexo'),
-                num_control: formData.get('num_control'),
-                celular: formData.get('celular'),
-                idcarrera: formData.get('idcarrera')
+                nombre_empresa: formData.get('nombre_empresa'),
+                rfc: formData.get('rfc'),
+                direccion: formData.get('direccion'),
+                telefono: formData.get('telefono'),
+                email: formData.get('email'),
+                representante: formData.get('representante'),
+                
             }))
             .then(function (response) {
                 if (response.data.success) {
                     alertaPersonalizada('success', response.data.message);
-                    swal("¡Éxito!", "El alumno se ha agregado correctamente", "success")
+                    swal("¡Éxito!", "la empresa se ha agregado correctamente", "success")
 					
                     .then(() => {
                         // Esperar 3 segundos antes de hacer la recarga
