@@ -70,7 +70,7 @@
   $alumnos = cargarAlumnos();
   $totalRegistros = count($alumnos); // Cuenta la cantidad de registros
   ?>
-  <script>
+  <script>nuevo
   // Actualiza el contenido del label con PHP
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cantidadRegistros').textContent = 'Cantidad de registros: <?php echo $totalRegistros; ?>';

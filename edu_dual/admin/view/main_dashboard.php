@@ -127,7 +127,7 @@ if (!empty($_SESSION["userId"])) {
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#" onclick="cargarVista('view/cargar_datos.html'); cerrarMenu();">
+                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_usuarios.php'); cerrarMenu();">
                                 <i class="fas fa-users"></i> Usuarios
                             </a>
                         </li>
