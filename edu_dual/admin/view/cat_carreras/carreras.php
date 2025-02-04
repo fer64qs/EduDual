@@ -75,6 +75,12 @@ function actualizarCarrera($id,$data) {
 
     try {
         // Actualizar los datos en la base de datos
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM carreras WHERE nombre_carrera = :nombre_carrera");
+        $stmt->execute([':nombre_carrera' => $data['nombre_carrera']]);
+        if ($stmt->fetchColumn() > 0) {
+            echo json_encode(['success' => false, 'message' => 'Ya existe una carrera igual.']);
+            return;
+        }
         $stmt = $pdo->prepare("UPDATE carreras SET 
             nombre_carrera = :nombre_carrera, 
             abreviatura = :abreviatura
