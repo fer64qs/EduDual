@@ -117,6 +117,11 @@ if (!empty($_SESSION["userId"])) {
                             </a>
                         </li>
                         <li>
+                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_grupos.php'); cerrarMenu();">
+                                <i class="fas fa-users"></i> Grupos
+                            </a>
+                        </li>
+                        <li>
                             <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_tutoresdual.php'); cerrarMenu();">
                                 <i class="fas fa-user-tie"></i> Tut@res Acad&eacute;micos
                             </a>
@@ -124,6 +129,11 @@ if (!empty($_SESSION["userId"])) {
                         <li>
                             <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_empresas.php'); cerrarMenu();">
                                 <i class="fas fa-building"></i> Empresas
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_semestres.php'); cerrarMenu();">
+                                <i class="fas fa-calendar-alt"></i> Semestres
                             </a>
                         </li>
                         <li>
