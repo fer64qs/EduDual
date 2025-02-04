@@ -152,6 +152,13 @@ function actualizarTutorAcademico($id, $data) {
 
     try {
         // Actualizar los datos del tutor académico en la base de datos
+        // Verificar si ya existe un alumno con el mismo CURP
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM tutores_academicos WHERE curp = :curp");
+        $stmt->execute([':curp' => $data['curp']]);
+        if ($stmt->fetchColumn() > 0) {
+            echo json_encode(['success' => false, 'message' => 'Ya existe un Tut@r con la misma CURP.']);
+            return;
+        }
         $stmt = $pdo->prepare("UPDATE tutores_academicos SET 
             nombre_tutor = :nombre_tutor, 
             apellido_paterno = :apellido_paterno, 

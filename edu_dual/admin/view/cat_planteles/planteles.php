@@ -75,6 +75,13 @@ function actualizarPlantel($id,$data) {
 
     try {
         // Actualizar los datos en la base de datos
+         // Verificar si ya existe una carrera con el mismo id
+         $stmt = $pdo->prepare("SELECT COUNT(*) FROM planteles WHERE nombre_plantel = :nombre_plantel");
+         $stmt->execute([':nombre_plantel' => $data['nombre_plantel']]);
+         if ($stmt->fetchColumn() > 0) {
+             echo json_encode(['success' => false, 'message' => 'Ya existe un plantel igual.']);
+             return;
+         }
         $stmt = $pdo->prepare("UPDATE planteles SET 
             nombre_plantel = :nombre_plantel, 
             ubicacion_plantel = :ubicacion_plantel

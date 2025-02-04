@@ -76,7 +76,7 @@ function actualizarSemestre($id,$data) {
   
     try {
         //verificar si existe un semestre igual
-        // Verificar si ya existe una semestre con el mismo id
+        // Verificar si ya existe un semestre con el mismo id
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM semestres WHERE semestre = :semestre");
         $stmt->execute([':semestre' => $data['semestre']]);
         if ($stmt->fetchColumn() > 0) {

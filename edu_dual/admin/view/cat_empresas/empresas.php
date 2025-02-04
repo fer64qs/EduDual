@@ -91,6 +91,13 @@ function actualizarEmpresa($id,$data) {
 
     try {
         // Actualizar los datos del alumno en la base de datos
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM empresas WHERE nombre_empresa = :nombre_empresa");
+        $stmt->execute([':nombre_empresa' => $data['nombre_empresa']]);
+        if ($stmt->fetchColumn() > 0) {
+        echo json_encode(['success' => false, 'message' => 'Ya existe una empresa con el mismo nombre.']);
+        return;
+    }
+    
         $stmt = $pdo->prepare("UPDATE empresas SET 
         nombre_empresa = :nombre_empresa, 
         rfc = :rfc, 

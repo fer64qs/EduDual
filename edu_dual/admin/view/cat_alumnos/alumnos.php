@@ -107,6 +107,13 @@ function actualizarAlumno($id,$data) {
 
     try {
         // Actualizar los datos del alumno en la base de datos
+         // Verificar si ya existe un alumno con el mismo CURP
+         $stmt = $pdo->prepare("SELECT COUNT(*) FROM alumnos WHERE curp = :curp");
+         $stmt->execute([':curp' => $data['curp']]);
+         if ($stmt->fetchColumn() > 0) {
+             echo json_encode(['success' => false, 'message' => 'Ya existe un alumno con la misma CURP.']);
+             return;
+         }
         $stmt = $pdo->prepare("UPDATE alumnos SET 
             nombre = :nombre, 
             apellidop = :apellidop, 
