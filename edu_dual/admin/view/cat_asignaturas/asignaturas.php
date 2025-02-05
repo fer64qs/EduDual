@@ -82,6 +82,8 @@ function actualizarAsignatura($id,$data) {
             nombre_asignatura = :nombre_asignatura, 
             clave = :clave,
             creditos = :creditos,
+            idasignatura = :idasignatura
+            
         WHERE idasignatura = :idasignatura");
 
         $stmt->execute([

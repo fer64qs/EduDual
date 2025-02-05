@@ -123,7 +123,7 @@ if (!empty($_SESSION["userId"])) {
                         </li>
                         <li>
                             <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_docentes.php'); cerrarMenu();">
-                                <i class="fas fa-user-tie"></i> Docentes
+                                <i class="fas fa-chalkboard-teacher"></i> Docentes
                             </a>
                         </li>
                         <li>
@@ -138,7 +138,7 @@ if (!empty($_SESSION["userId"])) {
                         </li>
                         <li>
                             <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_asignaturas.php'); cerrarMenu();">
-                                <i class="fas fa-book"></i> Asignaturas
+                                <i class="fas fa-book-open"></i> Asignaturas
                             </a>
                         </li>
                         <li>

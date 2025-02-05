@@ -40,7 +40,7 @@
   <div class="container mt-4">
        
 <div style="position: sticky; top: 0; background-color: #f4f6f6; z-index: 10; padding: 10px;">
-  <h4 class="text-center">Catálogo de Carreras</h4>
+  <h4 class="text-center">Catálogo de Asignaturas</h4>
   <div class="row g-2">
     <div class="col-9">
       <input
@@ -78,7 +78,7 @@
 </script>
   <?php
   foreach ($asignaturas as $asignatura) {
-    $icono = 'fas fa-book';
+    $icono = 'fas fa-book-open';
     $color = 'black'; // Puedes cambiar el color si lo deseas
 
     
@@ -121,7 +121,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalAgregarLabel">Agregar Carrera</h5>
+          <h5 class="modal-title" id="modalAgregarLabel">Agregar Asignatura</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -173,6 +173,7 @@
                         <label for="creditosEditar" class="form-label"><b>Creditos:</b></label>
                         <input type="text" class="form-control" id="creditosEditar" name="creditos" style="text-transform: uppercase;" required>
                     </div>
+
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
             </div>
