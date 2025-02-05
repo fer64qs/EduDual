@@ -84,12 +84,6 @@ function actualizarGrupo($id,$data) {
     
 
     try {
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM grupos WHERE grupo = :grupo");
-        $stmt->execute([':grupo' => $data['grupo']]);
-        if ($stmt->fetchColumn() > 0) {
-            echo json_encode(['success' => false, 'message' => 'Ya existe un grupo con el mismo nombre.']);
-            return;
-        }
         // Actualizar los datos del grupo en la base de datos
         $stmt = $pdo->prepare("UPDATE grupos SET 
             grupo = :grupo, 

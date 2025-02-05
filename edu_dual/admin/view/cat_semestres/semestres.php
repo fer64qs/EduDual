@@ -75,15 +75,6 @@ function actualizarSemestre($id,$data) {
     $data['fecha_fin'] = mb_strtoupper($data['fecha_fin'], 'UTF-8');
   
     try {
-        //verificar si existe un semestre igual
-        // Verificar si ya existe un semestre con el mismo id
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM semestres WHERE semestre = :semestre");
-        $stmt->execute([':semestre' => $data['semestre']]);
-        if ($stmt->fetchColumn() > 0) {
-            echo json_encode(['success' => false, 'message' => 'Ya existe un semestre igual.']);
-            return;
-        }
-
         // Actualizar los datos en la base de datos
         $stmt = $pdo->prepare("UPDATE semestres SET 
             semestre = :semestre, 

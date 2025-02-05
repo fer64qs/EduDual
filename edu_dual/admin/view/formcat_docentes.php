@@ -1,18 +1,11 @@
-<?php include('cat_tutoresacademicos/tutores_academicos.php'); ?>
+<?php include('cat_docentes/docentes.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cat de Tutor@s Dual</title>
-  <!--
- <link href="js/bootstrap.min.css" rel="stylesheet">
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/axios.min.js"></script>
-  <link href="js/all.min.css" rel="stylesheet">
-  <script src="js/sweetalert.min.js"></script> 
-  -->
+  <title>Cat de Docentes</title>
   
   <!-- referencias con acceso a CDN online -->
   
@@ -40,14 +33,14 @@
   <div class="container mt-4">
        
 <div style="position: sticky; top: 0; background-color: #f4f6f6; z-index: 10; padding: 10px;">
-  <h4 class="text-center">Catálogo de Tut@res Acad&eacute;micos</h4>
+  <h4 class="text-center">Catálogo de Docentes</h4>
   <div class="row g-2">
     <div class="col-9">
       <input
         type="text"
         id="buscador"
         class="form-control"
-        placeholder="Buscar Tutor..."
+        placeholder="Buscar Docente..."
         oninput="filtrarCards()"
       >
     </div>
@@ -67,8 +60,8 @@
     <!--cards begin -->
 <div class="row">
   <?php
-  $tutores = cargarTutoresDual();
-  $totalRegistros = count($tutores); // Cuenta la cantidad de registros
+  $docentes = cargarDocentes();
+  $totalRegistros = count($docentes); // Cuenta la cantidad de registros
   ?>
   <script>
   // Actualiza el contenido del label con PHP
@@ -77,17 +70,17 @@
   });
 </script>
   <?php
-  foreach ($tutores as $tutor) {
+  foreach ($docentes as $docente) {
     // Procesar datos para asegurar codificación UTF-8
-    $nombre_tutor = htmlspecialchars(utf8_encode($tutor['nombre_tutor']));
-    $apellido_paterno = htmlspecialchars(utf8_encode($tutor['apellido_paterno']));
-    $apellido_materno = htmlspecialchars(utf8_encode($tutor['apellido_materno']));
-    $sexo = htmlspecialchars(utf8_encode($tutor['sexo']));
-    $num_celular = htmlspecialchars(utf8_encode($tutor['num_celular']));
-    $email = htmlspecialchars(utf8_encode($tutor['email']));
-    $titulo_academico = htmlspecialchars(utf8_encode($tutor['titulo_academico']));
-    $especialidad = htmlspecialchars(utf8_encode($tutor['especialidad']));
-	$curp = htmlspecialchars(utf8_encode($tutor['curp']));
+    $nombre_docente = htmlspecialchars(utf8_encode($docente['nombre_docente']));
+    $apellido_paterno = htmlspecialchars(utf8_encode($docente['apellido_paterno']));
+    $apellido_materno = htmlspecialchars(utf8_encode($docente['apellido_materno']));
+    $sexo = htmlspecialchars(utf8_encode($docente['sexo']));
+    $rfc = htmlspecialchars(utf8_encode($docente['rfc']));
+    $num_celular = htmlspecialchars(utf8_encode($docente['num_celular']));
+    $email = htmlspecialchars(utf8_encode($docente['email']));
+    $grado_estudios = htmlspecialchars(utf8_encode($docente['grado_estudios']));
+    $titulo = htmlspecialchars(utf8_encode($docente['titulo']));
 
     $icono = ($sexo == 'HOMBRE') ? 'fa-male' : 'fa-female';
     $color = ($sexo == 'HOMBRE') ? 'black' : '#d093b6';
@@ -98,23 +91,23 @@
     echo "<i class='fas {$icono}' style='font-size: 64px; color: {$color};'></i>";
     echo "</div>";
     echo "<div class='card-body'>";
-    echo "<h5 class='card-title text-center'><b>{$nombre_tutor} {$apellido_paterno} {$apellido_materno}</b></h5>";
+    echo "<h5 class='card-title text-center'><b>{$nombre_docente} {$apellido_paterno} {$apellido_materno}</b></h5>";
 
     echo "<p class='card-text'>";
-	 echo "<b>CURP:</b> {$curp}<br>";
+	  echo "<b>RFC:</b> {$rfc}<br>";
     echo "<b>G&eacute;nero:</b> {$sexo}<br>";
     echo "<b>Celular:</b> {$num_celular}<br>";
     echo "<b>Correo:</b> {$email}<br>";
-    echo "<b>Título:</b> {$titulo_academico}<br>";
-    echo "<b>Especialidad:</b> {$especialidad}<br>";
+    echo "<b>Título:</b> {$titulo}<br>";
+    echo "<b>Grado de estudios:</b> {$grado_estudios}<br>";
     echo "</p>";
-    echo "<button class='btn btn-warning' onclick='editarAlumno({$tutor['idtutor_academico']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-warning' onclick='editarAlumno({$docente['iddocente']})' style='font-size: 14px;'>
             <i class='fas fa-edit'></i> Editar
           </button>&nbsp;";
-    echo "<button class='btn btn-danger' onclick='eliminarAlumno({$tutor['idtutor_academico']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-danger' onclick='eliminarAlumno({$docente['iddocente']})' style='font-size: 14px;'>
             <i class='fas fa-trash'></i> Eliminar
           </button>&nbsp;";
-    echo "<button class='btn btn-info' onclick='crearCuenta(\"{$tutor['idtutor_academico']}\", \"{$nombre_tutor}\", \"{$apellido_paterno}\", \"{$apellido_materno}\", \"{$email}\", \"{$num_celular}\")' style='font-size: 14px;'>
+    echo "<button class='btn btn-info' onclick='crearCuenta(\"{$docente['iddocente']}\", \"{$nombre_docente}\", \"{$apellido_paterno}\", \"{$apellido_materno}\", \"{$email}\", \"{$num_celular}\")' style='font-size: 14px;'>
             <i class='fas fa-user'></i> Acceso
           </button>";
     echo "</div>";
@@ -136,7 +129,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalAgregarLabel">Agregar Tut@r</h5>
+          <h5 class="modal-title" id="modalAgregarLabel">Agregar Docente</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -155,8 +148,8 @@
             </div>
 			
             <div class="mb-3">
-              <label for="curp" class="form-label"><b>CURP:</b></label>
-              <input type="text" class="form-control" id="curp" name="curp" style="text-transform: uppercase;" required>
+              <label for="rfc" class="form-label"><b>RFC:</b></label>
+              <input type="text" class="form-control" id="rfc" name="rfc" style="text-transform: uppercase;" required>
             </div>
 			
 			<div class="mb-3">
@@ -178,61 +171,18 @@
               <label for="titulo" class="form-label"><b>T&iacute;tulo:</b></label>
               <input type="text" class="form-control" id="titulo" name="titulo" style="text-transform: uppercase;" placeholder="Ejemplo: Ing., Lic., Dr." required>
             </div>
-			<!--
-            <div class="mb-3">
-              <label for="curp" class="form-label"><b>CURP:</b></label>
-              <input type="text" class="form-control" id="curp" name="curp" style="text-transform: uppercase;" required>
-            </div>
-			-->
-            <!--
-            <div class="mb-3">
-              <label for="num_control" class="form-label"><b>N&uacute;mero de Control:</b></label>
-              <input type="text" class="form-control" id="num_control" name="num_control" style="text-transform: uppercase;" required>
-            </div>
-			-->
+
 			 <div class="mb-3">
-              <label for="num_control" class="form-label"><b>Formaci&oacute;n:</b></label>
-			<select class="form-control" id="especialidad" name="especialidad" required>
-    <option value="ADMINISTRACION DE EMPRESAS">ADMINISTRACION DE EMPRESAS</option>
-    <option value="ARQUITECTURA">ARQUITECTURA</option>
-    <option value="BIOLOGIA">BIOLOGIA</option>
-    <option value="CIENCIAS DE LA COMPUTACION">CIENCIAS DE LA COMPUTACION</option>
-    <option value="CIENCIAS POLITICAS">CIENCIAS POLITICAS</option>
-    <option value="CONTADURIA PUBLICA">CONTADURIA PUBLICA</option>
-    <option value="DERECHO">DERECHO</option>
-    <option value="DISEÑO GRAFICO">DISEÑO GRAFICO</option>
-    <option value="EDUCACION">EDUCACION</option>
-    <option value="ELECTRONICA">ELECTRONICA</option>
-    <option value="ENERGIAS RENOVABLES">ENERGIAS RENOVABLES</option>
-    <option value="FISICA">FISICA</option>
-    <option value="GASTRONOMIA">GASTRONOMIA</option>
-    <option value="INGENIERA EN SISTEMAS COMPUTACIONALES">INGENIERA EN SISTEMAS COMPUTACIONALES</option>
-    <option value="INGENIERA EN SISTEMAS GESTION EMPRESARIAL">INGENIERA EN SISTEMAS GESTION EMPRESARIAL</option>
-    <option value="INGENIERIA">INGENIERIA</option>
-    <option value="INGENIERIA DE SOFTWARE">INGENIERIA DE SOFTWARE</option>
-    <option value="INTELIGENCIA ARTIFICIAL">INTELIGENCIA ARTIFICIAL</option>
-    <option value="MATEMATICAS APLICADAS">MATEMATICAS APLICADAS</option>
-    <option value="MECANICA">MECANICA</option>
-    <option value="MEDICINA">MEDICINA</option>
-    <option value="MERCADOTECNIA">MERCADOTECNIA</option>
-    <option value="PEDAGOGIA">PEDAGOGIA</option>
-    <option value="PSICOLOGIA">PSICOLOGIA</option>
-    <option value="QUIMICA">QUIMICA</option>
-    <option value="RECURSOS HUMANOS">RECURSOS HUMANOS</option>
-    <option value="RELACIONES INTERNACIONALES">RELACIONES INTERNACIONALES</option>
-    <option value="SISTEMAS COMPUTACIONALES">SISTEMAS COMPUTACIONALES</option>
-    <option value="TURISMO">TURISMO</option>
+              <label for="estudios" class="form-label"><b>Grado de estudios:</b></label>
+			<select class="form-control" id="estudios" name="estudios" required>
+      <option value="TECNICO SUPERIOR UNIVERSITARIO">TECNICO SUPERIOR UNIVERSITARIO</option>
+      <option value="LICENCIATURA">LICENCIATURA</option>
+      <option value="ESPECIALIZACION">ESPECIALIZACION</option>
+      <option value="MAESTRIA">MAESTRIA</option>
+      <option value="DOCTORADO">DOCTORADO</option>
 </select>
 </div>
 
-            <!--
-            <div class="mb-3">
-  <label for="idcarrera" class="form-label"><b>Carrera:</b></label>
-  <select class="form-control" id="idcarrera" name="idcarrera" required>
-    <option value="">SELECCIONE UNA CARRERA</option>
-  </select>
-</div>
--->
 
             <button type="submit" class="btn btn-success">Guardar</button>
           </form>
@@ -246,12 +196,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalEditarLabel">Editar Alumn@</h5>
+                <h5 class="modal-title" id="modalEditarLabel">Editar Docente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="formEditar">
-                    <input type="hidden" id="id_tutor" name="id_tutor">
+                    <input type="hidden" id="id_docente" name="id_docente">
                     <div class="mb-3">
                         <label for="nombreEditar" class="form-label"><b>Nombre:</b></label>
                         <input type="text" class="form-control" id="nombreEditar" name="nombre" style="text-transform: uppercase;" required>
@@ -265,8 +215,8 @@
                         <input type="text" class="form-control" id="apellidomEditar" name="apellidom" style="text-transform: uppercase;" required>
                     </div>
 					<div class="mb-3">
-                        <label for="curpEditar" class="form-label"><b>CURP:</b></label>
-                        <input type="text" class="form-control" id="curpEditar" name="curp" style="text-transform: uppercase;" required>
+                        <label for="rfcEditar" class="form-label"><b>RFC:</b></label>
+                        <input type="text" class="form-control" id="rfcEditar" name="rfc" style="text-transform: uppercase;" required>
                     </div>
 					<div class="mb-3">
                         <label for="sexoEditar" class="form-label"><b>G&eacute;nero:</b></label>
@@ -286,59 +236,20 @@
 					
 					<div class="mb-3">
               <label for="tituloEditar" class="form-label"><b>T&iacute;tulo:</b></label>
-              <input type="text" class="form-control" id="tituloEditar" name="tituloEditar" style="text-transform: uppercase;" placeholder="Ejemplo: Ing., Lic., Dr." required>
+              <input type="text" class="form-control" id="tituloEditar" name="titulo" style="text-transform: uppercase;" placeholder="Ejemplo: Ing., Lic., Dr." required>
             </div>
 			
 			<div class="mb-3">
-              <label for="especialidadEditar" class="form-label"><b>Formaci&oacute;n:</b></label>
-			<select class="form-control" id="especialidadEditar" name="especialidadEditar" required>
-    <option value="ADMINISTRACION DE EMPRESAS">ADMINISTRACION DE EMPRESAS</option>
-    <option value="ARQUITECTURA">ARQUITECTURA</option>
-    <option value="BIOLOGIA">BIOLOGIA</option>
-    <option value="CIENCIAS DE LA COMPUTACION">CIENCIAS DE LA COMPUTACION</option>
-    <option value="CIENCIAS POLITICAS">CIENCIAS POLITICAS</option>
-    <option value="CONTADURIA PUBLICA">CONTADURIA PUBLICA</option>
-    <option value="DERECHO">DERECHO</option>
-    <option value="DISEÑO GRAFICO">DISEÑO GRAFICO</option>
-    <option value="EDUCACION">EDUCACION</option>
-    <option value="ELECTRONICA">ELECTRONICA</option>
-    <option value="ENERGIAS RENOVABLES">ENERGIAS RENOVABLES</option>
-    <option value="FISICA">FISICA</option>
-    <option value="GASTRONOMIA">GASTRONOMIA</option>
-    <option value="INGENIERA EN SISTEMAS COMPUTACIONALES">INGENIERA EN SISTEMAS COMPUTACIONALES</option>
-    <option value="INGENIERA EN SISTEMAS GESTION EMPRESARIAL">INGENIERA EN SISTEMAS GESTION EMPRESARIAL</option>
-    <option value="INGENIERIA">INGENIERIA</option>
-    <option value="INGENIERIA DE SOFTWARE">INGENIERIA DE SOFTWARE</option>
-    <option value="INTELIGENCIA ARTIFICIAL">INTELIGENCIA ARTIFICIAL</option>
-    <option value="MATEMATICAS APLICADAS">MATEMATICAS APLICADAS</option>
-    <option value="MECANICA">MECANICA</option>
-    <option value="MEDICINA">MEDICINA</option>
-    <option value="MERCADOTECNIA">MERCADOTECNIA</option>
-    <option value="PEDAGOGIA">PEDAGOGIA</option>
-    <option value="PSICOLOGIA">PSICOLOGIA</option>
-    <option value="QUIMICA">QUIMICA</option>
-    <option value="RECURSOS HUMANOS">RECURSOS HUMANOS</option>
-    <option value="RELACIONES INTERNACIONALES">RELACIONES INTERNACIONALES</option>
-    <option value="SISTEMAS COMPUTACIONALES">SISTEMAS COMPUTACIONALES</option>
-    <option value="TURISMO">TURISMO</option>
+              <label for="estudiosEditar" class="form-label"><b>Formaci&oacute;n:</b></label>
+			<select class="form-control" id="estudiosEditar" name="estudios" required>
+      <option value="TECNICO SUPERIOR UNIVERSITARIO">TECNICO SUPERIOR UNIVERSITARIO</option>
+      <option value="LICENCIATURA">LICENCIATURA</option>
+      <option value="ESPECIALIZACION">ESPECIALIZACION</option>
+      <option value="MAESTRIA">MAESTRIA</option>
+      <option value="DOCTORADO">DOCTORADO</option>
 </select>
 </div>
                     
-                    <!--
-                    <div class="mb-3">
-                        <label for="num_controlEditar" class="form-label"><b>N&uacute;mero de Control:</b></label>
-                        <input type="text" class="form-control" id="num_controlEditar" name="num_control" style="text-transform: uppercase;" required>
-                    </div>
-                    -->
-					<!--
-                    <div class="mb-3">
-                        <label for="idcarreraEditar" class="form-label"><b>Carrera:</b></label>
-                        <select class="form-control" id="idcarreraEditar" name="idcarrera" required>
-                            <option value="">SELECCIONE UNA CARRERA</option>
-                            
-                        </select>
-                    </div>
-					-->
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
             </div>
@@ -346,59 +257,12 @@
     </div>
 </div>
 
-<!-- FORM PARA CREAR LA CUENTA DE USUARIO-->
-<!-- Botón para abrir el modal -->
-
-
-<!-- -->
-
-  
-<script>
-//ESTE SCRIPT CARGA LAS CARRERAS EN EL COMBO 
-/*
-	function cargarCarreras() {
-  axios.get('cat_alumnos/carreras.php')
-    .then(response => {
-      const carreras = response.data;
-
-      if (carreras.error) {
-        alertaPersonalizada('danger', carreras.error);
-        return;
-      }
-
-      const carreraSelect = document.getElementById('idcarrera');
-      carreraSelect.innerHTML = '<option value="">SELECCIONE UNA CARRERA</option>'; // Limpiamos las opciones previas
-
-      carreras.forEach(carrera => {
-        const option = document.createElement('option');
-        option.value = carrera.idcarrera;
-        option.textContent = carrera.nombre_carrera;
-        carreraSelect.appendChild(option);
-      });
-    })
-    .catch(error => {
-      alertaPersonalizada('danger', 'Error al cargar las carreras: ' + error.message);
-    });
-}
-
-// Llamar a la función al cargar la página
-document.addEventListener('DOMContentLoaded', cargarCarreras);
-*/
-</script>
 
   <script>
-  /*
-function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
-    // Construir la URL con los parámetros
-	const url = `add_user.php?idalumno=${encodeURIComponent(idAlumno)}&nombre=${encodeURIComponent(nombre)}&apellidop=${encodeURIComponent(apellidoP)}&apellidom=${encodeURIComponent(apellidoM)}&correo=${encodeURIComponent(correo)}&celular=${encodeURIComponent(celular)}`;
-//alert(url);
-    // Redirigir al archivo con los parámetros
-    window.location.href = url;
-}
-*/
+
 function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
     // Verificar si el alumno ya tiene una cuenta
-    axios.post('cat_tutoresacademicos/tutores_academicos.php', new URLSearchParams({
+    axios.post('cat_docentes/docentes.php', new URLSearchParams({
         action: 'verificarcuenta',
         correo: correo,
         idperfil: 7 // ID del perfil "tutor academico"
@@ -480,66 +344,30 @@ function filtrarCards() {
     // Función para editar el alumno
 function editarAlumno(id) {
 	//alert("El id Tut@r es: " + id);
-  axios.post('cat_tutoresacademicos/tutores_academicos.php', new URLSearchParams({
-    action: 'obtenerTutor',
+  axios.post('cat_docentes/docentes.php', new URLSearchParams({
+    action: 'obtenerDocente',
     id: id
   }))
   .then(function (response) {
     if (response.data.success) {
       const alumno = response.data.alumno;
-      const carreras = response.data.carreras;
 
-      document.getElementById('id_tutor').value = alumno.idtutor_academico;
-      document.getElementById('nombreEditar').value = alumno.nombre_tutor;
+      document.getElementById('id_docente').value = alumno.iddocente;
+      document.getElementById('nombreEditar').value = alumno.nombre_docente;
       document.getElementById('apellidopEditar').value = alumno.apellido_paterno;
       document.getElementById('apellidomEditar').value = alumno.apellido_materno;
       document.getElementById('correoEditar').value = alumno.email;
-      document.getElementById('curpEditar').value = alumno.curp;
+      document.getElementById('rfcEditar').value = alumno.rfc;
       document.getElementById('sexoEditar').value = alumno.sexo;
       document.getElementById('celularEditar').value = alumno.num_celular;
-	    document.getElementById('tituloEditar').value = alumno.titulo_academico;
-      document.getElementById('especialidadEditar').value = alumno.especialidad;
-
-      // Llenar el select de carreras
-	  /*
-      const carreraSelect = document.getElementById('especialidadEditar');
-      carreraSelect.innerHTML = ''; // Limpiar las opciones existentes
-
-      carreras.forEach(function(carrera) {
-        const option = document.createElement('option');
-        option.value = carrera.idcarrera;
-        option.textContent = carrera.nombre_carrera;
-
-        if (carrera.idcarrera == alumno.idcarrera) {
-          option.selected = true;
-        }
-
-        carreraSelect.appendChild(option);
-      });
-	  */
-	  // Variable con el valor a seleccionar
-const valorSeleccionado = alumno.especialidad;
-//alert("La especialidad es: " + valorSeleccionado);
-// Referencia al elemento select
-const carreraSelect = document.getElementById('especialidadEditar');
-
-// Establecer la opción seleccionada
-carreraSelect.value = valorSeleccionado;
-
-// Opcional: Verifica si se seleccionó correctamente
-console.log(carreraSelect.value);
-console.log(valorSeleccionado);
-if (carreraSelect.value === valorSeleccionado) {
-    console.log("Opción seleccionada correctamente:", carreraSelect.value);
-} else {
-    console.error("El valor no coincide con ninguna opción.");
-}
+	    document.getElementById('tituloEditar').value = alumno.titulo;
+      document.getElementById('estudiosEditar').value = alumno.grado_estudios;
 
       const modal = new bootstrap.Modal(document.getElementById('modalEditar'));
       modal.show();
     } else {
       //alert('No se pudo obtener el alumno.');
-	  swal("¡Error!", "No se pudo obtener el Tut@r.", "error");
+	  swal("¡Error!", "No se pudo obtener el docente.", "error");
     }
   })
   .catch(function (error) {
@@ -554,15 +382,15 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
   e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
   // Obtener el id del alumno
-  const id = document.getElementById('id_tutor').value;
+  const id = document.getElementById('id_docente').value;
 
   const formData = new FormData(this);
   formData.append('action', 'editar');
   formData.append('id', id); // Añadir el id del alumno al FormData
   formData.append('titulo', document.getElementById('tituloEditar').value); // Campo título
-  formData.append('especialidad', document.getElementById('especialidadEditar').value); // Campo especialidad
+  formData.append('grado_estudios', document.getElementById('estudiosEditar').value); // Campo especialidad
 
-  axios.post('cat_tutoresacademicos/tutores_academicos.php', formData)
+  axios.post('cat_docentes/docentes.php', formData)
   .then(function (response) {
 	  alert(response);
     if (response.data.success) {
@@ -572,7 +400,7 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
 	  
 	  */
 	                alertaPersonalizada('success', response.data.message);
-                    swal("¡Éxito!", "Tut@r actualizado correctamente", "success")
+                    swal("¡Éxito!", "Docente actualizado correctamente", "success")
                     .then(() => {
                         // Esperar 3 segundos antes de hacer la recarga
                         setTimeout(() => {
@@ -590,7 +418,7 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
 	  
     } else {
      // alert('No se pudo actualizar el alumno.');
-	  swal("¡Error!", "No se pudo actualizar al Tut@r." + response.data.message, "error");
+	  swal("¡Error!", "No se pudo actualizar al Docente." + response.data.message, "error");
     }
   })
   .catch(function (error) {
@@ -616,7 +444,7 @@ function eliminarAlumno(id) {
   if (willDelete) {
     // Acciones si el usuario acepta
     console.log("Elemento eliminado");
-	axios.post('cat_tutoresacademicos/tutores_academicos.php', new URLSearchParams({
+	axios.post('cat_docentes/docentes.php', new URLSearchParams({
             action: 'eliminar',
             id: id
         }))
@@ -632,7 +460,7 @@ function eliminarAlumno(id) {
 				/*
 				*/
 				alertaPersonalizada('success', response.data.message);
-                    swal("¡Éxito!", "El Tut@r ha sido eliminado correctamente", "success")
+                    swal("¡Éxito!", "El Docente ha sido eliminado correctamente", "success")
                     .then(() => {
                         // Esperar 3 segundos antes de hacer la recarga
                         setTimeout(() => {
@@ -645,8 +473,8 @@ function eliminarAlumno(id) {
 				
 				
             } else {
-                alertaPersonalizada('danger', response.data.message || 'Error al eliminar el Tut@r');
-				swal("¡Error!", response.data.message || 'Error al eliminar el Tut@r', "error");
+                alertaPersonalizada('danger', response.data.message || 'Error al eliminar el Docente');
+				swal("¡Error!", response.data.message || 'Error al eliminar el Docente', "error");
             }
         })
         .catch(error => {
@@ -684,23 +512,23 @@ function eliminarAlumno(id) {
             const formData = new FormData(this);
 
             // Enviar los datos al servidor usando Axios
-            axios.post('cat_tutoresacademicos/tutores_academicos.php', new URLSearchParams({
+            axios.post('cat_docentes/docentes.php', new URLSearchParams({
                 action: 'agregar',
                 nombre: formData.get('nombre'),
                 apellidop: formData.get('apellidop'),
                 apellidom: formData.get('apellidom'),
-				sexo: formData.get('sexo'),
-				celular: formData.get('celular'),
+				        sexo: formData.get('sexo'),
+				        celular: formData.get('celular'),
                 correo: formData.get('correo'),
                 titulo: formData.get('titulo'),
-				curp: formData.get('curp'),
-                especialidad: formData.get('especialidad')
+				        rfc: formData.get('rfc'),
+                estudios: formData.get('estudios')
             }))
 			//alert("llega aqui");
             .then(function (response) {
                 if (response.data.success) {
                     alertaPersonalizada('success', response.data.message);
-                    swal("¡Éxito!", "El Tut@r se ha agregado correctamente", "success")
+                    swal("¡Éxito!", "El Docente se ha agregado correctamente", "success")
 					
                     .then(() => {
                         // Esperar 3 segundos antes de hacer la recarga

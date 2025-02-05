@@ -151,6 +151,7 @@ function actualizarTutorAcademico($id, $data) {
 	$data['curp'] = mb_strtoupper($data['curp'], 'UTF-8');
 
     try {
+        // Actualizar los datos del tutor académico en la base de datos
         $stmt = $pdo->prepare("UPDATE tutores_academicos SET 
             nombre_tutor = :nombre_tutor, 
             apellido_paterno = :apellido_paterno, 
@@ -286,10 +287,10 @@ function verificarSitieneCuenta($correo_int, $idperfil_int) {
 
         if ($count > 0) {
             // Alumno tiene cuenta
-            echo json_encode(['success' => true, 'message' => 'El Tut@r ya tiene una cuenta de Usuario. Para gestionarla deberá hacerlo directamente desde el Catálogo de Tut@res Académicos.']);
+            echo json_encode(['success' => true, 'message' => 'El Alumno ya tiene una cuenta de Usuario. Para gestionarla deberá hacerlo directamente desde el Catálogo de Usuarios.']);
         } else {
             // Alumno no tiene cuenta
-            echo json_encode(['success' => false, 'message' => 'El Tut@r no tiene una cuenta de Usuario.']);
+            echo json_encode(['success' => false, 'message' => 'El Alumno no tiene una cuenta de Usuario.']);
         }
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => 'Error al consultar: ' . $e->getMessage()]);

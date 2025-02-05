@@ -1,11 +1,11 @@
-<?php include('cat_carreras/carreras.php'); ?>
+<?php include('cat_asignaturas/asignaturas.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cat de Carreras</title>
+  <title>Cat de Asignaturas</title>
   <!--
  <link href="js/bootstrap.min.css" rel="stylesheet">
   <script src="js/bootstrap.bundle.min.js"></script>
@@ -47,7 +47,7 @@
         type="text"
         id="buscador"
         class="form-control"
-        placeholder="Buscar carrera..."
+        placeholder="Buscar Asignatura..."
         oninput="filtrarCards()"
       >
     </div>
@@ -67,8 +67,8 @@
     <!--cards begin -->
 <div class="row">
   <?php
-  $carreras = cargarCarreras();
-  $totalRegistros = count($carreras); // Cuenta la cantidad de registros
+  $asignaturas = cargarAsignaturas();
+  $totalRegistros = count($asignaturas); // Cuenta la cantidad de registros
   ?>
   <script>
   // Actualiza el contenido del label con PHP
@@ -77,8 +77,8 @@
   });
 </script>
   <?php
-  foreach ($carreras as $carrera) {
-    $icono = 'fa-graduation-cap';
+  foreach ($asignaturas as $asignatura) {
+    $icono = 'fas fa-book';
     $color = 'black'; // Puedes cambiar el color si lo deseas
 
     
@@ -88,16 +88,17 @@
     echo "<i class='fas {$icono}' style='font-size: 64px; color: {$color};'></i>";
     echo "</div>";
     echo "<div class='card-body'>";
-    echo "<h5 class='card-title text-center'><b>{$carrera['nombre_carrera']} </b></h5>";
+    echo "<h5 class='card-title text-center'><b>{$asignatura['nombre_asignatura']} </b></h5>";
 
     
-    echo "<b>Nombre:</b> {$carrera['nombre_carrera']}<br>";
-    echo "<b>Abreviatura:</b> {$carrera['abreviatura']}<br>";
+    echo "<b>Nombre:</b> {$asignatura['nombre_asignatura']}<br>";
+    echo "<b>Clave:</b> {$asignatura['clave']}<br>";
+    echo "<b>Creditos:</b> {$asignatura['creditos']}<br>";
     echo "</p>";
-    echo "<button class='btn btn-warning' onclick='editarCarrera({$carrera['idcarrera']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-warning' onclick='editarAsignatura({$asignatura['idasignatura']})' style='font-size: 14px;'>
             <i class='fas fa-edit'></i> Editar
           </button>&nbsp;";
-    echo "<button class='btn btn-danger' onclick='eliminarCarrera({$carrera['idcarrera']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-danger' onclick='eliminarAsignatura({$asignatura['idasignatura']})' style='font-size: 14px;'>
             <i class='fas fa-trash'></i> Eliminar
           </button>&nbsp;";
   
@@ -126,14 +127,17 @@
         <div class="modal-body">
           <form id="formAgregar">
             <div class="mb-3">
-              <label for="nombre_carrera" class="form-label"><b>Nombre:</b></label>
-              <input type="text" class="form-control" id="nombre_carrera" name="nombre_carrera" style="text-transform: uppercase;" required>
+              <label for="nombre_asignatura" class="form-label"><b>Nombre:</b></label>
+              <input type="text" class="form-control" id="nombre_asignatura" name="nombre_asignatura" style="text-transform: uppercase;" required>
             </div>
             <div class="mb-3">
-              <label for="abreviatura" class="form-label"><b>Abreviatura Carrera:</b></label>
-              <input type="text" class="form-control" id="abreviatura" name="abreviatura" style="text-transform: uppercase;" required>
+              <label for="clave" class="form-label"><b>Clave:</b></label>
+              <input type="text" class="form-control" id="clave" name="clave" style="text-transform: uppercase;" required>
             </div>
-           
+            <div class="mb-3">
+              <label for="creditos" class="form-label"><b>Creditos:</b></label>
+              <input type="text" class="form-control" id="creditos" name="creditos" style="text-transform: uppercase;" required>
+            </div>
             <div class="mb-3">
  
   </select>
@@ -151,21 +155,24 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalEditarLabel">Editar Carrera</h5>
+                <h5 class="modal-title" id="modalEditarLabel">Editar Asignatura</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="formEditar">
-                    <input type="hidden" id="id_carrera" name="id_carrera">
+                    <input type="hidden" id="id_asignatura" name="id_asignatura">
                     <div class="mb-3">
-                        <label for="nombre_carreraEditar" class="form-label"><b>Nombre:</b></label>
-                        <input type="text" class="form-control" id="nombre_carreraEditar" name="nombre_carrera" style="text-transform: uppercase;" required>
+                        <label for="nombre_asignaturaEditar" class="form-label"><b>Nombre:</b></label>
+                        <input type="text" class="form-control" id="nombre_asignaturaEditar" name="nombre_asignatura" style="text-transform: uppercase;" required>
                     </div>
                     <div class="mb-3">
-                        <label for="abreviaturaEditar" class="form-label"><b>Abreviatura:</b></label>
-                        <input type="text" class="form-control" id="abreviaturaEditar" name="abreviatura" style="text-transform: uppercase;" required>
+                        <label for="claveEditar" class="form-label"><b>Clave:</b></label>
+                        <input type="text" class="form-control" id="claveEditar" name="clave" style="text-transform: uppercase;" required>
                     </div>
-                   
+                    <div class="mb-3">
+                        <label for="creditosEditar" class="form-label"><b>Creditos:</b></label>
+                        <input type="text" class="form-control" id="creditosEditar" name="creditos" style="text-transform: uppercase;" required>
+                    </div>
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
             </div>
@@ -186,42 +193,6 @@
 
 </script>
   <script>
-  /*
-function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
-    // Construir la URL con los parámetros
-	const url = `add_user.php?idalumno=${encodeURIComponent(idAlumno)}&nombre=${encodeURIComponent(nombre)}&apellidop=${encodeURIComponent(apellidoP)}&apellidom=${encodeURIComponent(apellidoM)}&correo=${encodeURIComponent(correo)}&celular=${encodeURIComponent(celular)}`;
-//alert(url);
-    // Redirigir al archivo con los parámetros
-    window.location.href = url;
-}
-*/
-/*
-function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
-    // Verificar si el alumno ya tiene una cuenta
-    axios.post('cat_alumnos/alumnos.php', new URLSearchParams({
-        action: 'verificarcuenta',
-        correo: correo,
-        idperfil: 5 // ID del perfil "Alumno"
-    }))
-    .then(function (response) {
-        if (response.data.success) {
-            // Alumno ya tiene cuenta, detener el flujo
-            swal("¡Atención!", response.data.message, "info");
-            return; // Detener aquí
-        } 
-        
-        // Alumno no tiene cuenta, proceder a la creación
-        const url = `add_user.php?idalumno=${encodeURIComponent(idAlumno)}&nombre=${encodeURIComponent(nombre)}&apellidop=${encodeURIComponent(apellidoP)}&apellidom=${encodeURIComponent(apellidoM)}&correo=${encodeURIComponent(correo)}&celular=${encodeURIComponent(celular)}`;
-        window.location.href = url; // Redirigir al archivo
-    })
-    .catch(function (error) {
-        // Manejo del error en la solicitud
-        console.error('Error en la solicitud:', error);
-        swal("¡Error!", "Error al conectar con el servidor.", "error");
-    });
-}
-*/
-
 
     function alertaPersonalizada(tipo, mensaje) {
       const alerta = document.createElement('div');
@@ -237,7 +208,7 @@ function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
 	
     function filtrarTabla() {
       const busqueda = document.getElementById('buscador').value.toLowerCase();
-      const filas = document.querySelectorAll('#tablaCarreras tr');
+      const filas = document.querySelectorAll('#tablaAsignaturas tr');
       filas.forEach(fila => {
         const textoFila = fila.textContent.toLowerCase();
         if (textoFila.includes(busqueda)) {
@@ -275,24 +246,25 @@ function filtrarCards() {
 }
     // Editar alumno
     // Función para editar el alumno
-function editarCarrera(id) {
-  axios.post('cat_carreras/carreras.php', new URLSearchParams({
-    action: 'obtenerCarrera',
+function editarAsignatura(id) {
+  axios.post('cat_asignaturas/asignaturas.php', new URLSearchParams({
+    action: 'obtenerAsignatura',
     id: id
   }))
   .then(function (response) {
     if (response.data.success) {
-      const carrera = response.data.carrera;
+      const asignatura = response.data.asignatura;
     
-      document.getElementById('id_carrera').value = carrera.idcarrera;
-      document.getElementById('nombre_carreraEditar').value = carrera.nombre_carrera;
-      document.getElementById('abreviaturaEditar').value = carrera.abreviatura;
+      document.getElementById('id_asignatura').value = asignatura.idasignatura;
+      document.getElementById('nombre_asignaturaEditar').value = asignatura.nombre_asignatura;
+      document.getElementById('claveEditar').value = asignatura.clave;
+      document.getElementById('creditosEditar').value = asignatura.creditos;
      
       const modal = new bootstrap.Modal(document.getElementById('modalEditar'));
       modal.show();
     } else {
       //alert('No se pudo obtener el alumno.');
-	  swal("¡Error!", "No se pudo obtener el alumno.", "error");
+	  swal("¡Error!", "No se pudo obtener la asignatura.", "error");
     }
   })
   .catch(function (error) {
@@ -307,13 +279,13 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
   e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
   // Obtener el id del alumno
-  const id = document.getElementById('id_carrera').value;
+  const id = document.getElementById('id_asignatura').value;
 
   const formData = new FormData(this);
   formData.append('action', 'editar');
-  formData.append('id_carrera', id); // Añadir el id del alumno al FormData
+  formData.append('id_asignatura', id); // Añadir el id del alumno al FormData
 
-  axios.post('cat_carreras/carreras.php', formData)
+  axios.post('cat_asignaturas/asignaturas.php', formData)
   .then(function (response) {
     if (response.data.success) {
       //alert('Alumno actualizado correctamente');
@@ -322,7 +294,7 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
 	  
 	  */
 	                alertaPersonalizada('success', response.data.message);
-                    swal("¡Éxito!", "Carrera actualizado correctamente", "success")
+                    swal("¡Éxito!", "Asignatura actualizado correctamente", "success")
                     .then(() => {
                         // Esperar 3 segundos antes de hacer la recarga
                         setTimeout(() => {
@@ -333,7 +305,7 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
                     });
     } else {
      // alert('No se pudo actualizar el alumno.');
-	  swal("¡Error!", "No se pudo actualizar el alumno.", "error");
+	  swal("¡Error!", "No se pudo actualizar la asignatura.", "error");
     }
   })
   .catch(function (error) {
@@ -348,7 +320,7 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
     // Eliminar alumno
 	
 // Función para eliminar un alumno
-function eliminarCarrera(id) {
+function eliminarAsignatura(id) {
 	
 	swal({
   title: "¿Estás seguro?",
@@ -359,7 +331,7 @@ function eliminarCarrera(id) {
   if (willDelete) {
     // Acciones si el usuario acepta
     console.log("Elemento eliminado");
-	axios.post('cat_carreras/carreras.php', new URLSearchParams({
+	axios.post('cat_asignaturas/asignaturas.php', new URLSearchParams({
             action: 'eliminar',
             id: id
         }))
@@ -375,7 +347,7 @@ function eliminarCarrera(id) {
 				/*
 				*/
 				alertaPersonalizada('success', response.data.message);
-                    swal("¡Éxito!", "La carrera ha sido eliminado correctamente", "success")
+                    swal("¡Éxito!", "La asignatura ha sido eliminado correctamente", "success")
                     .then(() => {
                         // Esperar 3 segundos antes de hacer la recarga
                         setTimeout(() => {
@@ -388,8 +360,8 @@ function eliminarCarrera(id) {
 				
 				
             } else {
-                alertaPersonalizada('danger', response.data.message || 'Error al eliminar la carrera');
-				swal("¡Error!", response.data.message || 'Error al eliminar la carrera', "error");
+                alertaPersonalizada('danger', response.data.message || 'Error al eliminar la asignatura');
+				swal("¡Error!", response.data.message || 'Error al eliminar la asignatura', "error");
             }
         })
         .catch(error => {
@@ -422,16 +394,17 @@ function eliminarCarrera(id) {
             const formData = new FormData(this);
 
             // Enviar los datos al servidor usando Axios
-            axios.post('cat_carreras/carreras.php', new URLSearchParams({
+            axios.post('cat_asignaturas/asignaturas.php', new URLSearchParams({
                 action: 'agregar',
-                nombre_carrera: formData.get('nombre_carrera'),
-                abreviatura: formData.get('abreviatura'),
+                nombre_asignatura: formData.get('nombre_asignatura'),
+                clave: formData.get('clave'),
+                creditos: formData.get('creditos'),
                
             }))
             .then(function (response) {
                 if (response.data.success) {
                     alertaPersonalizada('success', response.data.message);
-                    swal("¡Éxito!", "La carrera se ha agregado correctamente", "success")
+                    swal("¡Éxito!", "La asignatura se ha agregado correctamente", "success")
 					
                     .then(() => {
                         // Esperar 3 segundos antes de hacer la recarga

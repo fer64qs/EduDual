@@ -1,6 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/edu_dual/admin/view/DBC.php'); // Conexión a la base de datos
-header('Content-Type: text/html; charset=utf-8');
+
 // Función para cargar alumnos con sus carreras
 function cargarAlumnos() {
     $pdo = DBC::get();
@@ -138,7 +138,43 @@ function actualizarAlumno($id,$data) {
     }
 }
 
+/*
+function editarAlumno($data) {
+    $pdo = DBC::get();
 
+    try {
+        // Actualizar los datos del alumno
+        $stmt = $pdo->prepare("UPDATE alumnos SET 
+            nombre = :nombre, 
+            apellidop = :apellidop, 
+            apellidom = :apellidom, 
+            correo = :correo, 
+            curp = :curp, 
+            sexo = :sexo, 
+            num_control = :num_control, 
+            celular = :celular, 
+            idcarrera = :idcarrera 
+            WHERE idalumno = :id");
+
+        $stmt->execute([
+            ':id' => $data['id_alumno'],
+            ':nombre' => $data['nombre'],
+            ':apellidop' => $data['apellidop'],
+            ':apellidom' => $data['apellidom'],
+            ':correo' => $data['correo'],
+            ':curp' => $data['curp'],
+            ':sexo' => $data['sexo'],
+            ':num_control' => $data['num_control'],
+            ':celular' => $data['celular'],
+            ':idcarrera' => $data['idcarrera']
+        ]);
+
+        echo json_encode(['success' => true, 'message' => 'Alumno actualizado exitosamente.']);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Error al actualizar los datos: ' . $e->getMessage()]);
+    }
+}
+*/
 
 // Función para eliminar un alumno
 function eliminarAlumno($id) {
@@ -169,7 +205,32 @@ function eliminarAlumno($id) {
 }
 
 
+// Función para agregar un alumno
 
+/*
+function agregarAlumno($data) {
+    $pdo = DBC::get();
+
+    try {
+        $stmt = $pdo->prepare("INSERT INTO alumnos (nombre, apellidop, apellidom, correo, curp, sexo, num_control, celular, idcarrera) 
+                               VALUES (:nombre, :apellidop, :apellidom, :correo, :curp, :sexo, :num_control, :celular, :idcarrera)");
+        $stmt->execute([
+            ':nombre' => $data['nombre'],
+            ':apellidop' => $data['apellidop'],
+            ':apellidom' => $data['apellidom'],
+            ':correo' => $data['correo'],
+            ':curp' => $data['curp'],
+            ':sexo' => $data['sexo'],
+            ':num_control' => $data['num_control'],
+            ':celular' => $data['celular'],
+            ':idcarrera' => $data['idcarrera']
+        ]);
+        echo json_encode(['success' => true, 'message' => 'Alumno agregado exitosamente.']);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Error al agregar el alumno: ' . $e->getMessage()]);
+    }
+}
+*/
 
 function agregarAlumno($data) {
     $pdo = DBC::get();
@@ -188,7 +249,7 @@ function agregarAlumno($data) {
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM alumnos WHERE curp = :curp");
         $stmt->execute([':curp' => $data['curp']]);
         if ($stmt->fetchColumn() > 0) {
-            echo json_encode(['success' => false, 'message' => 'Ya existe un alumno con la misma CURP.']);
+            echo json_encode(['success' => false, 'message' => 'Ya existe un alumno con el mismo CURP.']);
             return;
         }
 
