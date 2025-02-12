@@ -160,6 +160,15 @@ if (!empty($_SESSION["userId"])) {
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Educacion Dual
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_inscripciones.php'); cerrarMenu();">Inscripciones</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">Opción 2</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Administraci&oacute;n
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
