@@ -137,6 +137,11 @@ if (!empty($_SESSION["userId"])) {
                             </a>
                         </li>
                         <li>
+                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_personalempresas.php'); cerrarMenu();">
+                                <i class="fas fa-user-tie"></i> Personal Empresa
+                            </a>
+                        </li>
+                        <li>
                             <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_asignaturas.php'); cerrarMenu();">
                                 <i class="fas fa-book-open"></i> Asignaturas
                             </a>
