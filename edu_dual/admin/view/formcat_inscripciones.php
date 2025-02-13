@@ -190,39 +190,39 @@
             <input type="hidden" id="id_inscripcion" name="id_inscripcion">
             <div class="mb-3">
             <label for="idalumnoEditar" class="form-label"><b>Alumno:</b></label>
-            <select class="form-control" id="idalumnoEditar" name="idalumnoEditar" required>
+            <select class="form-control" id="idalumnoEditar" name="idalumno" required>
             <option value="">SELECCIONE UN ALUMNO</option>
             </select>
             </div>
             <div class="mb-3">
             <label for="idempresaEditar" class="form-label"><b>Empresa:</b></label>
-            <select class="form-control" id="idempresaEditar" name="idempresaEditar" required>
+            <select class="form-control" id="idempresaEditar" name="idempresa" required>
             <option value="">SELECCIONE UNA EMPRESA</option>
             </select>
             </div>
             <div class="mb-3">
             <label for="idpersonalEditar" class="form-label"><b>Asesor Dual:</b></label>
-            <select class="form-control" id="idpersonalEditar" name="idpersonalEditar" required>
+            <select class="form-control" id="idpersonalEditar" name="idpersonal" required>
             <option value="">SELECCIONE UN ASESOR</option>
             </select>
             </div>
             <div class="mb-3">
             <label for="idSemestreEditar" class="form-label"><b>Ciclo Escolar:</b></label>
-            <select class="form-control" id="idSemestreEditar" name="idSemestreEditar" required>
+            <select class="form-control" id="idSemestreEditar" name="idSemestre" required>
             <option value="">SELECCIONE UN CICLO ESCOLAR</option>
             </select>
             </div>
             <div class="mb-3">
               <label for="fecha_inicioEditar" class="form-label"><b>Fecha Inicio:</b></label>
-              <input type="date" class="form-control" id="fecha_inicioEditar" name="fecha_inicioEditar" style="text-transform: uppercase;" required>
+              <input type="date" class="form-control" id="fecha_inicioEditar" name="fecha_inicio" style="text-transform: uppercase;" required>
             </div>
             <div class="mb-3">
               <label for="fecha_finEditar" class="form-label"><b>Fecha de fin:</b></label>
-              <input type="date" class="form-control" id="fecha_finEditar" name="fecha_finEditar" style="text-transform: uppercase;" required>
+              <input type="date" class="form-control" id="fecha_finEditar" name="fecha_fin" style="text-transform: uppercase;" required>
             </div>
             <div class="mb-3">
               <label for="estatusEditar" class="form-label"><b>Estatus:</b></label>
-              <select class="form-control" id="estatusEditar" name="estatusEditar" required>
+              <select class="form-control" id="estatusEditar" name="estatus" required>
                 <option value="ACTIVO">ACTIVO</option>
                 <option value="INACTIVO">INACTIVO</option>
               </select>
@@ -453,7 +453,7 @@ function filtrarCards() {
 
       alumnos.forEach(function(alumno) {
         const option = document.createElement('option');
-        option.value = alumno.idaalumno;
+        option.value = alumno.idalumno;
         option.textContent = alumno.nombre + " " + alumno.apellidop + " " + alumno.apellidom;
 
         if (alumno.idalumno == inscripcion.idalumno) {
