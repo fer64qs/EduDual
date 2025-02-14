@@ -8,8 +8,8 @@ function cargarPersonal() {
     $stmt = $pdo->query("SELECT 
         personal_empresas.idpersonal,
         personal_empresas.nombre_personal,
-        personal_empresas.apellido_paterno,
-        personal_empresas.apellido_materno,
+        personal_empresas.papellido_paterno,
+        personal_empresas.papellido_materno,
         personal_empresas.correo,
         personal_empresas.sexo,
         personal_empresas.cargo_empresa,
@@ -59,8 +59,8 @@ function obtenerPersonal($id) {
         $stmtAlumno = $pdo->prepare("SELECT 
             personal_empresas.idpersonal,
             personal_empresas.nombre_personal,
-            personal_empresas.apellido_paterno,
-            personal_empresas.apellido_materno,
+            personal_empresas.papellido_paterno,
+            personal_empresas.papellido_materno,
             personal_empresas.correo,
             personal_empresas.sexo,
             personal_empresas.cargo_empresa,
@@ -98,8 +98,8 @@ function actualizarPersonal($id, $data) {
     $pdo = DBC::get();
     
 	$data['nombre_personal'] = mb_strtoupper($data['nombre_personal'], 'UTF-8');
-    $data['apellido_paterno'] = mb_strtoupper($data['apellido_paterno'], 'UTF-8');
-    $data['apellido_materno'] = mb_strtoupper($data['apellido_materno'], 'UTF-8');
+    $data['papellido_paterno'] = mb_strtoupper($data['papellido_paterno'], 'UTF-8');
+    $data['papellido_materno'] = mb_strtoupper($data['papellido_materno'], 'UTF-8');
     $data['correo'] = strtolower(trim($data['correo'])); // Opcional: correos en minúsculas
     $data['sexo'] = mb_strtoupper($data['sexo'], 'UTF-8');
     $data['cargo_empresa'] = mb_strtoupper($data['cargo_empresa'], 'UTF-8');
@@ -108,8 +108,8 @@ function actualizarPersonal($id, $data) {
         // Actualizar los datos del tutor académico en la base de datos
         $stmt = $pdo->prepare("UPDATE personal_empresas SET 
             nombre_personal = :nombre_personal, 
-            apellido_paterno = :apellido_paterno, 
-            apellido_materno = :apellido_materno, 
+            papellido_paterno = :papellido_paterno, 
+            papellido_materno = :papellido_materno, 
             correo = :correo,
             sexo = :sexo,
             cargo_empresa = :cargo_empresa, 
@@ -122,8 +122,8 @@ function actualizarPersonal($id, $data) {
         $stmt->execute([
             ':idpersonal' => $data['id_personal'],
             ':nombre_personal' => $data['nombre_personal'],
-            ':apellido_paterno' => $data['apellido_paterno'],
-            ':apellido_materno' => $data['apellido_materno'],
+            ':papellido_paterno' => $data['papellido_paterno'],
+            ':papellido_materno' => $data['papellido_materno'],
             ':correo' => $data['correo'],
             ':sexo' => $data['sexo'],
             ':telefono' => $data['telefono'],
@@ -174,8 +174,8 @@ function agregarPersonal($data) {
     $pdo = DBC::get();
 	
     $data['nombre_personal'] = mb_strtoupper($data['nombre_personal'], 'UTF-8');
-    $data['apellido_paterno'] = mb_strtoupper($data['apellido_paterno'], 'UTF-8');
-    $data['apellido_materno'] = mb_strtoupper($data['apellido_materno'], 'UTF-8');
+    $data['papellido_paterno'] = mb_strtoupper($data['papellido_paterno'], 'UTF-8');
+    $data['papellido_materno'] = mb_strtoupper($data['papellido_materno'], 'UTF-8');
     $data['correo'] = strtolower(trim($data['correo'])); // Opcional: correos en minúsculas
     $data['sexo'] = mb_strtoupper($data['sexo'], 'UTF-8');
     $data['cargo_empresa'] = mb_strtoupper($data['cargo_empresa'], 'UTF-8');
@@ -191,12 +191,12 @@ function agregarPersonal($data) {
         }
 
         // Si no existe, proceder con la inserción
-        $stmt = $pdo->prepare("INSERT INTO personal_empresas (nombre_personal, apellido_paterno, apellido_materno, sexo, telefono, correo, cargo_empresa, idempresa)
-                               VALUES (:nombre_personal, :apellido_paterno, :apellido_materno, :sexo, :telefono, :correo, :cargo_empresa, :idempresa)");
+        $stmt = $pdo->prepare("INSERT INTO personal_empresas (nombre_personal, papellido_paterno, papellido_materno, sexo, telefono, correo, cargo_empresa, idempresa)
+                               VALUES (:nombre_personal, :papellido_paterno, :papellido_materno, :sexo, :telefono, :correo, :cargo_empresa, :idempresa)");
         $stmt->execute([
             ':nombre_personal' => $data['nombre_personal'],
-            ':apellido_paterno' => $data['apellido_paterno'],
-            ':apellido_materno' => $data['apellido_materno'],
+            ':papellido_paterno' => $data['papellido_paterno'],
+            ':papellido_materno' => $data['papellido_materno'],
             ':correo' => $data['correo'],
             ':sexo' => $data['sexo'],
             ':telefono' => $data['telefono'],

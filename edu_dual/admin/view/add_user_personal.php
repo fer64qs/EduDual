@@ -37,8 +37,8 @@
  if (isset($_GET['idpersonal'])) {
     $idAlumno = $_GET['idpersonal'];
     $nombre = $_GET['nombre_personal'];
-    $apellidoP = $_GET['apellido_paterno'];
-    $apellidoM = $_GET['apellido_materno'];
+    $apellidoP = $_GET['papellido_paterno'];
+    $apellidoM = $_GET['papellido_materno'];
     $correo = $_GET['correo'];
     $celular = $_GET['telefono'];
 /*

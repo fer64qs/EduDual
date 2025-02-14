@@ -17,8 +17,12 @@ function cargarInscripcion() {
         empresas.nombre_empresa,
         personal_empresas.idpersonal,
         personal_empresas.nombre_personal,
-        personal_empresas.apellido_paterno,
-        personal_empresas.apellido_materno,
+        personal_empresas.papellido_paterno,
+        personal_empresas.papellido_materno,
+        tutores_academicos.idtutor_academico,
+        tutores_academicos.nombre_tutor,
+        tutores_academicos.apellido_paterno,
+        tutores_academicos.apellido_materno,
         semestres.idSemestre,
         semestres.semestre
 
@@ -27,6 +31,7 @@ function cargarInscripcion() {
     INNER JOIN alumnos ON inscripciones.idalumno = alumnos.idalumno 
     INNER JOIN empresas ON inscripciones.idempresa = empresas.idempresa
     INNER JOIN personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
+    INNER JOIN tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
     INNER JOIN semestres ON inscripciones.idSemestre = semestres.idSemestre   
     ");
     return $stmt->fetchAll();
@@ -74,14 +79,19 @@ function obtenerInscripcion($id) {
             empresas.nombre_empresa,
             personal_empresas.idpersonal,
             personal_empresas.nombre_personal,
-            personal_empresas.apellido_paterno,
-            personal_empresas.apellido_materno,
+            personal_empresas.papellido_paterno,
+            personal_empresas.papellido_materno,
+            tutores_academicos.idtutor_academico,
+            tutores_academicos.nombre_tutor,
+            tutores_academicos.apellido_paterno,
+            tutores_academicos.apellido_materno,
             semestres.idSemestre,
             semestres.semestre
         FROM inscripciones
         INNER JOIN alumnos ON inscripciones.idalumno = alumnos.idalumno 
         INNER JOIN empresas ON inscripciones.idempresa = empresas.idempresa
         INNER JOIN personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
+        INNER JOIN tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
         INNER JOIN semestres ON inscripciones.idSemestre = semestres.idSemestre   
         WHERE idinscripcion = :id");
 
@@ -99,9 +109,14 @@ function obtenerInscripcion($id) {
         $empresas = $stmtEmpresas->fetchAll();
 
         // Obtener todo el personal de empresa
-        $stmtPersonal = $pdo->prepare("SELECT * FROM personal_empresas");
-        $stmtPersonal->execute();
-        $personal = $stmtPersonal->fetchAll();
+        $stmtPersonales = $pdo->prepare("SELECT * FROM personal_empresas");
+        $stmtPersonales->execute();
+        $personales = $stmtPersonales->fetchAll();
+
+        // Obtener todo el tutor academico
+        $stmtTutores = $pdo->prepare("SELECT * FROM tutores_academicos");
+        $stmtTutores->execute();
+        $tutores = $stmtTutores->fetchAll();
 
         // Obtener todas los semestres
         $stmtSemestres = $pdo->prepare("SELECT * FROM semestres");
@@ -114,7 +129,8 @@ function obtenerInscripcion($id) {
                 'inscripcion' => $inscripcion, 
                 'alumnos' => $alumnos,
                 'empresas' => $empresas, 
-                'personal' => $personal,
+                'personales' => $personales,
+                'tutores' => $tutores,
                 'semestres' => $semestres
             ]);
         } else {
@@ -137,7 +153,8 @@ function actualizarInscripcion($id, $data) {
         $stmt = $pdo->prepare("UPDATE inscripciones SET 
             idalumno = :idalumno, 
             idempresa = :idempresa, 
-            idpersonal = :idpersonal, 
+            idpersonal = :idpersonal,
+            idtutor_academico = :idtutor_academico,
             idSemestre = :idSemestre,
             fecha_inicio = :fecha_inicio, 
             fecha_fin = :fecha_fin, 
@@ -150,6 +167,7 @@ function actualizarInscripcion($id, $data) {
             ':idalumno' => $data['idalumno'],
             ':idempresa' => $data['idempresa'],
             ':idpersonal' => $data['idpersonal'],
+            ':idtutor_academico' => $data['idtutor_academico'],
             ':idSemestre' => $data['idSemestre'],
             ':fecha_inicio' => $data['fecha_inicio'],
             ':fecha_fin' => $data['fecha_fin'],
@@ -206,8 +224,8 @@ function agregarInscripcion($data) {
        
 
         // Si no existe, proceder con la inserción
-        $stmt = $pdo->prepare("INSERT INTO inscripciones (fecha_inicio, fecha_fin, estatus, idalumno, idempresa, idpersonal, idSemestre) 
-                               VALUES (:fecha_inicio, :fecha_fin, :estatus, :idalumno, :idempresa, :idpersonal, :idSemestre)");
+        $stmt = $pdo->prepare("INSERT INTO inscripciones (fecha_inicio, fecha_fin, estatus, idalumno, idempresa, idpersonal, idtutor_academico, idSemestre) 
+                               VALUES (:fecha_inicio, :fecha_fin, :estatus, :idalumno, :idempresa, :idpersonal, :idtutor_academico, :idSemestre)");
         $stmt->execute([
             ':fecha_inicio' => $data['fecha_inicio'],
             ':fecha_fin' => $data['fecha_fin'],
@@ -215,6 +233,7 @@ function agregarInscripcion($data) {
             ':idalumno' => $data['idalumno'],
             ':idempresa' => $data['idempresa'],
             ':idpersonal' => $data['idpersonal'],
+            ':idtutor_academico' => $data['idtutor_academico'],
             ':idSemestre' => $data['idSemestre']
            
         ]);

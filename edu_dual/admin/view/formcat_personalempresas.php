@@ -81,7 +81,7 @@
     echo "<i class='fas {$icono}' style='font-size: 64px; color: {$color};'></i>";
     echo "</div>";
     echo "<div class='card-body'>";
-    echo "<h5 class='card-title text-center'><b>{$alumno['nombre_personal']} {$alumno['apellido_paterno']} {$alumno['apellido_materno']}</b></h5>";
+    echo "<h5 class='card-title text-center'><b>{$alumno['nombre_personal']} {$alumno['papellido_paterno']} {$alumno['papellido_materno']}</b></h5>";
 
     echo "<p class='card-text'>";
     //echo "<b>CURP:</b> {$alumno['curp']}<br>";
@@ -97,7 +97,7 @@
     echo "<button class='btn btn-danger' onclick='eliminarPersonal({$alumno['idpersonal']})' style='font-size: 14px;'>
             <i class='fas fa-trash'></i> Eliminar
           </button>&nbsp;";
-    echo "<button class='btn btn-info' onclick='crearCuenta(\"{$alumno['idpersonal']}\", \"{$alumno['nombre_personal']}\", \"{$alumno['apellido_paterno']}\", \"{$alumno['apellido_materno']}\", \"{$alumno['correo']}\", \"{$alumno['telefono']}\")' style='font-size: 14px;'>
+    echo "<button class='btn btn-info' onclick='crearCuenta(\"{$alumno['idpersonal']}\", \"{$alumno['nombre_personal']}\", \"{$alumno['papellido_paterno']}\", \"{$alumno['papellido_materno']}\", \"{$alumno['correo']}\", \"{$alumno['telefono']}\")' style='font-size: 14px;'>
             <i class='fas fa-user'></i> Acceso
           </button>";
 
@@ -122,12 +122,12 @@
               <input type="text" class="form-control" id="nombre_personal" name="nombre_personal" style="text-transform: uppercase;" required>
             </div>
             <div class="mb-3">
-              <label for="apellido_paterno" class="form-label"><b>Apellido Paterno:</b></label>
-              <input type="text" class="form-control" id="apellido_paterno" name="apellido_paterno" style="text-transform: uppercase;" required>
+              <label for="papellido_paterno" class="form-label"><b>Apellido Paterno:</b></label>
+              <input type="text" class="form-control" id="papellido_paterno" name="papellido_paterno" style="text-transform: uppercase;" required>
             </div>
             <div class="mb-3">
-              <label for="apellido_materno" class="form-label"><b>Apellido Materno:</b></label>
-              <input type="text" class="form-control" id="apellido_materno" name="apellido_materno" style="text-transform: uppercase;" required>
+              <label for="papellido_materno" class="form-label"><b>Apellido Materno:</b></label>
+              <input type="text" class="form-control" id="papellido_materno" name="papellido_materno" style="text-transform: uppercase;" required>
             </div>
             <div class="mb-3">
               <label for="correo" class="form-label"><b>Correo:</b></label>
@@ -178,12 +178,12 @@
                         <input type="text" class="form-control" id="nombre_personalEditar" name="nombre_personal" style="text-transform: uppercase;" required>
                     </div>
                     <div class="mb-3">
-                        <label for="apellido_paternoEditar" class="form-label"><b>Apellido Paterno:</b></label>
-                        <input type="text" class="form-control" id="apellido_paternoEditar" name="apellido_paterno" style="text-transform: uppercase;" required>
+                        <label for="papellido_paternoEditar" class="form-label"><b>Apellido Paterno:</b></label>
+                        <input type="text" class="form-control" id="papellido_paternoEditar" name="papellido_paterno" style="text-transform: uppercase;" required>
                     </div>
                     <div class="mb-3">
-                        <label for="apellido_maternoEditar" class="form-label"><b>Apellido Materno:</b></label>
-                        <input type="text" class="form-control" id="apellido_maternoEditar" name="apellido_materno" style="text-transform: uppercase;" required>
+                        <label for="papellido_maternoEditar" class="form-label"><b>Apellido Materno:</b></label>
+                        <input type="text" class="form-control" id="papellido_maternoEditar" name="papellido_materno" style="text-transform: uppercase;" required>
                     </div>
                     <div class="mb-3">
                         <label for="correoEditar" class="form-label"><b>Correo:</b></label>
@@ -272,7 +272,7 @@ function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
         } 
         
         // Alumno no tiene cuenta, proceder a la creación
-        const url = `add_user_personal.php?idpersonal=${encodeURIComponent(idAlumno)}&nombre_personal=${encodeURIComponent(nombre)}&apellido_paterno=${encodeURIComponent(apellidoP)}&apellido_materno=${encodeURIComponent(apellidoM)}&correo=${encodeURIComponent(correo)}&telefono=${encodeURIComponent(celular)}`;
+        const url = `add_user_personal.php?idpersonal=${encodeURIComponent(idAlumno)}&nombre_personal=${encodeURIComponent(nombre)}&papellido_paterno=${encodeURIComponent(apellidoP)}&papellido_materno=${encodeURIComponent(apellidoM)}&correo=${encodeURIComponent(correo)}&telefono=${encodeURIComponent(celular)}`;
         window.location.href = url; // Redirigir al archivo
     })
     .catch(function (error) {
@@ -351,8 +351,8 @@ function editarPersonal(id) {
 
       document.getElementById('id_personal').value = alumno.idpersonal;
       document.getElementById('nombre_personalEditar').value = alumno.nombre_personal;
-      document.getElementById('apellido_paternoEditar').value = alumno.apellido_paterno;
-      document.getElementById('apellido_maternoEditar').value = alumno.apellido_materno;
+      document.getElementById('papellido_paternoEditar').value = alumno.papellido_paterno;
+      document.getElementById('papellido_maternoEditar').value = alumno.papellido_materno;
       document.getElementById('correoEditar').value = alumno.correo;
       //document.getElementById('curpEditar').value = alumno.curp;
       document.getElementById('sexoEditar').value = alumno.sexo;
@@ -512,8 +512,8 @@ function eliminarPersonal(id) {
             axios.post('cat_personalempresas/personalempresas.php', new URLSearchParams({
                 action: 'agregar',
                 nombre_personal: formData.get('nombre_personal'),
-                apellido_paterno: formData.get('apellido_paterno'),
-                apellido_materno: formData.get('apellido_materno'),
+                papellido_paterno: formData.get('papellido_paterno'),
+                papellido_materno: formData.get('papellido_materno'),
                 correo: formData.get('correo'),
                 //curp: formData.get('curp'),
                 sexo: formData.get('sexo'),

@@ -90,8 +90,9 @@
     echo "<h5 class='card-title text-center'><b>{$inscripcion['nombre']} {$inscripcion['apellidop']} {$inscripcion['apellidom']}</b></h5>";
 
     echo "<p class='card-text'>";
-    echo "<b>Tutor Dual:</b> {$inscripcion['nombre_personal']} {$inscripcion['apellido_paterno']} {$inscripcion['apellido_materno']}<br>";
-	echo "<b>Empresa:</b> {$inscripcion['nombre_empresa']}<br>";
+    echo "<b>Tutor Academico:</b> {$inscripcion['nombre_tutor']} {$inscripcion['apellido_paterno']} {$inscripcion['apellido_materno']}<br>";
+    echo "<b>Tutor Personal:</b> {$inscripcion['nombre_personal']} {$inscripcion['papellido_paterno']} {$inscripcion['papellido_materno']}<br>";
+    echo "<b>Empresa:</b> {$inscripcion['nombre_empresa']}<br>";
     echo "<b>Ciclo Escolar:</b> {$inscripcion['semestre']}<br>";
     echo "<b>Fecha de Inicio:</b> {$inscripcion['fecha_inicio']}<br>";
     echo "<b>Fecha de Fin:</b> {$inscripcion['fecha_fin']}<br>";
@@ -144,7 +145,13 @@
             <div class="mb-3">
             <label for="idpersonal" class="form-label"><b>Asesor Dual:</b></label>
             <select class="form-control" id="idpersonal" name="idpersonal" required>
-            <option value="">SELECCIONE UN ASESOR</option>
+            <option value="">SELECCIONE UN ASESOR DEL PERSONAL DE LA EMPRESA</option>
+            </select>
+            </div>
+            <div class="mb-3">
+            <label for="idtutor_academico" class="form-label"><b>Tutor Academico:</b></label>
+            <select class="form-control" id="idtutor_academico" name="idtutor_academico" required>
+            <option value="">SELECCIONE UN TUTOR ACADEMICO</option>
             </select>
             </div>
             <div class="mb-3">
@@ -201,9 +208,15 @@
             </select>
             </div>
             <div class="mb-3">
-            <label for="idpersonalEditar" class="form-label"><b>Asesor Dual:</b></label>
+            <label for="idpersonalEditar" class="form-label"><b>Asesor del personal de la empresa:</b></label>
             <select class="form-control" id="idpersonalEditar" name="idpersonal" required>
-            <option value="">SELECCIONE UN ASESOR</option>
+            <option value="">SELECCIONE AL PERSONAL DE LA EMPRESA</option>
+            </select>
+            </div>
+            <div class="mb-3">
+            <label for="idtutor_academicoEditar" class="form-label"><b>Tutor academico:</b></label>
+            <select class="form-control" id="idtutor_academicoEditar" name="idtutor_academico" required>
+            <option value="">SELECCIONE UN TUTOR ACADEMICO</option>
             </select>
             </div>
             <div class="mb-3">
@@ -263,7 +276,7 @@
       });
     })
     .catch(error => {
-      alertaPersonalizada('danger', 'Error al cargar las carreras: ' + error.message);
+      alertaPersonalizada('danger', 'Error al cargar el alumno: ' + error.message);
     });
 }
     function cargarEmpresas() {
@@ -285,35 +298,61 @@
         option.textContent = empresa.nombre_empresa;
         empresaSelect.appendChild(option);
       });
-      empresaSelect.addEventListener('change', cargarPersonal);
+      empresaSelect.addEventListener('change', cargarPersonales);
     })
     .catch(error => {
-      alertaPersonalizada('danger', 'Error al cargar las carreras: ' + error.message);
+      alertaPersonalizada('danger', 'Error al cargar las empresas: ' + error.message);
     });
 }
-function cargarPersonal() {
+function cargarPersonales() {
   axios.get('cat_inscripciones/personal_empresas.php')
     .then(response => {
-      const personal = response.data;
+      const personales = response.data;
 
-      if (personal.error) {
-        alertaPersonalizada('danger', personal.error);
+      if (personales.error) {
+        alertaPersonalizada('danger', personales.error);
         return;
       }
 
       const personalSelect = document.getElementById('idpersonal');
       personalSelect.innerHTML = '<option value="">SELECCIONE UN TUTOR</option>'; // Limpiamos las opciones previas
 
-      personal.forEach(personal => {
+      personales.forEach(personal => {
         const option = document.createElement('option');
         option.value = personal.idpersonal;
-        option.textContent = personal.nombre_personal + " " + personal.apellido_paterno + " " + personal.apellido_materno;
+        option.textContent = personal.nombre_personal + " " + personal.papellido_paterno + " " + personal.papellido_materno;
         personalSelect.appendChild(option);
       });
      
     })
     .catch(error => {
-      alertaPersonalizada('danger', 'Error al cargar las carreras: ' + error.message);
+      alertaPersonalizada('danger', 'Error al cargar al personal: ' + error.message);
+    });
+}
+
+function cargarTutores() {
+  axios.get('cat_inscripciones/tutores_academicos.php')
+    .then(response => {
+      const tutores = response.data;
+
+      if (tutores.error) {
+        alertaPersonalizada('danger', tutores.error);
+        return;
+      }
+
+      const tutorSelect = document.getElementById('idtutor_academico');
+      tutorSelect.innerHTML = '<option value="">SELECCIONE UN TUTOR</option>'; // Limpiamos las opciones previas
+
+      tutores.forEach(tutor => {
+        const option = document.createElement('option');
+        option.value = tutor.idtutor_academico;
+        option.textContent = tutor.nombre_tutor + " " + tutor.apellido_paterno + " " + tutor.apellido_materno;
+        tutorSelect.appendChild(option);
+      });
+     
+    })
+    .catch(error => {
+      alertaPersonalizada('danger', 'Error al cargar al Tutor: ' + error.message);
     });
 }
 
@@ -354,7 +393,8 @@ function cargarSemestre() {
 
 document.addEventListener('DOMContentLoaded', cargarAlumnos);
 document.addEventListener('DOMContentLoaded', cargarEmpresas);
-document.addEventListener('DOMContentLoaded', cargarPersonal);
+document.addEventListener('DOMContentLoaded', cargarPersonales);
+document.addEventListener('DOMContentLoaded', cargarTutores);
 document.addEventListener('DOMContentLoaded', cargarSemestre);
 </script>
   <script>
@@ -435,7 +475,8 @@ function filtrarCards() {
       const inscripcion = response.data.inscripcion;
       const alumnos = response.data.alumnos;
       const empresas = response.data.empresas;
-      const personal = response.data.personal;
+      const personales = response.data.personales;
+      const tutores = response.data.tutores;
       const semestres = response.data.semestres;
 
       // Llenar los campos con los datos actuales
@@ -443,6 +484,7 @@ function filtrarCards() {
       document.getElementById('idalumnoEditar').value = inscripcion.idalumno;
       document.getElementById('idempresaEditar').value = inscripcion.idempresa;
       document.getElementById('idpersonalEditar').value = inscripcion.idpersonal;
+      document.getElementById('idtutor_academicoEditar').value = inscripcion.idtutor_academico;
       document.getElementById('idSemestreEditar').value = inscripcion.idSemestre;
       document.getElementById('fecha_inicioEditar').value = inscripcion.fecha_inicio;
       document.getElementById('fecha_finEditar').value = inscripcion.fecha_fin;
@@ -480,15 +522,28 @@ function filtrarCards() {
       const personalSelect = document.getElementById('idpersonalEditar');
       personalSelect.innerHTML = '';
 
-      personal.forEach(function(personal) {
+      personales.forEach(function(personal) {
         const option = document.createElement('option');
         option.value = personal.idpersonal;
-        option.textContent = personal.nombre_personal + " " + personal.apellido_paterno + " " + personal.apellido_materno;
+        option.textContent = personal.nombre_personal + " " + personal.papellido_paterno + " " + personal.papellido_materno;
 
         if(personal.idpersonal == inscripcion.idpersonal) {
             option.selected = true;
         }
         personalSelect.appendChild(option);
+      });
+      const tutorSelect = document.getElementById('idtutor_academicoEditar');
+      tutorSelect.innerHTML = '';
+
+      tutores.forEach(function(tutor) {
+        const option = document.createElement('option');
+        option.value = tutor.idtutor_academico;
+        option.textContent = tutor.nombre_tutor + " " + tutor.apellido_paterno + " " + tutor.apellido_materno;
+
+        if(tutor.idpersonal == inscripcion.idtutor_academico) {
+            option.selected = true;
+        }
+        tutorSelect.appendChild(option);
       });
       const semestreSelect = document.getElementById('idSemestreEditar');
       semestreSelect.innerHTML = '';
@@ -644,7 +699,8 @@ function eliminarInscripcion(id) {
     document.addEventListener('DOMContentLoaded', function () {
         cargarAlumnos();
         cargarEmpresas();
-        cargarPersonal();
+        cargarPersonales();
+        cargarTutores();
         cargarSemestre();
 
         // Manejar el envío del formulario
@@ -665,6 +721,7 @@ function eliminarInscripcion(id) {
                 idalumno: formData.get('idalumno'),
                 idempresa: formData.get('idempresa'),
                 idpersonal: formData.get('idpersonal'),
+                idtutor_academico: formData.get('idtutor_academico'),
                 idSemestre: formData.get('idSemestre')
             }))
             .then(function (response) {

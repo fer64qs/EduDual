@@ -9,19 +9,19 @@ header('Content-Type: application/json');
 $db = DBC::get();
 
 // Crear la consulta SQL para obtener las carreras
-$sql = "SELECT idpersonal, papellido_paterno, papellido_materno, nombre_personal FROM personal_empresas ";
+$sql = "SELECT idtutor_academico, apellido_paterno, apellido_materno, nombre_tutor FROM tutores_academicos ";
 
 // Preparar y ejecutar la consulta
 $stmt = $db->prepare($sql);
 $stmt->execute();
 
 // Obtener los resultados
-$personales = $stmt->fetchAll();
+$tutores = $stmt->fetchAll();
 
 // Verificar si hay resultados
-if (count($personales) > 0) {
+if (count($tutores) > 0) {
     // Devolver las carreras en formato JSON
-    echo json_encode($personales);
+    echo json_encode($tutores);
 } else {
     // Si no hay carreras, devolver un array vacío
     echo json_encode([]);
