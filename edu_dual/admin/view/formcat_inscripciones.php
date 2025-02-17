@@ -104,6 +104,11 @@
     echo "<button class='btn btn-danger' onclick='eliminarInscripcion({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
             <i class='fas fa-trash'></i> Eliminar
           </button>&nbsp;";
+
+    echo "<a href='bitacora.php?id={$inscripcion['idinscripcion']}' class='btn btn-info' style='font-size: 14px;'>
+          <i class='fas fa-calendar-alt'></i>
+        </a>&nbsp;";
+    
    
 
     echo "</div>";
