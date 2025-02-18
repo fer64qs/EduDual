@@ -21,15 +21,19 @@ if (isset($_REQUEST['idinscripcion'])) {
         empresas.nombre_empresa,
         empresas.rfc,
         empresas.representante,
-        inscripciones.idciclo,
-        ciclos_escolares.nombre_ciclo,
-        inscripciones.fecha_inicio,
-        inscripciones.fecha_fin,
-        inscripciones.estatus,
-        inscripciones.idtutoracademico,
+        inscripciones.idtutor_academico,
         tutores_academicos.apellido_paterno,
         tutores_academicos.apellido_materno,
-        tutores_academicos.nombre_tutor
+        tutores_academicos.nombre_tutor,
+        inscripciones.idpersonal,
+        personal_empresas.nombre_personal,
+        personal_empresas.papellido_paterno,
+        personal_empresas.papellido_materno,
+        inscripciones.idSemestre,
+        semestres.semestre,
+        inscripciones.fecha_inicio,
+        inscripciones.fecha_fin,
+        inscripciones.estatus
     FROM 
         inscripciones
     JOIN 
@@ -37,9 +41,11 @@ if (isset($_REQUEST['idinscripcion'])) {
     JOIN 
         empresas ON inscripciones.idempresa = empresas.idempresa
     JOIN 
-        ciclos_escolares ON inscripciones.idciclo = ciclos_escolares.idciclo
+        semestres ON inscripciones.idSemestre = semestres.idSemestre
     JOIN 
-        tutores_academicos ON inscripciones.idtutoracademico = tutores_academicos.idtutoracademico
+        personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
+    JOIN 
+        tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
     WHERE 
         inscripciones.idinscripcion = :idinscripcion
     ";
@@ -61,11 +67,12 @@ if (isset($_REQUEST['idinscripcion'])) {
         echo "Número de Control: <b>" . $fila['num_control'] . "</b><br>";
         echo "CURP: <b>" . $fila['curp'] . "</b><br>";
         echo "Empresa: <b>" . $fila['nombre_empresa'] . " (RFC: " . $fila['rfc'] . ", Representante: " . $fila['representante'] . ")</b><br>";
-        echo "Ciclo Escolar: <b>" . $fila['nombre_ciclo'] . "</b><br>";
+        echo "Ciclo Escolar: <b>" . $fila['semestre'] . "</b><br>";
         echo "Fecha Inicio: <b>" . $fila['fecha_inicio'] . "</b><br>";
         echo "Fecha Finaliza: <b>" . $fila['fecha_fin'] . "</b><br>";
         echo "Estatus: <b>" . $fila['estatus'] . "</b><br>";
         echo "Tutor Dual: <b>" . $fila['nombre_tutor'] . " " . $fila['apellido_paterno'] . " " . $fila['apellido_materno'] . "</b><br>";
+        echo "Personal de la empresa: <b>" . $fila['nombre_personal'] . " " . $fila['papellido_paterno'] . " " . $fila['papellido_materno'] . "</b><br>";
         echo "<hr>";
     }
 }
@@ -284,7 +291,7 @@ document.getElementById("insertarBitacoras").addEventListener("click", function(
     });
 	// Esperar 5 segundos antes de redirigir
     setTimeout(function() {
-        window.location.href = "cat_inscripciones.php";
+        window.location.href = "formcat_inscripciones.php";
     }, 5000); // 5000 milisegundos = 5 segundos
 
 	

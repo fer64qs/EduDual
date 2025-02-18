@@ -101,16 +101,19 @@
     echo "<button class='btn btn-warning' onclick='editarInscripcion({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
             <i class='fas fa-edit'></i> Editar
           </button>&nbsp;";
+          
     echo "<button class='btn btn-danger' onclick='eliminarInscripcion({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
             <i class='fas fa-trash'></i> Eliminar
           </button>&nbsp;";
-
-    echo "<a href='bitacora.php?id={$inscripcion['idinscripcion']}' class='btn btn-info' style='font-size: 14px;'>
-          <i class='fas fa-calendar-alt'></i>
-        </a>&nbsp;";
     
-   
-
+    echo "<button class='btn btn-info' onclick='redirigirBitacora({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
+          <i class='fas fa-calendar-alt'></i> Crono
+          </button>";
+          /*
+    echo "<button class='btn btn-info' onclick='redirigirBitacora({ $inscripcion['idinscripcion']}), "<?= $inscripcion["fecha_inicio"] ?>", "<?= $inscripcion["fecha_fin"] ?>", "<?= $inscripcion["estatus"] ?>")' style='font-size: 14px;'>
+          <i class='fas fa-calendar-alt'></i> Crono
+          </button>&nbsp;"; 
+*/
     echo "</div>";
     echo "</div>";
     echo "</div>";
@@ -412,7 +415,13 @@ function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
     window.location.href = url;
 }
 */
-
+function redirigirBitacora(idInscripcion, fechaInicio, fechaFin, estatus) {
+    // Construir la URL con los parámetros necesarios
+    const url = `bitacora.php?idinscripcion=${encodeURIComponent(idInscripcion)}`;
+    
+    // Redirigir a bitacora.php
+    window.location.href = url;
+}
 
 
     function alertaPersonalizada(tipo, mensaje) {
