@@ -1,5 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/edu_dual/alumno/view/DBC.php'); // Conexión a la base de datos
+require_once('DBC.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dias_trabajados = $_POST['dias_trabajados'];
 
     // Preparar la consulta SQL para actualizar la tabla
-    $sql = "UPDATE bitacoras_dual SET 
+    $sql = "UPDATE bitacoras SET 
             puesto = ?, 
             descripcion1 = ?, 
             descripcion2 = ?, 

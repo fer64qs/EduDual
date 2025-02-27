@@ -107,12 +107,12 @@ if (!empty($_SESSION["userId"])) {
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <li>
-                            <a class="dropdown-item" href="#" onclick="cargarVista('view/cat_cronograma/cronograma.php'); cerrarMenu();">
+                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/update_bitacora.php'); cerrarMenu();">
                                 <i class="fas fa-user-graduate"></i> Cronograma
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">
+                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/dualidad_formato.php'); cerrarMenu();">
                                 <i class="fas fa-graduation-cap"></i> Carreras
                             </a>
                         </li>
