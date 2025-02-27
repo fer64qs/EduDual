@@ -415,9 +415,9 @@ function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
     window.location.href = url;
 }
 */
-function redirigirBitacora(idInscripcion, fechaInicio, fechaFin, estatus) {
+function redirigirBitacora(idinscripcion) {
     // Construir la URL con los parámetros necesarios
-    const url = `bitacora.php?idinscripcion=${encodeURIComponent(idInscripcion)}`;
+    const url = `bitacora.php?idinscripcion=${encodeURIComponent(idinscripcion)}`;
     
     // Redirigir a bitacora.php
     window.location.href = url;

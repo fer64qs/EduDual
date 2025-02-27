@@ -56,8 +56,8 @@ if (isset($_REQUEST['idinscripcion'])) {
 
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $fechaInicial;
-    $fechaFinal;
+    $fechaInicial = "";
+    $fechaFinal = "";
     foreach ($resultados as $fila) {
 		$fechaInicial=$fila['fecha_inicio'];
 		$fechaFinal=$fila['fecha_fin'];
@@ -75,39 +75,29 @@ if (isset($_REQUEST['idinscripcion'])) {
         echo "Personal de la empresa: <b>" . $fila['nombre_personal'] . " " . $fila['papellido_paterno'] . " " . $fila['papellido_materno'] . "</b><br>";
         echo "<hr>";
     }
+    $bitacora_creada = verificarRegistros($idinscripcion);
 }
 
- verificarRegistros($idinscripcion);
-    //echo $resultado;
-//verificamos si la bitacora ya ha sido creada:
 function verificarRegistros($idInscripcion) {
-    // Consulta para seleccionar las filas que coincidan con el idinscripcion
     $query = "SELECT * FROM bitacoras WHERE idinscripcion = :idinscripcion";
-
     try {
-        // Preparar la consulta
         $stmt = DBC::get()->prepare($query);
         $stmt->bindValue(':idinscripcion', $idInscripcion, PDO::PARAM_INT);
-
-        // Ejecutar la consulta
         $stmt->execute();
-
-        // Obtener el número de filas
         $numRows = $stmt->rowCount();
-
-        // Verificar si hay registros
         if ($numRows > 0) {
-			$bitacora_creada="SI";
-			echo "<input type='text' id='estatus' name='estatus' value='CREADO' hidden>";
+            echo "<input type='text' id='estatus' name='estatus' value='CREADO' hidden>";
             echo "<div class='alert alert-success' role='alert'> <b>El Calendario de Actividades ya ha sido creado</b></div>
-			<script>document.getElementById('insertarBitacoras').style.display = 'none';</script>";
+            <script>document.getElementById('insertarBitacoras').style.display = 'none';</script>";
+            return "SI";
         } else {
-			$bitacora_creada="NO";
-			echo "<input type='text' id='estatus' name='estatus' value='NO CREADO' hidden>";
-            echo "<div class='alert alert-danger' role='alert'> <b>El Calendario de Actividades No ha sido creado<b></div>";
+            echo "<input type='text' id='estatus' name='estatus' value='NO CREADO' hidden>";
+            echo "<div class='alert alert-danger' role='alert'> <b>El Calendario de Actividades No ha sido creado</b></div>";
+            return "NO";
         }
     } catch (Exception $e) {
         echo "Error al verificar los registros: " . $e->getMessage();
+        return "ERROR";
     }
 }
 
@@ -241,9 +231,6 @@ echo "</tbody></table>";
 
 
 ?>
-
-
-
 
 <div id="messageContainer"></div>
 
