@@ -50,7 +50,7 @@ if (isset($_REQUEST['idinscripcion'])) {
     JOIN 
         personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
     JOIN 
-        tutores_academicos ON inscripciones.idpersonal = personal_empresas.idpersonal
+       tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
     WHERE 
         inscripciones.idinscripcion = :idinscripcion
     ";
@@ -58,7 +58,7 @@ if (isset($_REQUEST['idinscripcion'])) {
     $stmt = DBC::get()->prepare($query);
     $stmt->bindParam(':idinscripcion', $idinscripcion, PDO::PARAM_INT);
     $stmt->execute();
-
+    //tutores_academicos ON inscripciones.idpersonal = tutores_academicos.idtutor_academico
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($resultados as $fila) {
@@ -81,12 +81,12 @@ if (isset($_REQUEST['idinscripcion'])) {
 }
 
 // Función para verificar la existencia de registros
-function verificarRegistros($idInscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
+function verificarRegistros($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
     $query = "SELECT * FROM bitacoras WHERE idinscripcion = :idinscripcion";
 
     try {
         $stmt = DBC::get()->prepare($query);
-        $stmt->bindValue(':idinscripcion', $idInscripcion, PDO::PARAM_INT);
+        $stmt->bindValue(':idinscripcion', $idinscripcion, PDO::PARAM_INT);
         $stmt->execute();
 
         $numRows = $stmt->rowCount();
@@ -96,7 +96,7 @@ function verificarRegistros($idInscripcion, $nombrecompleto_alumno, $nombre_empr
             echo "<div class='alert alert-success' role='alert'> <b>El Calendario de Actividades ya ha sido creado</b></div>";
             echo "<script>document.getElementById('insertarBitacoras').style.display = 'none';</script>";
             // Mostrar la tabla con la bitácora
-            mostrarBitacoras($idInscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa);
+            mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa);
         } else {
             echo "<input type='text' id='estatus' name='estatus' value='NO CREADO' hidden>";
             echo "<div class='alert alert-danger' role='alert'> <b>El Calendario de Actividades No ha sido creado<b></div>";
@@ -107,12 +107,12 @@ function verificarRegistros($idInscripcion, $nombrecompleto_alumno, $nombre_empr
 }
 
 // Función para mostrar las bitácoras en una tabla
-function mostrarBitacoras($idInscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
+function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
     $query = "SELECT * FROM bitacoras WHERE idinscripcion = :idinscripcion ORDER BY bitacoras.no_semana";
 
     try {
         $stmt = DBC::get()->prepare($query);
-        $stmt->bindValue(':idinscripcion', $idInscripcion, PDO::PARAM_INT);
+        $stmt->bindValue(':idinscripcion', $idinscripcion, PDO::PARAM_INT);
         $stmt->execute();
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -148,7 +148,7 @@ function mostrarBitacoras($idInscripcion, $nombrecompleto_alumno, $nombre_empres
                 echo '<td>' . htmlspecialchars($fila['dias_trabajados']) . '</td>';
                 echo '<td>' . htmlspecialchars($fila['puesto']) . '</td>';
 				echo '<td>' . htmlspecialchars($fila['estatus_semana']) . '</td>';
-                echo "<td><a href='dualidad_formato.php?idbitacora=$idbitacora&nombrecompleto_alumno=" . urlencode($nombrecompleto_alumno) . "&nombre_empresa=" . urlencode($nombre_empresa) . "&nombreasesordual_docente=" . urlencode($nombreasesordual_docente) . "&responsable_empresa=" . urlencode($responsable_empresa) . "&idinscripcion_dual=$idInscripcion' target='contenedor'><img src='img/write.png'></a></td>";
+                echo "<td><a href='dualidad_formato.php?idbitacora=$idbitacora&nombrecompleto_alumno=" . urlencode($nombrecompleto_alumno) . "&nombre_empresa=" . urlencode($nombre_empresa) . "&nombreasesordual_docente=" . urlencode($nombreasesordual_docente) . "&responsable_empresa=" . urlencode($responsable_empresa) . "&idinscripcion=$idinscripcion' target='contenedor'><img src='img/write.png'></a></td>";
                 echo '</tr>';
             }
 

@@ -1,5 +1,5 @@
 <?php
-require_once('DBC.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/edu_dual/alumno/view/DBC.php'); // Conexión a la base de datos
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

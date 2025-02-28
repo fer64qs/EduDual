@@ -6,7 +6,6 @@ if (isset($_REQUEST["idinscripcion"])) {
 	
 }
 
-
 if (isset($_REQUEST["idbitacora"])) {
     $idbitacora = $_REQUEST["idbitacora"];
 }
@@ -180,7 +179,6 @@ try {
   <tr>
     <td class="tg-km2t">Nombre del Alumno:</td>
     <td class="tg-u3qo"><?php echo $nombrecompleto_alumno;?></td>
-    <!--<td class="tg-h25s">Grado y Grupo: 6AMI</td> -->
   </tr>
   <tr>
     <td class="tg-km2t">Empresa:</td>
@@ -369,88 +367,95 @@ try {
 	
 	</td>
   </tr>
-  
-  <tr>
-    <td class="tg-ynxx" colspan="2">COMENTARIOS DEL ESTUDIANTE DUAL</td>
-    <td class="tg-ynxx">OBSERVACIONES DEL TUTOR DUAL</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky" colspan="2">
-	<div id="editorComentariosAlumno">
-    <textarea name="editor6" id="editor6" rows="5">
-        <?php 
-        if (!empty($observaciones_alumno)) {
-            echo $observaciones_alumno;
-        }
-        ?>
-     </textarea>
-     </div>
-
-				<script>
-					ClassicEditor
-						.create(document.querySelector('#editor6'), {
-						placeholder: 'Si tiene observaciones con respecto a lo realizado por favor escríbalas...'
-							})
-							.then(editor => {
-								//'Si tiene observaciones con respecto a lo realizado por favor escríbalas.'
-								// Aquí se guarda la instancia del editor
-								window.editor6 = editor;
-								})
-									.catch(error => {
-										console.error(error);
-										});
-
-				</script>
-	</td>
-    
-	
-	<td class="tg-0pky">
-	<div id="editorComentariosTutor">
-    <textarea name="editor7" id="editor7" rows="5"  >
-        <?php 
-        if (!empty($observaciones_tutor)) {
-            echo $observaciones_tutor;
-        }
-        ?>
-     </textarea>
-     </div>
-
-				<script>
-        ClassicEditor
-            .create(document.querySelector('#editor7'), {
-                placeholder: '(Sección para el Tutor Dual). Si tiene observaciones con respecto a lo realizado por el alumn@ por favor escríbalas...'
-            })
-            .then(editor => {
-                window.editor7 = editor;
-
-                // Aplicar estilos personalizados al contenido del editor
-                editor.model.document.on('change:data', () => {
-                    editor.editing.view.change(writer => {
-                        const root = editor.editing.view.document.getRoot();
-                        writer.setStyle('color', '#091bb4', root);
-                        writer.setStyle('font-size', '16px', root);
-                    });
-                });
-
-                // Hacer el editor de solo lectura (inhabilitado)
-                editor7.enableReadOnlyMode( 'my-feature-id' );
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-				
-	</td>
-  </tr>
-  <tr>
+<!-- Comentarios del Estudiante Dual -->
+<tr>
+    <td class="tg-ynxx" colspan="3">COMENTARIOS DEL ESTUDIANTE DUAL</td>
+</tr>
+<tr>
     <td class="tg-0pky" colspan="3">
-	
-	</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow" colspan="2">________________________<br>Nombre y firma del estudiante<BR><?php echo $nombrecompleto_alumno;?></td>
-    <td class="tg-c3ow">________________________<br>Nombre y firma del asesor <br> <?php echo  $nombreasesordual_docente;?></td>
-  </tr>
+        <div id="editorComentariosAlumno">
+            <textarea name="editor6" id="editor6" rows="5">
+                <?php echo !empty($observaciones_alumno) ? $observaciones_alumno : ''; ?>
+            </textarea>
+        </div>
+
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor6'), {
+                    placeholder: 'Si tiene observaciones con respecto a lo realizado, por favor escríbalas...'
+                })
+                .then(editor => {
+                    window.editor6 = editor;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
+    </td>
+</tr>
+
+<!-- Comentarios del Tutor Dual -->
+<tr>
+    <td class="tg-ynxx" colspan="3">OBSERVACIONES DEL TUTOR DUAL</td>
+</tr>
+<tr>
+    <td class="tg-0pky" colspan="3">
+        <div id="editorComentariosTutor">
+            <textarea name="editor7" id="editor7" rows="5">
+                <?php echo !empty($observaciones_tutor) ? $observaciones_tutor : ''; ?>
+            </textarea>
+        </div>
+
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor7'), {
+                    placeholder: '(Sección para el Tutor Dual). Si tiene observaciones con respecto a lo realizado por el alumn@, por favor escríbalas...'
+                })
+                .then(editor => {
+                    window.editor7 = editor;
+                    editor.enableReadOnlyMode('lock-editor7'); // Bloquear edición
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
+    </td>
+</tr>
+
+<!-- Comentarios del Personal de la Empresa -->
+<tr>
+    <td class="tg-ynxx" colspan="3">OBSERVACIONES DEL PERSONAL DE LA EMPRESA</td>
+</tr>
+<tr>
+    <td class="tg-0pky" colspan="3">
+        <div id="editorComentariosPersonal">
+            <textarea name="editor8" id="editor8" rows="5">
+                <?php echo !empty($observaciones_empresa) ? $observaciones_empresa : ''; ?>
+            </textarea>
+        </div>
+
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor8'), {
+                    placeholder: '(Sección para el personal de la empresa). Si tiene observaciones con respecto a lo realizado por el alumn@, por favor escríbalas...'
+                })
+                .then(editor => {
+                    window.editor8 = editor;
+                    editor.enableReadOnlyMode('lock-editor8'); // Bloquear edición
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
+    </td>
+</tr>
+<!-- Firmas -->
+<tr>
+    <td class="tg-c3ow">________________________<br>Nombre y firma del estudiante<br><?php echo $nombrecompleto_alumno; ?></td>
+    <td class="tg-c3ow">________________________<br>Nombre y firma del asesor<br><?php echo $nombreasesordual_docente; ?></td>
+    <td class="tg-c3ow">________________________<br>Nombre y firma del personal de la empresa<br><?php echo $responsable_empresa; ?></td>
+</tr>
+</tr>
 </tbody></table>
 <br>
 <br>
@@ -475,39 +480,7 @@ try {
 <script>
 function probar()
 {
-	
-	/*
-	puesto
-	descripcion1
-	descripcion2
-	descripcion3
-	descripcion4
-	descripcion5
-	observaciones_alumno
-	dias_trabajados
-	*/
-	/*
-	const descripcion1 = window.editor1.getData(); // Obtener el valor del editor
-        alert(descripcion1); // Mostrar el valor en un alert
-		
-	const descripcion2 = window.editor2.getData(); // Obtener el valor del editor
-        alert(descripcion2); // Mostrar el valor en un alert
-		
-    const descripcion3 = window.editor3.getData(); // Obtener el valor del editor
-        alert(descripcion3); // Mostrar el valor en un alert
-		
-	const descripcion4 = window.editor4.getData(); // Obtener el valor del editor
-        alert(descripcion4); // Mostrar el valor en un alert
-		
-	const descripcion5 = window.editor5.getData(); // Obtener el valor del editor
-        alert(descripcion5); // Mostrar el valor en un alert
-		
-    const observaciones_alumno = window.editor6.getData(); // Obtener el valor del editor
-        alert(observaciones_alumno); // Mostrar el valor en un alert
-		
-		//const valorEditor = window.editor7.getData(); // Obtener el valor del editor
-        //alert(valorEditor);
-		*/
+
 	
 	const idbitacora = "<?php echo $idbitacora; ?>";
 	
