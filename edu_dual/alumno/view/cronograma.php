@@ -1,5 +1,5 @@
 <?php
-require_once('DBC.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/edu_dual/alumno/view/DBC.php'); // Conexión a la base de datos
 
 // Inicializar las variables para evitar errores si no están definidas en la solicitud
 $nombrecompleto_alumno = isset($_REQUEST["nombrecompleto_alumno"]) ? $_REQUEST["nombrecompleto_alumno"] : '';
@@ -26,19 +26,19 @@ if (isset($_REQUEST['idinscripcion'])) {
         empresas.nombre_empresa,
         empresas.rfc,
         empresas.representante,
-        inscripciones.idtutor_academico,
-        tutores_academicos.apellido_paterno,
-        tutores_academicos.apellido_materno,
-        tutores_academicos.nombre_tutor,
-        inscripciones.idpersonal,
-        personal_empresas.nombre_personal,
-        personal_empresas.papellido_paterno,
-        personal_empresas.papellido_materno,
         inscripciones.idSemestre,
         semestres.semestre,
         inscripciones.fecha_inicio,
         inscripciones.fecha_fin,
-        inscripciones.estatus
+        inscripciones.estatus,
+        inscripciones.idpersonal,
+        personal_empresas.papellido_paterno,
+        personal_empresas.papellido_materno,
+        personal_empresas.nombre_personal,
+        inscripciones.idtutor_academico,
+        tutores_academicos.apellido_paterno,
+        tutores_academicos.apellido_materno,
+        tutores_academicos.nombre_tutor
     FROM 
         inscripciones
     JOIN 
@@ -46,11 +46,11 @@ if (isset($_REQUEST['idinscripcion'])) {
     JOIN 
         empresas ON inscripciones.idempresa = empresas.idempresa
     JOIN 
-        semestres ON inscripciones.idSemestre = semestres.idSemestre
+        ciclos_escolares ON inscripciones.idSemestres = ciclos_escolares.idciclo
     JOIN 
         personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
     JOIN 
-        tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
+        tutores_academicos ON inscripciones.idpersonal = personal_empresas.idpersonal
     WHERE 
         inscripciones.idinscripcion = :idinscripcion
     ";
@@ -71,8 +71,8 @@ if (isset($_REQUEST['idinscripcion'])) {
         echo "&nbsp;&nbsp;Fecha Inicio: <b>" . htmlspecialchars($fila['fecha_inicio']) . "</b><br>";
         echo "&nbsp;&nbsp;Fecha Finaliza: <b>" . htmlspecialchars($fila['fecha_fin']) . "</b><br>";
         echo "&nbsp;&nbsp;Estatus: <b>" . htmlspecialchars($fila['estatus']) . "</b><br>";
-        echo "&nbsp;&nbsp;Tutor Academico: <b>" . htmlspecialchars($fila['nombre_tutor']) . " " . htmlspecialchars($fila['apellido_paterno']) . " " . htmlspecialchars($fila['apellido_materno']) . "</b><br>";
         echo "&nbsp;&nbsp;Personal Empresa: <b>" . htmlspecialchars($fila['nombre_personal']) . " " . htmlspecialchars($fila['papellido_paterno']) . " " . htmlspecialchars($fila['papellido_materno']) . "</b><br>";
+        echo "&nbsp;&nbsp;Tutor Academico: <b>" . htmlspecialchars($fila['nombre_tutor']) . " " . htmlspecialchars($fila['apellido_paterno']) . " " . htmlspecialchars($fila['apellido_materno']) . "</b><br>";
         echo "<hr>";
     }
 
@@ -81,12 +81,12 @@ if (isset($_REQUEST['idinscripcion'])) {
 }
 
 // Función para verificar la existencia de registros
-function verificarRegistros($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
+function verificarRegistros($idInscripcionDual, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
     $query = "SELECT * FROM bitacoras WHERE idinscripcion = :idinscripcion";
 
     try {
         $stmt = DBC::get()->prepare($query);
-        $stmt->bindValue(':idinscripcion', $idinscripcion, PDO::PARAM_INT);
+        $stmt->bindValue(':idinscripcion', $idInscripcionDual, PDO::PARAM_INT);
         $stmt->execute();
 
         $numRows = $stmt->rowCount();
@@ -96,7 +96,7 @@ function verificarRegistros($idinscripcion, $nombrecompleto_alumno, $nombre_empr
             echo "<div class='alert alert-success' role='alert'> <b>El Calendario de Actividades ya ha sido creado</b></div>";
             echo "<script>document.getElementById('insertarBitacoras').style.display = 'none';</script>";
             // Mostrar la tabla con la bitácora
-            mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa);
+            mostrarBitacoras($idInscripcionDual, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa);
         } else {
             echo "<input type='text' id='estatus' name='estatus' value='NO CREADO' hidden>";
             echo "<div class='alert alert-danger' role='alert'> <b>El Calendario de Actividades No ha sido creado<b></div>";
@@ -107,12 +107,12 @@ function verificarRegistros($idinscripcion, $nombrecompleto_alumno, $nombre_empr
 }
 
 // Función para mostrar las bitácoras en una tabla
-function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
+function mostrarBitacoras($idInscripcionDual, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
     $query = "SELECT * FROM bitacoras WHERE idinscripcion = :idinscripcion ORDER BY bitacoras.no_semana";
 
     try {
         $stmt = DBC::get()->prepare($query);
-        $stmt->bindValue(':idinscripcion', $idinscripcion, PDO::PARAM_INT);
+        $stmt->bindValue(':idinscripcion', $idInscripcionDual, PDO::PARAM_INT);
         $stmt->execute();
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

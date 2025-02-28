@@ -1,5 +1,5 @@
 <?php
-require_once('DBC.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/edu_dual/alumno/view/DBC.php'); // Conexión a la base de datos
 
 if (isset($_REQUEST["idinscripcion"])) {
     $idinscripcion = $_REQUEST["idinscripcion"];
