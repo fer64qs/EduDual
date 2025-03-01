@@ -18,10 +18,6 @@ if (isset($_REQUEST["nombre_empresa"])) {
     $nombre_empresa = $_REQUEST["nombre_empresa"];
 }
 
-if (isset($_REQUEST["idasesordual_docente"])) {
-    $idasesordual_docente = $_REQUEST["idasesordual_docente"];
-}
-
 if (isset($_REQUEST["nombreasesordual_docente"])) {
     $nombreasesordual_docente = $_REQUEST["nombreasesordual_docente"];
 }
