@@ -553,8 +553,13 @@ function actualizarDatos() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 alert(xhr.responseText); // Mostrar el resultado de la actualización
+
+                // Actualizar el campo de días trabajados
                 const txtDiasTrabajados = document.getElementById('txtdias_trabajados');
                 txtDiasTrabajados.value = diasTrabajados;
+
+                // Abrir la nueva pestaña con form_datosalumno.php
+                window.location.href = "form_datosalumno.php";
         
             } else {
                 alert("Ocurrió un error al intentar actualizar los datos");
@@ -564,7 +569,6 @@ function actualizarDatos() {
 
     xhr.send(new URLSearchParams(datos).toString());
 }
-
 </script>
 
 <script>
@@ -600,8 +604,8 @@ function imprimirContenido() {
     // Construir la URL con los parámetros
     const url = `../../pdf.php?idinscripcion=${encodeURIComponent(idinscripcion)}&idbitacora=${encodeURIComponent(idbitacora)}&nombrecompleto_alumno=${nombrecompleto_alumno}&nombre_empresa=${nombre_empresa}&nombreasesordual_docente=${nombreasesordual_docente}&responsable_empresa=${responsable_empresa}&semana=${semana}&dias_trabajados=${dias_trabajados}&puesto=${puesto}&fecha1=${fecha1}&descripcion1=${descripcion1}&fecha2=${fecha2}&descripcion2=${descripcion2}&fecha3=${fecha3}&descripcion3=${descripcion3}&fecha4=${fecha4}&descripcion4=${descripcion4}&fecha5=${fecha5}&descripcion5=${descripcion5}&observaciones_alumno=${observaciones_alumno}&observaciones_tutor=${observaciones_tutor}&observaciones_empresa=${observaciones_empresa}`;
 
-    // Redirigir a cronograma.php
-    window.location.href = url;
+    // Redirigir ai.php
+    window.open(url, "_blank");
 }
 </script>
 

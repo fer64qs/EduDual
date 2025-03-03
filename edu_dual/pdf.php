@@ -142,9 +142,9 @@ $html = '
                 </td>
             </tr>
             <tr>
-                <td class="tg-c3ow firmas">_____________________________________<br>Nombre y firma del estudiante<br>' . $nombrecompleto_alumno . '</td>
-                <td class="tg-c3ow firmas">_____________________________________<br>Nombre y firma del asesor<br>' . $nombreasesordual_docente . '</td>
-                <td class="tg-c3ow firmas">_____________________________________<br>Nombre y firma del personal de la empresa<br>' . strtoupper($responsable_empresa). '</td>
+                <td class="tg-c3ow firmas">_________________________<br>Nombre y firma del estudiante<br>' . $nombrecompleto_alumno . '</td>
+                <td class="tg-c3ow firmas">_________________________<br>Nombre y firma del asesor<br>' . $nombreasesordual_docente . '</td>
+                <td class="tg-c3ow firmas">_________________________<br>Nombre y firma del personal de la empresa<br>' . strtoupper($responsable_empresa). '</td>
             </tr>
         </tbody>
     </table>

@@ -133,7 +133,7 @@
     // Construir la URL con los parámetros necesarios
     const url = `cronograma.php?idinscripcion=${encodeURIComponent(idinscripcion)}`;
     
-    // Redirigir a bitacora.php
+    // Redirigir a cronograma.php
     window.location.href = url;
 }
     </script>
