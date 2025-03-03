@@ -153,7 +153,7 @@ function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empres
                 echo '<td>' . htmlspecialchars($fila['dias_trabajados']) . '</td>';
                 echo '<td>' . htmlspecialchars($fila['puesto']) . '</td>';
                 echo '<td>' . htmlspecialchars($fila['estatus_semana']) . '</td>';
-                echo "<td><a href='dualidad_formato.php?idbitacora=$idbitacora&nombrecompleto_alumno=" . urlencode($nombrecompleto_alumno) . "&nombre_empresa=" . urlencode($nombre_empresa) . "&nombreasesordual_docente=" . urlencode($nombreasesordual_docente) . "&responsable_empresa=" . urlencode($responsable_empresa) . "&idinscripcion=$idinscripcion'><img src='img/write.png'></a></td>";
+                echo "<td> <a href='#' onclick=\"window.location='dualidad_formato.php?idbitacora=$idbitacora&nombrecompleto_alumno=" . urlencode($nombrecompleto_alumno) . "&nombre_empresa=" . urlencode($nombre_empresa) . "&nombreasesordual_docente=" . urlencode($nombreasesordual_docente) . "&responsable_empresa=" . urlencode($responsable_empresa) . "&idinscripcion=$idinscripcion'; return false;\"><img src='img/write.png'></a></td>";
                 echo '</tr>';
             }
 
