@@ -5,7 +5,6 @@ if (isset($_REQUEST["idinscripcion"])) {
     $idinscripcion = $_REQUEST["idinscripcion"];
 	
 }
-
 if (isset($_REQUEST["idbitacora"])) {
     $idbitacora = $_REQUEST["idbitacora"];
 }
@@ -49,7 +48,7 @@ if (isset($_REQUEST["responsable_empresa"])) {
   font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg .tg-km2t{border-color:#ffffff;font-weight:bold;text-align:left;vertical-align:top}
 .tg .tg-zv4m{border-color:#ffffff;text-align:left;vertical-align:top}
-.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-c3ow{text-align:center;vertical-align:top;width: 33.33%;}
 .tg .tg-ddj0{background-color:#591a1a;border-color:inherit;color:#ffffff;font-weight:bold;text-align:center;vertical-align:top}
 .tg .tg-aw21{border-color:#ffffff;font-weight:bold;text-align:center;vertical-align:top}
 .tg .tg-h25s{border-color:#ffffff;font-weight:bold;text-align:right;vertical-align:top}
@@ -57,6 +56,12 @@ if (isset($_REQUEST["responsable_empresa"])) {
 .tg .tg-va5j{background-color:#591a1a;border-color:inherit;color:#ffffff;text-align:left;vertical-align:top}
 .tg .tg-ynxx{background-color:#591a1a;border-color:inherit;color:#ffffff;text-align:center;vertical-align:top}
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+#tabla-firmas {
+  border: none !important;
+  text-align:center;
+
+}
+
 </style>
 
 
@@ -83,10 +88,6 @@ $indicador_tutor="";
 $dias_trabajados="";
 $puesto="";
 $observaciones_alumno="";
-
-
-
-
 
 	$idbitacora1 = $_REQUEST['idbitacora'];
 	$query = "SELECT * FROM bitacoras WHERE idbitacora = :idbitacora1 ORDER BY no_semana";
@@ -133,9 +134,6 @@ try {
 }
 	?>
 </div>
-
-
-
 <table class="tg" style="table-layout: fixed; width: 90%;"><colgroup>
 <col style="width: 179.2px">
 <col style="width: 396.2px">
@@ -185,10 +183,7 @@ try {
     <td class="tg-va5j">FECHA</td>
     <td class="tg-ynxx" colspan="2">ACTIVIDADES REALIZADAS</td>
   </tr>
-  
-  
-  
-  
+
   <tr>
     <td class="tg-0pky">
 	<label for="birthday"></label>
@@ -221,10 +216,6 @@ try {
 				</script>
 	</td>
   </tr>
-  
-  
-  
-  
   <tr>
     <td class="tg-0pky">
 	<label for="birthday"></label>
@@ -255,8 +246,7 @@ try {
 										console.error(error);
 										});
 
-				</script>
-	
+		</script>
 	</td>
   </tr>
   <tr>
@@ -290,8 +280,6 @@ try {
 										});
 
 				</script>
-	
-	
 	</td>
   </tr>
   <tr>
@@ -445,39 +433,35 @@ try {
         </script>
     </td>
 </tr>
-<!-- Firmas -->
-<tr>
+</tbody></table>
+<table id="tabla-firmas" style="width: 90%; margin-top: 20px;">
+  <tr>
     <td class="tg-c3ow">________________________<br>Nombre y firma del estudiante<br><?php echo $nombrecompleto_alumno; ?></td>
     <td class="tg-c3ow">________________________<br>Nombre y firma del asesor<br><?php echo $nombreasesordual_docente; ?></td>
-    <td class="tg-c3ow">________________________<br>Nombre y firma del personal de la empresa<br><?php echo $responsable_empresa; ?></td>
-</tr>
-</tr>
-</tbody></table>
+    <td class="tg-c3ow">________________________<br>Nombre y firma del personal <br><?php echo $responsable_empresa; ?></td>
+  </tr>
+</table>
 <br>
 <br>
 <br>
 <!--
-<div>
-<button value="Guardar">Guardar</button><button value="imprimir" onclick="return imprimirContenido();">Imprimir</button>
-</div>
+
 -->
 <div class="text-center">
 <br>
 </div>
-<div>
+
 <div class="fixed-bottom-visible text-center">
   
   <button type="button" class="btn btn-secondary" onclick="return imprimirContenido();">Imprimir</button>
   <button type="button" class="btn btn-danger" onclick="return actualizarDatos();">Guardar</button>
   <br>
 </div>
-</div>
 
+    </tbody>
 <script>
 function probar()
 {
-
-	
 	const idbitacora = "<?php echo $idbitacora; ?>";
 	
 	var puesto = document.getElementById("combo_puesto").value;
@@ -486,8 +470,6 @@ function probar()
 		alert("Debe seleccionar el puesto en que se desempeña durante esta semana");
 		return false;
 	}
-	
-		
 		let diasTrabajados = 0;
 
 const descripcion1 = window.editor1.getData(); // Obtener el valor del editor
@@ -520,8 +502,6 @@ alert("Días trabajados: " + diasTrabajados);
 }
 </script>
 
-
-
 <script>
 function actualizarDatos() {
     const idbitacora = "<?php echo $idbitacora; ?>";
@@ -548,8 +528,8 @@ function actualizarDatos() {
 
     const descripcion5 = window.editor5.getData();
     if (descripcion5.length > 0) diasTrabajados++;
-	
-	const observaciones_alumno = window.editor6.getData(); // Obtener el valor del editor
+
+    const observaciones_alumno = window.editor6.getData(); // Obtener el valor del editor
         
     // Crear un objeto con los datos a enviar
     const datos = {
@@ -560,7 +540,7 @@ function actualizarDatos() {
         descripcion3: descripcion3,
         descripcion4: descripcion4,
         descripcion5: descripcion5,
-		observaciones_alumno: observaciones_alumno,
+        observaciones_alumno: observaciones_alumno,
         dias_trabajados: diasTrabajados
     };
 
@@ -573,8 +553,9 @@ function actualizarDatos() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 alert(xhr.responseText); // Mostrar el resultado de la actualización
-				const txtDiasTrabajados = document.getElementById('txtdias_trabajados');
-				txtDiasTrabajados.value=diasTrabajados;
+                const txtDiasTrabajados = document.getElementById('txtdias_trabajados');
+                txtDiasTrabajados.value = diasTrabajados;
+        
             } else {
                 alert("Ocurrió un error al intentar actualizar los datos");
             }
@@ -591,22 +572,42 @@ function validar()
 {
 alert("Se requiere el visto bueno del Asesor y del Representante de la Empresa");
 }
+function imprimirContenido() {
+    // Obtener los datos necesarios
+    const idinscripcion = "<?php echo $idinscripcion; ?>";
+    const idbitacora = "<?php echo $idbitacora; ?>";
+    const nombrecompleto_alumno = encodeURIComponent("<?php echo $nombrecompleto_alumno; ?>");
+    const nombre_empresa = encodeURIComponent("<?php echo $nombre_empresa; ?>");
+    const nombreasesordual_docente = encodeURIComponent("<?php echo $nombreasesordual_docente; ?>");
+    const responsable_empresa = encodeURIComponent("<?php echo $responsable_empresa; ?>");
+    const semana = "<?php echo $semana; ?>";
+    const dias_trabajados = encodeURIComponent(document.getElementById('txtdias_trabajados').value);
+    const puesto = encodeURIComponent(document.getElementById('combo_puesto').value);
+    const fecha1 = encodeURIComponent(document.getElementById('fecha1').value);
+    const descripcion1 = encodeURIComponent(window.editor1.getData());
+    const fecha2 = encodeURIComponent(document.getElementById('fecha2').value);
+    const descripcion2 = encodeURIComponent(window.editor2.getData());
+    const fecha3 = encodeURIComponent(document.getElementById('fecha3').value);
+    const descripcion3 = encodeURIComponent(window.editor3.getData());
+    const fecha4 = encodeURIComponent(document.getElementById('fecha4').value);
+    const descripcion4 = encodeURIComponent(window.editor4.getData());
+    const fecha5 = encodeURIComponent(document.getElementById('fecha5').value);
+    const descripcion5 = encodeURIComponent(window.editor5.getData());
+    const observaciones_alumno = encodeURIComponent(window.editor6.getData());
+    const observaciones_tutor = encodeURIComponent(window.editor7.getData());
+    const observaciones_empresa = encodeURIComponent(window.editor8.getData());
+
+    // Construir la URL con los parámetros
+    const url = `../../pdf.php?idinscripcion=${encodeURIComponent(idinscripcion)}&idbitacora=${encodeURIComponent(idbitacora)}&nombrecompleto_alumno=${nombrecompleto_alumno}&nombre_empresa=${nombre_empresa}&nombreasesordual_docente=${nombreasesordual_docente}&responsable_empresa=${responsable_empresa}&semana=${semana}&dias_trabajados=${dias_trabajados}&puesto=${puesto}&fecha1=${fecha1}&descripcion1=${descripcion1}&fecha2=${fecha2}&descripcion2=${descripcion2}&fecha3=${fecha3}&descripcion3=${descripcion3}&fecha4=${fecha4}&descripcion4=${descripcion4}&fecha5=${fecha5}&descripcion5=${descripcion5}&observaciones_alumno=${observaciones_alumno}&observaciones_tutor=${observaciones_tutor}&observaciones_empresa=${observaciones_empresa}`;
+
+    // Redirigir a cronograma.php
+    window.location.href = url;
+}
 </script>
 
 <script>
-        function imprimirContenido() {
-            var contenido = document.documentElement.innerHTML;
-            var ventanaNueva = window.open('', '_blank');
-            ventanaNueva.document.write(contenido);
-            ventanaNueva.document.close();
-            ventanaNueva.print();
-        }
+       
     </script>
-
-
-
-
-	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     .fixed-bottom-visible {
