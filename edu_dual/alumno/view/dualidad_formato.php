@@ -53,7 +53,7 @@ if (isset($_REQUEST["responsable_empresa"])) {
 .tg .tg-aw21{border-color:#ffffff;font-weight:bold;text-align:center;vertical-align:top}
 .tg .tg-h25s{border-color:#ffffff;font-weight:bold;text-align:right;vertical-align:top}
 .tg .tg-u3qo{border-color:#ffffff;text-align:left;text-decoration:underline;vertical-align:top}
-.tg .tg-va5j{background-color:#591a1a;border-color:inherit;color:#ffffff;text-align:left;vertical-align:top}
+.tg .tg-va5j{background-color:#591a1a;border-color:inherit;color:#ffffff;text-align:center;vertical-align:top}
 .tg .tg-ynxx{background-color:#591a1a;border-color:inherit;color:#ffffff;text-align:center;vertical-align:top}
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
 #tabla-firmas {
@@ -136,21 +136,21 @@ try {
 </div>
 <table class="tg" style="table-layout: fixed; width: 90%;"><colgroup>
 <col style="width: 179.2px">
-<col style="width: 396.2px">
+<col style="width: 179.2px">
 <col style="width: 582.2px">
 </colgroup>
 <thead>
   <tr>
-    <th class="tg-ddj0" colspan="3">SISTEMA DE EDUACIÓN DUAL</th>
+    <th class="tg-ddj0" colspan="4">SISTEMA DE EDUACIÓN DUAL</th>
   </tr></thead>
 <tbody>
   <tr>
-    <td class="tg-aw21" colspan="3">REPORTE SEMANAL</td>
+    <td class="tg-aw21" colspan="4">REPORTE SEMANAL</td>
   </tr>
   <tr>
     <td class="tg-zv4m"></td>
     <td class="tg-zv4m"></td>
-    <td class="tg-h25s">Reporte semanal No. <?php echo $semana;?> &nbsp;&nbsp;&nbsp; D&iacute;as trabajados:
+    <td class="tg-h25s" colspan="2">Reporte semanal No. <?php echo $semana;?> &nbsp;&nbsp;&nbsp; D&iacute;as trabajados:
 <input type="text"	id="txtdias_trabajados" name="txtdias_trabajados" value="<?php echo $dias_trabajados;?>" disabled>
 	
 	</td>
@@ -159,7 +159,7 @@ try {
     <td class="tg-zv4m"></td>
     
     <td class="tg-h25s"></td>
-	<td class="tg-h25s">Puesto de aprendizaje: 
+	<td class="tg-h25s" colspan="2">Puesto de aprendizaje: 
       <select name="combo_puesto" id="combo_puesto">
     <option value="SELECCIONE UN REGISTRO" <?php echo $puesto == "NO DEFINIDO" ? 'selected' : ''; ?>>SELECCIONE UN REGISTRO</option>
     <option value="RECLUTAMIENTO" <?php echo $puesto == "RECLUTAMIENTO" ? 'selected' : ''; ?>>RECLUTAMIENTO</option>
@@ -172,16 +172,17 @@ try {
   </tr>
   <tr>
     <td class="tg-km2t">Nombre del Alumno:</td>
-    <td class="tg-u3qo"><?php echo $nombrecompleto_alumno;?></td>
+    <td class="tg-u3qo" colspan="2"><?php echo $nombrecompleto_alumno;?></td>
   </tr>
   <tr>
     <td class="tg-km2t">Empresa:</td>
-    <td class="tg-u3qo"><?php echo $nombre_empresa;?></td>
+    <td class="tg-u3qo" colspan="2"><?php echo $nombre_empresa;?></td>
     <td class="tg-zv4m"></td>
   </tr>
   <tr>
     <td class="tg-va5j">FECHA</td>
     <td class="tg-ynxx" colspan="2">ACTIVIDADES REALIZADAS</td>
+    <td class="tg-va5j">REVISION</td>
   </tr>
 
   <tr>
@@ -215,6 +216,13 @@ try {
 
 				</script>
 	</td>
+    <td class="tg-0pky">
+        <!-- Agregamos los checkboxes para la revisión -->
+        <input type="checkbox" id="revisa_tutor1" name="revisa_tutor1" disabled> Tutor Dual
+        <br>
+        <br>
+        <input type="checkbox" id="revisa_empresa1" name="revisa_empresa1" disabled> Personal Empresa
+    </td>
   </tr>
   <tr>
     <td class="tg-0pky">
@@ -248,6 +256,13 @@ try {
 
 		</script>
 	</td>
+    <td class="tg-0pky">
+        <!-- Agregamos los checkboxes para la revisión -->
+        <input type="checkbox" id="revisa_tutor2" name="revisa_tutor2" disabled> Tutor Dual
+        <br>
+        <br>
+        <input type="checkbox" id="revisa_empresa2" name="revisa_empresa2" disabled> Personal Empresa
+    </td>
   </tr>
   <tr>
     <td class="tg-0pky">
@@ -281,6 +296,13 @@ try {
 
 				</script>
 	</td>
+    <td class="tg-0pky">
+        <!-- Agregamos los checkboxes para la revisión -->
+        <input type="checkbox" id="revisa_tutor3" name="revisa_tutor3" disabled> Tutor Dual
+        <br>
+        <br>
+        <input type="checkbox" id="revisa_empresa3" name="revisa_empresa3" disabled> Personal Empresa
+    </td>
   </tr>
   <tr>
     <td class="tg-0pky">
@@ -315,6 +337,13 @@ try {
 				</script>
 	
 	</td>
+    <td class="tg-0pky">
+        <!-- Agregamos los checkboxes para la revisión -->
+        <input type="checkbox" id="revisa_tutor4" name="revisa_tutor4" disabled> Tutor Dual
+        <br>
+        <br>
+        <input type="checkbox" id="revisa_empresa4" name="revisa_empresa4" disabled> Personal Empresa
+    </td>
   </tr>
   
   <tr>
@@ -350,13 +379,20 @@ try {
 				</script>
 	
 	</td>
+    <td class="tg-0pky">
+        <!-- Agregamos los checkboxes para la revisión -->
+        <input type="checkbox" id="revisa_tutor5" name="revisa_tutor5" disabled> Tutor Dual
+        <br>
+        <br>
+        <input type="checkbox" id="revisa_empresa5" name="revisa_empresa5" disabled> Personal Empresa
+    </td>
   </tr>
 <!-- Comentarios del Estudiante Dual -->
 <tr>
-    <td class="tg-ynxx" colspan="3">COMENTARIOS DEL ESTUDIANTE DUAL</td>
+    <td class="tg-ynxx" colspan="4">COMENTARIOS DEL ESTUDIANTE DUAL</td>
 </tr>
 <tr>
-    <td class="tg-0pky" colspan="3">
+    <td class="tg-0pky" colspan="4">
         <div id="editorComentariosAlumno">
             <textarea name="editor6" id="editor6" rows="5">
                 <?php echo !empty($observaciones_alumno) ? $observaciones_alumno : ''; ?>
@@ -380,10 +416,10 @@ try {
 
 <!-- Comentarios del Tutor Dual -->
 <tr>
-    <td class="tg-ynxx" colspan="3">OBSERVACIONES DEL TUTOR DUAL</td>
+    <td class="tg-ynxx" colspan="4">OBSERVACIONES DEL TUTOR DUAL</td>
 </tr>
 <tr>
-    <td class="tg-0pky" colspan="3">
+    <td class="tg-0pky" colspan="4">
         <div id="editorComentariosTutor">
             <textarea name="editor7" id="editor7" rows="5">
                 <?php echo !empty($observaciones_tutor) ? $observaciones_tutor : ''; ?>
@@ -408,10 +444,10 @@ try {
 
 <!-- Comentarios del Personal de la Empresa -->
 <tr>
-    <td class="tg-ynxx" colspan="3">OBSERVACIONES DEL PERSONAL DE LA EMPRESA</td>
+    <td class="tg-ynxx" colspan="4">OBSERVACIONES DEL PERSONAL DE LA EMPRESA</td>
 </tr>
 <tr>
-    <td class="tg-0pky" colspan="3">
+    <td class="tg-0pky" colspan="4">
         <div id="editorComentariosPersonal">
             <textarea name="editor8" id="editor8" rows="5">
                 <?php echo !empty($observaciones_empresa) ? $observaciones_empresa : ''; ?>
