@@ -1,0 +1,25 @@
+<?php
+/*
+ini_set('display_errors', 0);  // Oculta cualquier error o advertencia en pantalla
+ini_set('log_errors', 1);      // Habilita el registro de errores en un archivo de logs
+error_reporting(E_ALL);        // Reporta todos los errores
+*/
+
+require_once "../class/DataSource.php";
+require_once "../class/Perfiles.php";
+
+use Phppot\Perfiles;
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    header('Content-Type: application/json');  // Asegurarse de que la respuesta sea JSON
+
+    // Crear una instancia de la clase Perfiles
+    $perfiles = new Perfiles();
+
+    // Obtener todos los perfiles
+    $listaPerfiles = $perfiles->getAllProfiles();
+
+    // Devolver los perfiles en formato JSON
+    echo json_encode($listaPerfiles);
+}
+?>
