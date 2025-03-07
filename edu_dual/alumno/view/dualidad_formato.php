@@ -124,6 +124,8 @@ try {
 		$dias_trabajados=$fila["dias_trabajados"];
 		$puesto=$fila["puesto"];
 		$observaciones_alumno=$fila["observaciones_alumno"];
+        $observaciones_tutor=$fila["observaciones_tutor"];
+        $observaciones_empresa=$fila["observaciones_empresa"];
 		}
         
     } else {
@@ -566,6 +568,10 @@ function actualizarDatos() {
     if (descripcion5.length > 0) diasTrabajados++;
 
     const observaciones_alumno = window.editor6.getData(); // Obtener el valor del editor
+
+    const observaciones_tutor = window.editor7.getData(); // Obtener el valor del editor
+
+    const observaciones_empresa = window.editor8.getData(); // Obtener el valor del editor
         
     // Crear un objeto con los datos a enviar
     const datos = {
@@ -577,6 +583,8 @@ function actualizarDatos() {
         descripcion4: descripcion4,
         descripcion5: descripcion5,
         observaciones_alumno: observaciones_alumno,
+        observaciones_tutor: observaciones_tutor,
+        observaciones_empresa: observaciones_empresa,
         dias_trabajados: diasTrabajados
     };
 

@@ -11,6 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $descripcion4 = $_POST['descripcion4'];
     $descripcion5 = $_POST['descripcion5'];
     $observaciones_alumno = $_POST['observaciones_alumno'];
+    $observaciones_tutor = $_POST['observaciones_tutor'];
+    $observaciones_empresa = $_POST['observaciones_empresa'];
     $dias_trabajados = $_POST['dias_trabajados'];
 
     // Preparar la consulta SQL para actualizar la tabla
@@ -21,7 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             descripcion3 = ?, 
             descripcion4 = ?, 
             descripcion5 = ?, 
-            observaciones_alumno = ?, 
+            observaciones_alumno = ?,
+            observaciones_tutor = ?,
+            observaciones_empresa = ?, 
             dias_trabajados = ? 
             WHERE idbitacora = ?";
 
@@ -34,8 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bindParam(5, $descripcion4, PDO::PARAM_STR);
     $stmt->bindParam(6, $descripcion5, PDO::PARAM_STR);
     $stmt->bindParam(7, $observaciones_alumno, PDO::PARAM_STR);
-    $stmt->bindParam(8, $dias_trabajados, PDO::PARAM_INT);
-    $stmt->bindParam(9, $idbitacora, PDO::PARAM_INT);
+    $stmt->bindParam(8, $observaciones_tutor, PDO::PARAM_STR);
+    $stmt->bindParam(9, $observaciones_empresa, PDO::PARAM_STR);
+    $stmt->bindParam(10, $dias_trabajados, PDO::PARAM_INT);
+    $stmt->bindParam(11, $idbitacora, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
         echo "Datos actualizados correctamente";

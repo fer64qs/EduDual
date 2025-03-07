@@ -124,6 +124,8 @@ try {
 		$dias_trabajados=$fila["dias_trabajados"];
 		$puesto=$fila["puesto"];
 		$observaciones_alumno=$fila["observaciones_alumno"];
+        $observaciones_tutor=$fila["observaciones_tutor"];
+        $observaciones_empresa=$fila["observaciones_empresa"];
 		}
         
     } else {
@@ -209,6 +211,7 @@ try {
 								//'Si tiene observaciones con respecto a lo realizado por favor escríbalas.'
 								// Aquí se guarda la instancia del editor
 								window.editor1 = editor;
+                                editor.enableReadOnlyMode('lock-editor1');
 								})
 									.catch(error => {
 										console.error(error);
@@ -221,7 +224,7 @@ try {
         <input type="checkbox" id="revisa_tutor1" name="revisa_tutor1" disabled> Tutor Dual
         <br>
         <br>
-        <input type="checkbox" id="revisa_empresa1" name="revisa_empresa1" disabled> Personal Empresa
+        <input type="checkbox" id="revisa_empresa1" name="revisa_empresa1"> Personal Empresa
     </td>
   </tr>
   <tr>
@@ -249,6 +252,7 @@ try {
 								//'Si tiene observaciones con respecto a lo realizado por favor escríbalas.'
 								// Aquí se guarda la instancia del editor
 								window.editor2 = editor;
+                                editor.enableReadOnlyMode('lock-editor2');
 								})
 									.catch(error => {
 										console.error(error);
@@ -261,7 +265,7 @@ try {
         <input type="checkbox" id="revisa_tutor2" name="revisa_tutor2" disabled> Tutor Dual
         <br>
         <br>
-        <input type="checkbox" id="revisa_empresa2" name="revisa_empresa2" disabled> Personal Empresa
+        <input type="checkbox" id="revisa_empresa2" name="revisa_empresa2"> Personal Empresa
     </td>
   </tr>
   <tr>
@@ -289,6 +293,7 @@ try {
 								//'Si tiene observaciones con respecto a lo realizado por favor escríbalas.'
 								// Aquí se guarda la instancia del editor
 								window.editor3 = editor;
+                                editor.enableReadOnlyMode('lock-editor3');
 								})
 									.catch(error => {
 										console.error(error);
@@ -301,7 +306,7 @@ try {
         <input type="checkbox" id="revisa_tutor3" name="revisa_tutor3" disabled> Tutor Dual
         <br>
         <br>
-        <input type="checkbox" id="revisa_empresa3" name="revisa_empresa3" disabled> Personal Empresa
+        <input type="checkbox" id="revisa_empresa3" name="revisa_empresa3" > Personal Empresa
     </td>
   </tr>
   <tr>
@@ -329,6 +334,7 @@ try {
 								//'Si tiene observaciones con respecto a lo realizado por favor escríbalas.'
 								// Aquí se guarda la instancia del editor
 								window.editor4 = editor;
+                                editor.enableReadOnlyMode('lock-editor4');
 								})
 									.catch(error => {
 										console.error(error);
@@ -342,7 +348,7 @@ try {
         <input type="checkbox" id="revisa_tutor4" name="revisa_tutor4" disabled> Tutor Dual
         <br>
         <br>
-        <input type="checkbox" id="revisa_empresa4" name="revisa_empresa4" disabled> Personal Empresa
+        <input type="checkbox" id="revisa_empresa4" name="revisa_empresa4"> Personal Empresa
     </td>
   </tr>
   
@@ -371,6 +377,7 @@ try {
 								//'Si tiene observaciones con respecto a lo realizado por favor escríbalas.'
 								// Aquí se guarda la instancia del editor
 								window.editor5 = editor;
+                                editor.enableReadOnlyMode('lock-editor5');
 								})
 									.catch(error => {
 										console.error(error);
@@ -384,7 +391,7 @@ try {
         <input type="checkbox" id="revisa_tutor5" name="revisa_tutor5" disabled> Tutor Dual
         <br>
         <br>
-        <input type="checkbox" id="revisa_empresa5" name="revisa_empresa5" disabled> Personal Empresa
+        <input type="checkbox" id="revisa_empresa5" name="revisa_empresa5"> Personal Empresa
     </td>
   </tr>
 <!-- Comentarios del Estudiante Dual -->
@@ -406,6 +413,7 @@ try {
                 })
                 .then(editor => {
                     window.editor6 = editor;
+                    editor.enableReadOnlyMode('lock-editor6');
                 })
                 .catch(error => {
                     console.error(error);
@@ -461,7 +469,7 @@ try {
                 })
                 .then(editor => {
                     window.editor8 = editor;
-                    editor.enableReadOnlyMode('lock-editor8'); // Bloquear edición
+                    //editor.enableReadOnlyMode('lock-editor8'); 
                 })
                 .catch(error => {
                     console.error(error);
@@ -489,7 +497,6 @@ try {
 
 <div class="fixed-bottom-visible text-center">
   
-  <button type="button" class="btn btn-secondary" onclick="return imprimirContenido();">Imprimir</button>
   <button type="button" class="btn btn-danger" onclick="return actualizarDatos();">Guardar</button>
   <br>
 </div>
@@ -566,6 +573,10 @@ function actualizarDatos() {
     if (descripcion5.length > 0) diasTrabajados++;
 
     const observaciones_alumno = window.editor6.getData(); // Obtener el valor del editor
+
+    const observaciones_tutor = window.editor7.getData(); // Obtener el valor del editor
+
+    const observaciones_empresa = window.editor8.getData(); // Obtener el valor del editor
         
     // Crear un objeto con los datos a enviar
     const datos = {
@@ -577,6 +588,8 @@ function actualizarDatos() {
         descripcion4: descripcion4,
         descripcion5: descripcion5,
         observaciones_alumno: observaciones_alumno,
+        observaciones_tutor: observaciones_tutor,
+        observaciones_empresa: observaciones_empresa,
         dias_trabajados: diasTrabajados
     };
 
@@ -607,43 +620,6 @@ function actualizarDatos() {
 }
 </script>
 
-<script>
-function validar()
-{
-alert("Se requiere el visto bueno del Asesor y del Representante de la Empresa");
-}
-function imprimirContenido() {
-    // Obtener los datos necesarios
-    const idinscripcion = "<?php echo $idinscripcion; ?>";
-    const idbitacora = "<?php echo $idbitacora; ?>";
-    const nombrecompleto_alumno = encodeURIComponent("<?php echo $nombrecompleto_alumno; ?>");
-    const nombre_empresa = encodeURIComponent("<?php echo $nombre_empresa; ?>");
-    const nombreasesordual_docente = encodeURIComponent("<?php echo $nombreasesordual_docente; ?>");
-    const responsable_empresa = encodeURIComponent("<?php echo $responsable_empresa; ?>");
-    const semana = "<?php echo $semana; ?>";
-    const dias_trabajados = encodeURIComponent(document.getElementById('txtdias_trabajados').value);
-    const puesto = encodeURIComponent(document.getElementById('combo_puesto').value);
-    const fecha1 = encodeURIComponent(document.getElementById('fecha1').value);
-    const descripcion1 = encodeURIComponent(window.editor1.getData());
-    const fecha2 = encodeURIComponent(document.getElementById('fecha2').value);
-    const descripcion2 = encodeURIComponent(window.editor2.getData());
-    const fecha3 = encodeURIComponent(document.getElementById('fecha3').value);
-    const descripcion3 = encodeURIComponent(window.editor3.getData());
-    const fecha4 = encodeURIComponent(document.getElementById('fecha4').value);
-    const descripcion4 = encodeURIComponent(window.editor4.getData());
-    const fecha5 = encodeURIComponent(document.getElementById('fecha5').value);
-    const descripcion5 = encodeURIComponent(window.editor5.getData());
-    const observaciones_alumno = encodeURIComponent(window.editor6.getData());
-    const observaciones_tutor = encodeURIComponent(window.editor7.getData());
-    const observaciones_empresa = encodeURIComponent(window.editor8.getData());
-
-    // Construir la URL con los parámetros
-    const url = `../../pdf.php?idinscripcion=${encodeURIComponent(idinscripcion)}&idbitacora=${encodeURIComponent(idbitacora)}&nombrecompleto_alumno=${nombrecompleto_alumno}&nombre_empresa=${nombre_empresa}&nombreasesordual_docente=${nombreasesordual_docente}&responsable_empresa=${responsable_empresa}&semana=${semana}&dias_trabajados=${dias_trabajados}&puesto=${puesto}&fecha1=${fecha1}&descripcion1=${descripcion1}&fecha2=${fecha2}&descripcion2=${descripcion2}&fecha3=${fecha3}&descripcion3=${descripcion3}&fecha4=${fecha4}&descripcion4=${descripcion4}&fecha5=${fecha5}&descripcion5=${descripcion5}&observaciones_alumno=${observaciones_alumno}&observaciones_tutor=${observaciones_tutor}&observaciones_empresa=${observaciones_empresa}`;
-
-    // Redirigir ai.php
-    window.open(url, "_blank");
-}
-</script>
 
 <script>
        
