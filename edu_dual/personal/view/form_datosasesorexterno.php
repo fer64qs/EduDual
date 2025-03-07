@@ -14,21 +14,19 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 
   <style>
+    .alert-custom {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+    
     .card {
       width: 100%;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
-    }
-
-    .card-header {
-      background: #f8f9fa;
-      font-weight: bold;
-      padding: 15px;
-      text-align: center;
-      border-bottom: 2px solid #ddd;
-      font-size: 18px;
     }
 
     .card-body {
@@ -73,6 +71,17 @@
   <div class="container mt-4">
     <div style="position: sticky; top: 0; background-color: #f4f6f6; z-index: 10; padding: 15px;">
       <h4 class="text-center">Datos del Alumno</h4>
+      <div class="row g-2">
+        <div class="col-9">
+          <input type="text" id="buscador" class="form-control" placeholder="Buscar..." oninput="filtrarCards()">
+        </div>
+        
+      </div>
+      <div class="row mt-2">
+        <div class="col-12 text-center">
+          <label id="cantidadRegistros" class="form-label" style="font-weight: bold; color: #A57F2C;"><strong>Cantidad de registros: 0</strong></label>
+        </div>
+      </div>
     </div>
 
     <!-- Cards -->
@@ -83,7 +92,6 @@
         }
         
         $idusuario = $_SESSION["userId"] ?? null;
-
         if ($idusuario) {
           $inscripciones = cargarInscripcion($idusuario);
           $totalRegistros = count($inscripciones);
@@ -93,32 +101,43 @@
         }
       ?>
 
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          document.getElementById('cantidadRegistros').textContent = 'Cantidad de registros: <?php echo $totalRegistros; ?>';
+        });
+      </script>
+
       <?php
       if ($totalRegistros === 0) {
         echo "<p class='text-center text-muted'>No hay inscripciones disponibles.</p>";
       } else {
         foreach ($inscripciones as $inscripcion) {
-          echo "<div class='col-md-12'>"; 
+          echo "<div class='col-md-4 mb-4'>"; 
           echo "<div class='card'>";
           echo "<div class='card-body'>";
 
+          echo "<div class='text-center mb-3'>";
+    
+          echo "</div>";
 
-          echo "<div class='data-item'><div class='data-title'>Nombre</div><div class='data-value'>{$inscripcion['nombre']} {$inscripcion['apellidop']} {$inscripcion['apellidom']}</div></div>";
-          
-          echo "<div class='data-item'><div class='data-title'>Tutor Académico</div><div class='data-value'>{$inscripcion['nombre_tutor']} {$inscripcion['apellido_paterno']} {$inscripcion['apellido_materno']}</div></div>";
-          echo "<div class='data-item'><div class='data-title'>Tutor Personal</div><div class='data-value'>{$inscripcion['nombre_personal']} {$inscripcion['papellido_paterno']} {$inscripcion['papellido_materno']}</div></div>";
-          echo "<div class='data-item'><div class='data-title'>Empresa</div><div class='data-value'>{$inscripcion['nombre_empresa']}</div></div>";
-          echo "<div class='data-item'><div class='data-title'>Ciclo Escolar</div><div class='data-value'>{$inscripcion['semestre']}</div></div>";
-          echo "<div class='data-item'><div class='data-title'>Fecha de Inicio</div><div class='data-value'>{$inscripcion['fecha_inicio']}</div></div>";
-          echo "<div class='data-item'><div class='data-title'>Fecha de Fin</div><div class='data-value'>{$inscripcion['fecha_fin']}</div></div>";
-          echo "<div class='data-item'><div class='data-title'>Estatus</div><div class='data-value'>{$inscripcion['estatus']}</div></div>";
+          echo "<h5 class='card-title text-center'><b>{$inscripcion['nombre']} {$inscripcion['apellidop']} {$inscripcion['apellidom']}</b></h5>";
 
-          
+          echo "<p class='card-text'>";
+          echo "<b>Tutor Académico:</b> {$inscripcion['nombre_tutor']} {$inscripcion['apellido_paterno']} {$inscripcion['apellido_materno']}<br>";
+          echo "<b>Tutor Personal:</b> {$inscripcion['nombre_personal']} {$inscripcion['papellido_paterno']} {$inscripcion['papellido_materno']}<br>";
+          echo "<b>Empresa:</b> {$inscripcion['nombre_empresa']}<br>";
+          echo "<b>Ciclo Escolar:</b> {$inscripcion['semestre']}<br>";
+          echo "<b>Fecha de Inicio:</b> {$inscripcion['fecha_inicio']}<br>";
+          echo "<b>Fecha de Fin:</b> {$inscripcion['fecha_fin']}<br>";
+          echo "<b>Estatus:</b> {$inscripcion['estatus']}<br>";
+          echo "</p>";
+
           echo "<div class='btn-container'>";
-          echo "<button class='btn btn-warning' onclick='viewcronograma({$inscripcion['idinscripcion']})' style='font-size: 16px; padding: 10px 20px;'>
-                  <i class='fas fa-edit'></i> Cronograma
+          echo "<button class='btn btn-warning' onclick='viewcronograma({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
+                  <i class='fas fa-calendar-alt'></i> Cronograma
                 </button>";
           echo "</div>";
+
           echo "</div>";
           echo "</div>";
           echo "</div>"; 
@@ -130,12 +149,19 @@
 
   <script>
     function viewcronograma(idinscripcion) {
-    // Construir la URL con los parámetros necesarios
-    const url = `cronograma.php?idinscripcion=${encodeURIComponent(idinscripcion)}`;
-    
-    // Redirigir a cronograma.php
-    window.location.href = url;
-}
-    </script>
+      const url = `cronograma.php?idinscripcion=${encodeURIComponent(idinscripcion)}`;
+      window.location.href = url;
+    }
+
+    function filtrarCards() {
+      const searchValue = document.getElementById('buscador').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        const cardText = card.innerText.toLowerCase();
+        card.style.display = cardText.includes(searchValue) ? 'block' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>

@@ -107,8 +107,8 @@ if (!empty($_SESSION["userId"])) {
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <li>
-                        <a class="dropdown-item" href="#" onclick="cargarVista('./view/form_datosalumno.php'); cerrarMenu();">
-                                <i class="fas fa-user-graduate"></i> Cronograma
+                        <a class="dropdown-item" href="#" onclick="cargarVista('./view/form_datosasesorinterno.php'); cerrarMenu();">
+                                <i class="fas fa-user-graduate"></i> Datos
                             </a>
                         </li>
                         <li>
