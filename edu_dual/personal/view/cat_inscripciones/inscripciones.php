@@ -16,7 +16,6 @@ if (!isset($_SESSION["userId"])) {
 
 $idusuario = $_SESSION["userId"]; // ID del usuario autenticado
 
-
 function cargarInscripcion($idusuario) {
     $pdo = DBC::get();
     $stmt = $pdo->prepare("
@@ -43,33 +42,30 @@ function cargarInscripcion($idusuario) {
             semestres.semestre
         FROM inscripciones
         INNER JOIN alumnos ON inscripciones.idalumno = alumnos.idalumno 
-        INNER JOIN usuarios ON usuarios.email = alumnos.correo -- Relación usuario-alumno
-        INNER JOIN empresas ON inscripciones.idempresa = empresas.idempresa
         INNER JOIN personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
+        INNER JOIN empresas ON inscripciones.idempresa = empresas.idempresa
         INNER JOIN tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
         INNER JOIN semestres ON inscripciones.idSemestre = semestres.idSemestre
+        INNER JOIN usuarios ON usuarios.email = personal_empresas.correo 
         WHERE usuarios.idusuario = :idusuario
     ");
     $stmt->execute(['idusuario' => $idusuario]);
     return $stmt->fetchAll();
 }
 
-
 function isAjax() {
     return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 }
 
-// Obtener los datos de la inscripción del usuario autenticado
+// Obtener los datos de la inscripción del instructor dual autenticado
 $inscripcion = cargarInscripcion($idusuario);
 
 if (isAjax()) {
     if (!empty($inscripcion)) {
         echo json_encode(['success' => true, 'inscripcion' => $inscripcion]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'No se encontró inscripción']);
+        echo json_encode(['success' => false, 'message' => 'No se encontraron inscripciones para este instructor']);
     }
-    exit(); // Salimos para que no cargue el HTML
+    exit(); // Salimos para evitar que se cargue el HTML
 }
-
-
 ?>

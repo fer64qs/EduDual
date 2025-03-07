@@ -107,13 +107,13 @@ if (!empty($_SESSION["userId"])) {
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <li>
-                        <a class="dropdown-item" href="#" onclick="cargarVista('./view/form_datosalumno.php'); cerrarMenu();">
+                        <a class="dropdown-item" href="#" onclick="cargarVista('./view/form_datosasesorexterno.php'); cerrarMenu();">
                                 <i class="fas fa-user-graduate"></i> Cronograma
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_inscripciones.php'); cerrarMenu();">
-                                <i class="fas fa-graduation-cap"></i> Carreras
+                            <a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">
+                                <i class="fas fa-graduation-cap"></i> OPCION2
                             </a>
                         </li>
                        
