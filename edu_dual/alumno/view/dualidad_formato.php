@@ -183,8 +183,7 @@ try {
   </tr>
   <tr>
     <td class="tg-va5j">FECHA</td>
-    <td class="tg-ynxx" colspan="2">ACTIVIDADES REALIZADAS</td>
-    <td class="tg-va5j">REVISION</td>
+    <td class="tg-ynxx" colspan="3">ACTIVIDADES REALIZADAS</td>
   </tr>
 
   <tr>
@@ -192,7 +191,7 @@ try {
 	<label for="birthday"></label>
 <input type="date" id="fecha1" name="fecha1" value="<?php echo $fecha1;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	<div id="descripcion1" >
     <textarea name="editor1" id="editor1" rows="5">
         <?php 
@@ -218,20 +217,13 @@ try {
 
 				</script>
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor1" name="revisa_tutor1" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa1" name="revisa_empresa1" disabled> Personal Empresa
-    </td>
   </tr>
   <tr>
     <td class="tg-0pky">
 	<label for="birthday"></label>
 <input type="date" id="fecha2" name="fecha2" value="<?php echo $fecha2;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	
 	<div id="descripcion2">
      <textarea name="editor2" id="editor2" rows="5">
@@ -258,20 +250,13 @@ try {
 
 		</script>
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor2" name="revisa_tutor2" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa2" name="revisa_empresa2" disabled> Personal Empresa
-    </td>
   </tr>
   <tr>
     <td class="tg-0pky">
 	<label for="birthday">:</label>
 <input type="date" id="fecha3" name="fecha3" value="<?php echo $fecha3;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	
 	<div id="descripcion3">
     <textarea name="editor3" id="editor3" rows="5">
@@ -298,20 +283,13 @@ try {
 
 				</script>
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor3" name="revisa_tutor3" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa3" name="revisa_empresa3" disabled> Personal Empresa
-    </td>
   </tr>
   <tr>
     <td class="tg-0pky">
 	<label for="birthday"></label>
 <input type="date" id="fecha4" name="fecha4" value="<?php echo $fecha4;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	
 	<div id="descripcion4">
      <textarea name="editor4" id="editor4" rows="5">
@@ -339,13 +317,6 @@ try {
 				</script>
 	
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor4" name="revisa_tutor4" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa4" name="revisa_empresa4" disabled> Personal Empresa
-    </td>
   </tr>
   
   <tr>
@@ -353,7 +324,7 @@ try {
 	<label for="birthday"></label>
 <input type="date" id="fecha5" name="fecha5" value="<?php echo $fecha5;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	
 	<div id="descripcion5">
     <textarea name="editor5" id="editor5" rows="5">
@@ -381,13 +352,6 @@ try {
 				</script>
 	
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor5" name="revisa_tutor5" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa5" name="revisa_empresa5" disabled> Personal Empresa
-    </td>
   </tr>
 <!-- Comentarios del Estudiante Dual -->
 <tr>
@@ -443,6 +407,18 @@ try {
         </script>
     </td>
 </tr>
+<tr>
+<td class="tg-zv4m"></td>
+    
+    <td class="tg-h25s"></td>
+	<td class="tg-h25s" colspan="2">Revision del tutor dual: 
+      <select name="combo_vtutor" id="combo_vtutor" disabled>
+    <option value="NO AUTORIZADO" <?php echo $vobo_tutordual == "NO AUTORIZADO" ? 'selected' : ''; ?>>NO AUTORIZADO</option>
+    <option value="AUTORIZADO" <?php echo $vobo_tutordual == "AUTORIZADO" ? 'selected' : ''; ?>>AUTORIZADO</option>
+    </select>
+	
+</td>
+</tr>
 
 <!-- Comentarios del Personal de la Empresa -->
 <tr>
@@ -471,6 +447,18 @@ try {
         </script>
     </td>
 </tr>
+<tr>
+<td class="tg-zv4m"></td>
+    
+    <td class="tg-h25s"></td>
+	<td class="tg-h25s" colspan="2">Revision del personal de la empresa: 
+      <select name="combo_vempresa" id="combo_vempresa" disabled>
+    <option value="NO AUTORIZADO" <?php echo $vobo_empresa == "NO AUTORIZADO" ? 'selected' : ''; ?>>NO AUTORIZADO</option>
+    <option value="AUTORIZADO" <?php echo $vobo_empresa == "AUTORIZADO" ? 'selected' : ''; ?>>AUTORIZADO</option>
+    </select>
+	
+</td>
+</tr>
 </tbody></table>
 <table id="tabla-firmas" style="width: 90%; margin-top: 20px;">
   <tr>
@@ -497,7 +485,7 @@ try {
 </div>
 
     </tbody>
-<script>
+    <script>
 function probar()
 {
 	const idbitacora = "<?php echo $idbitacora; ?>";
@@ -508,6 +496,13 @@ function probar()
 		alert("Debe seleccionar el puesto en que se desempeña durante esta semana");
 		return false;
 	}
+
+    var vobo_tutordual = document.getElementById("combo_vtutor").value;
+	
+
+    var vobo_empresa = document.getElementById("combo_vempresa").value;
+	
+
 		let diasTrabajados = 0;
 
 const descripcion1 = window.editor1.getData(); // Obtener el valor del editor
@@ -570,9 +565,15 @@ function actualizarDatos() {
     const observaciones_alumno = window.editor6.getData(); // Obtener el valor del editor
 
     const observaciones_tutor = window.editor7.getData(); // Obtener el valor del editor
+    
+    const vobo_tutordual = document.getElementById("combo_vtutor").value;
 
     const observaciones_empresa = window.editor8.getData(); // Obtener el valor del editor
-        
+
+    const vobo_empresa = document.getElementById("combo_vempresa").value;
+
+
+    
     // Crear un objeto con los datos a enviar
     const datos = {
         idbitacora: idbitacora,
@@ -584,7 +585,9 @@ function actualizarDatos() {
         descripcion5: descripcion5,
         observaciones_alumno: observaciones_alumno,
         observaciones_tutor: observaciones_tutor,
+        vobo_tutordual: vobo_tutordual,
         observaciones_empresa: observaciones_empresa,
+        vobo_empresa: vobo_empresa,
         dias_trabajados: diasTrabajados
     };
 
@@ -621,7 +624,17 @@ function validar()
 alert("Se requiere el visto bueno del Asesor y del Representante de la Empresa");
 }
 function imprimirContenido() {
-    // Obtener los datos necesarios
+    // Obtener los valores de los select
+    const vobo_tutordual = document.getElementById("combo_vtutor").value;
+    const vobo_empresa = document.getElementById("combo_vempresa").value;
+
+    // Verificar si ambos están autorizados
+    if (vobo_tutordual !== "AUTORIZADO" || vobo_empresa !== "AUTORIZADO") {
+        alert("Aún no se ha dado el visto bueno del tutor y la empresa.");
+        return false; // Detener la ejecución de la función
+    }
+
+    // Si están autorizados, proceder con la impresión
     const idinscripcion = "<?php echo $idinscripcion; ?>";
     const idbitacora = "<?php echo $idbitacora; ?>";
     const nombrecompleto_alumno = encodeURIComponent("<?php echo $nombrecompleto_alumno; ?>");
@@ -648,10 +661,12 @@ function imprimirContenido() {
     // Construir la URL con los parámetros
     const url = `../../pdf.php?idinscripcion=${encodeURIComponent(idinscripcion)}&idbitacora=${encodeURIComponent(idbitacora)}&nombrecompleto_alumno=${nombrecompleto_alumno}&nombre_empresa=${nombre_empresa}&nombreasesordual_docente=${nombreasesordual_docente}&responsable_empresa=${responsable_empresa}&semana=${semana}&dias_trabajados=${dias_trabajados}&puesto=${puesto}&fecha1=${fecha1}&descripcion1=${descripcion1}&fecha2=${fecha2}&descripcion2=${descripcion2}&fecha3=${fecha3}&descripcion3=${descripcion3}&fecha4=${fecha4}&descripcion4=${descripcion4}&fecha5=${fecha5}&descripcion5=${descripcion5}&observaciones_alumno=${observaciones_alumno}&observaciones_tutor=${observaciones_tutor}&observaciones_empresa=${observaciones_empresa}`;
 
-    // Redirigir ai.php
+    // Abrir la nueva ventana con el PDF
     window.open(url, "_blank");
 }
 </script>
+
+<script>
 
 <script>
        

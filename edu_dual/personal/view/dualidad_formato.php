@@ -162,8 +162,8 @@ try {
     
     <td class="tg-h25s"></td>
 	<td class="tg-h25s" colspan="2">Puesto de aprendizaje: 
-      <select name="combo_puesto" id="combo_puesto">
-    <option value="SELECCIONE UN REGISTRO" <?php echo $puesto == "NO DEFINIDO" ? 'selected' : ''; ?>>SELECCIONE UN REGISTRO</option>
+      <select name="combo_puesto" id="combo_puesto" disabled>
+    <option value="NO DEFINIDO" <?php echo $puesto == "NO DEFINIDO" ? 'selected' : ''; ?>>NO DEFINIDO</option>
     <option value="RECLUTAMIENTO" <?php echo $puesto == "RECLUTAMIENTO" ? 'selected' : ''; ?>>RECLUTAMIENTO</option>
     <option value="FORMACION Y DESARROLLO" <?php echo $puesto == "FORMACION Y DESARROLLO" ? 'selected' : ''; ?>>FORMACION Y DESARROLLO</option>
     <option value="ATENCION A COLABORADORES" <?php echo $puesto == "ATENCION A COLABORADORES" ? 'selected' : ''; ?>>ATENCION A COLABORADORES</option>
@@ -181,10 +181,10 @@ try {
     <td class="tg-u3qo" colspan="2"><?php echo $nombre_empresa;?></td>
     <td class="tg-zv4m"></td>
   </tr>
+
   <tr>
     <td class="tg-va5j">FECHA</td>
-    <td class="tg-ynxx" colspan="2">ACTIVIDADES REALIZADAS</td>
-    <td class="tg-va5j">REVISION</td>
+    <td class="tg-ynxx" colspan="3">ACTIVIDADES REALIZADAS</td>
   </tr>
 
   <tr>
@@ -192,7 +192,7 @@ try {
 	<label for="birthday"></label>
 <input type="date" id="fecha1" name="fecha1" value="<?php echo $fecha1;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	<div id="descripcion1" >
     <textarea name="editor1" id="editor1" rows="5">
         <?php 
@@ -219,20 +219,13 @@ try {
 
 				</script>
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor1" name="revisa_tutor1" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa1" name="revisa_empresa1"> Personal Empresa
-    </td>
   </tr>
   <tr>
     <td class="tg-0pky">
 	<label for="birthday"></label>
 <input type="date" id="fecha2" name="fecha2" value="<?php echo $fecha2;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	
 	<div id="descripcion2">
      <textarea name="editor2" id="editor2" rows="5">
@@ -260,20 +253,13 @@ try {
 
 		</script>
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor2" name="revisa_tutor2" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa2" name="revisa_empresa2"> Personal Empresa
-    </td>
   </tr>
   <tr>
     <td class="tg-0pky">
 	<label for="birthday">:</label>
 <input type="date" id="fecha3" name="fecha3" value="<?php echo $fecha3;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	
 	<div id="descripcion3">
     <textarea name="editor3" id="editor3" rows="5">
@@ -301,20 +287,13 @@ try {
 
 				</script>
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor3" name="revisa_tutor3" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa3" name="revisa_empresa3" > Personal Empresa
-    </td>
   </tr>
   <tr>
     <td class="tg-0pky">
 	<label for="birthday"></label>
 <input type="date" id="fecha4" name="fecha4" value="<?php echo $fecha4;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	
 	<div id="descripcion4">
      <textarea name="editor4" id="editor4" rows="5">
@@ -343,13 +322,6 @@ try {
 				</script>
 	
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor4" name="revisa_tutor4" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa4" name="revisa_empresa4"> Personal Empresa
-    </td>
   </tr>
   
   <tr>
@@ -357,7 +329,7 @@ try {
 	<label for="birthday"></label>
 <input type="date" id="fecha5" name="fecha5" value="<?php echo $fecha5;?>" disabled>
 	</td>
-    <td class="tg-0pky" colspan="2">
+    <td class="tg-0pky" colspan="3">
 	
 	<div id="descripcion5">
     <textarea name="editor5" id="editor5" rows="5">
@@ -386,13 +358,6 @@ try {
 				</script>
 	
 	</td>
-    <td class="tg-0pky">
-        <!-- Agregamos los checkboxes para la revisión -->
-        <input type="checkbox" id="revisa_tutor5" name="revisa_tutor5" disabled> Tutor Dual
-        <br>
-        <br>
-        <input type="checkbox" id="revisa_empresa5" name="revisa_empresa5"> Personal Empresa
-    </td>
   </tr>
 <!-- Comentarios del Estudiante Dual -->
 <tr>
@@ -449,6 +414,18 @@ try {
         </script>
     </td>
 </tr>
+<tr>
+<td class="tg-zv4m"></td>
+    
+    <td class="tg-h25s"></td>
+	<td class="tg-h25s" colspan="2">Revision del tutor dual: 
+      <select name="combo_vtutor" id="combo_vtutor" disabled>
+    <option value="NO AUTORIZADO" <?php echo $vobo_tutordual == "NO AUTORIZADO" ? 'selected' : ''; ?>>NO AUTORIZADO</option>
+    <option value="AUTORIZADO" <?php echo $vobo_tutordual == "AUTORIZADO" ? 'selected' : ''; ?>>AUTORIZADO</option>
+    </select>
+	
+</td>
+</tr>
 
 <!-- Comentarios del Personal de la Empresa -->
 <tr>
@@ -476,6 +453,18 @@ try {
                 });
         </script>
     </td>
+</tr>
+<tr>
+<td class="tg-zv4m"></td>
+    
+    <td class="tg-h25s"></td>
+	<td class="tg-h25s" colspan="2">Revision del personal de la empresa: 
+      <select name="combo_vempresa" id="combo_vempresa">
+    <option value="NO AUTORIZADO" <?php echo $vobo_empresa == "NO AUTORIZADO" ? 'selected' : ''; ?>>NO AUTORIZADO</option>
+    <option value="AUTORIZADO" <?php echo $vobo_empresa == "AUTORIZADO" ? 'selected' : ''; ?>>AUTORIZADO</option>
+    </select>
+	
+</td>
 </tr>
 </tbody></table>
 <table id="tabla-firmas" style="width: 90%; margin-top: 20px;">
@@ -509,10 +498,13 @@ function probar()
 	
 	var puesto = document.getElementById("combo_puesto").value;
 	
-	if (puesto=="SELECCIONE UN REGISTRO") {
-		alert("Debe seleccionar el puesto en que se desempeña durante esta semana");
-		return false;
-	}
+
+    var vobo_tutordual = document.getElementById("combo_vtutor").value;
+	
+
+    var vobo_empresa = document.getElementById("combo_vempresa").value;
+	
+
 		let diasTrabajados = 0;
 
 const descripcion1 = window.editor1.getData(); // Obtener el valor del editor
@@ -550,10 +542,6 @@ function actualizarDatos() {
     const idbitacora = "<?php echo $idbitacora; ?>";
     const puesto = document.getElementById("combo_puesto").value;
 
-    if (puesto === "SELECCIONE UN REGISTRO") {
-        alert("Debe seleccionar el puesto en que se desempeña durante esta semana");
-        return false;
-    }
 
     let diasTrabajados = 0;
 
@@ -575,9 +563,15 @@ function actualizarDatos() {
     const observaciones_alumno = window.editor6.getData(); // Obtener el valor del editor
 
     const observaciones_tutor = window.editor7.getData(); // Obtener el valor del editor
+    
+    const vobo_tutordual = document.getElementById("combo_vtutor").value;
 
     const observaciones_empresa = window.editor8.getData(); // Obtener el valor del editor
-        
+
+    const vobo_empresa = document.getElementById("combo_vempresa").value;
+
+
+    
     // Crear un objeto con los datos a enviar
     const datos = {
         idbitacora: idbitacora,
@@ -589,7 +583,9 @@ function actualizarDatos() {
         descripcion5: descripcion5,
         observaciones_alumno: observaciones_alumno,
         observaciones_tutor: observaciones_tutor,
+        vobo_tutordual: vobo_tutordual,
         observaciones_empresa: observaciones_empresa,
+        vobo_empresa: vobo_empresa,
         dias_trabajados: diasTrabajados
     };
 
