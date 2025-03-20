@@ -44,110 +44,104 @@ $html = '
         .tg .tg-ynxx {background-color:#591a1a;color:#ffffff;text-align:center;}
         .tg .tg-0pky {text-align:left;}
         .tg .tg-c3ow {text-align:center;width:33.33%;}
-
-    
         .comentarios {
             width: 100%; 
-            height: 50px; 
+            height: 10px; 
             font-size: 14px;
             padding: 10px;
             border: 0px solid #ccc; 
         }
-
+            
         .firmas {
             width: 100%;
-            height: 150px;
+            height: 75px;
             font-size: 16px; 
             text-align: center; 
             padding: 20px; 
         }
+        
     </style>
 </head>
 <body>
-    <table class="tg" style="table-layout: fixed; width: 90%;">
-        <thead>
-            <tr>
-                <th class="tg-ddj0" colspan="3">SISTEMA DE EDUCACIÓN DUAL</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="tg-aw21" colspan="3">REPORTE SEMANAL</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky"></td>
-                <td class="tg-0pky"></td>
-                <td class="tg-h25s">Reporte semanal No. ' . $semana . ' &nbsp;&nbsp;&nbsp; Días trabajados: ' . $dias_trabajados . '</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky"></td>
-                <td class="tg-h25s"></td>
-                <td class="tg-h25s">Puesto de aprendizaje: ' . $puesto . '</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky">Nombre del Alumno:</td>
-                <td class="tg-u3qo">' . $nombrecompleto_alumno . '</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky">Empresa:</td>
-                <td class="tg-u3qo">' . $nombre_empresa . '</td>
-            </tr>
-            <tr>
-                <td class="tg-va5j">FECHA</td>
-                <td class="tg-ynxx" colspan="2">ACTIVIDADES REALIZADAS</td>
-            </tr>
-            <!-- Aquí puedes agregar las filas para las actividades realizadas -->
-            <tr>
-                <td class="tg-0pky">' . $fecha1 . '</td>
-                <td class="tg-0pky" colspan="2">' . $descripcion1 . '</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky">' . $fecha2 . '</td>
-                <td class="tg-0pky" colspan="2">' . $descripcion2 . '</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky">' . $fecha3 . '</td>
-                <td class="tg-0pky" colspan="2">' . $descripcion3 . '</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky">' . $fecha4 . '</td>
-                <td class="tg-0pky" colspan="2">' . $descripcion4 . '</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky">' . $fecha5 . '</td>
-                <td class="tg-0pky" colspan="2">' . $descripcion5 . '</td>
-            </tr>
-            <tr>
-                <td class="tg-ynxx" colspan="3">COMENTARIOS DEL ESTUDIANTE DUAL</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky" colspan="3">
-                    <div class="comentarios">' . $observaciones_alumno . '</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="tg-ynxx" colspan="3">OBSERVACIONES DEL TUTOR DUAL</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky" colspan="3">
-                    <div class="comentarios">' . $observaciones_tutor . '</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="tg-ynxx" colspan="3">OBSERVACIONES DEL PERSONAL DE LA EMPRESA</td>
-            </tr>
-            <tr>
-                <td class="tg-0pky" colspan="3">
-                    <div class="comentarios">' . $observaciones_empresa . '</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="tg-c3ow firmas">_________________________<br>Nombre y firma del estudiante<br>' . $nombrecompleto_alumno . '</td>
-                <td class="tg-c3ow firmas">_________________________<br>Nombre y firma del asesor<br>' . $nombreasesordual_docente . '</td>
-                <td class="tg-c3ow firmas">_________________________<br>Nombre y firma del personal de la empresa<br>' . strtoupper($responsable_empresa). '</td>
-            </tr>
-        </tbody>
-    </table>
+    <br>
+    <br>
+    
+    <div class="content">
+        <table class="tg" style="table-layout: fixed; width: 100%;">
+            <thead>
+                <tr>
+                    <th class="tg-ddj0" colspan="3">SISTEMA DE EDUCACIÓN DUAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tg-aw21" colspan="3">REPORTE SEMANAL</td>
+                </tr>
+            </tbody>
+        </table>
+         <p>Reporte semanal No. ' . $semana . ' &nbsp;&nbsp;&nbsp; Días trabajados: ' . $dias_trabajados . '</p>
+        <p>Puesto de aprendizaje: ' . $puesto . '</p>
+        <p>Nombre del Alumno: ' . $nombrecompleto_alumno . '</p>
+        <p>Empresa:' . $nombre_empresa . '</p>
+        
+        <table class="tg" style="table-layout: fixed; width: 100%;">
+            <tbody>
+                <tr>
+                    <td class="tg-va5j">FECHA</td>
+                    <td class="tg-ynxx" colspan="2">ACTIVIDADES REALIZADAS</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">' . $fecha1 . '</td>
+                    <td class="tg-0pky" colspan="2">' . $descripcion1 . '</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">' . $fecha2 . '</td>
+                    <td class="tg-0pky" colspan="2">' . $descripcion2 . '</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">' . $fecha3 . '</td>
+                    <td class="tg-0pky" colspan="2">' . $descripcion3 . '</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">' . $fecha4 . '</td>
+                    <td class="tg-0pky" colspan="2">' . $descripcion4 . '</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">' . $fecha5 . '</td>
+                    <td class="tg-0pky" colspan="2">' . $descripcion5 . '</td>
+                </tr>
+                <tr>
+                    <td class="tg-ynxx" colspan="3">COMENTARIOS DEL ESTUDIANTE DUAL</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky" colspan="3">
+                        <div class="comentarios">' . $observaciones_alumno . '</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-ynxx" colspan="3">OBSERVACIONES DEL TUTOR DUAL</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky" colspan="3">
+                        <div class="comentarios">' . $observaciones_tutor . '</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-ynxx" colspan="3">OBSERVACIONES DEL PERSONAL DE LA EMPRESA</td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky" colspan="3">
+                        <div class="comentarios">' . $observaciones_empresa . '</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-c3ow firmas">_________________________<br>Nombre y firma del estudiante<br>' . $nombrecompleto_alumno . '</td>
+                    <td class="tg-c3ow firmas">_________________________<br>Nombre y firma del asesor<br>' . $nombreasesordual_docente . '</td>
+                    <td class="tg-c3ow firmas">_________________________<br>Nombre y firma del personal de la empresa<br>' . strtoupper($responsable_empresa). '</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>';
 
@@ -160,6 +154,27 @@ $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
+
+$canvas = $dompdf->getCanvas();
+$canvas->page_script(function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
+    $imagePath = 'alumno/view/images/encabezado.jpg'; 
+    $footerPath = 'alumno/view/images/piepagina.jpg';
+    $font = $fontMetrics->get_font("Arial", "bold");
+
+    // ENCABEZADO
+    $canvas->image($imagePath, 10, 10, 275, 50);
+    $canvas->text(380, 10, "Subsecretaría de Educación Media Superior", $font, 10, array(0, 0, 0));
+    $canvas->text(340, 20, "Dirección General de Educación Tecnológica Industrial y Servicios", $font, 8, array(0, 0, 0));
+    $canvas->text(310, 30, "Centro de Bachillerato Tecnológico industrial y de servicios No. 193", $font, 9, array(0, 0, 0));
+    $canvas->text(460, 40, "“José María Morelos y Pavón”", $font, 9, array(0, 0, 0));
+
+    // PIE DE PAGINA
+    $canvas->image($footerPath, 05, 785, 575, 60);
+    $canvas->text(200, 805, "cbtis193.docentes@dgeti.sems.gob.mx", $font, 7, array(0, 0, 0));
+    $canvas->text(195, 795, "e-mail: cbtis193.dir@dgeti.sems.gob.mx,", $font, 7, array(0, 0, 0));
+    $canvas->text(210, 785, "C.P. 97970 Tel y Fax (997)9740780", $font, 7, array(0, 0, 0));
+    $canvas->text(170, 775, "Prolongación de la calle 53 oriente s/n Tekax Yucatán", $font, 7, array(0, 0, 0));
+});
 
 // Enviar el PDF al navegador
 $dompdf->stream("reporte_semanal.pdf", array("Attachment" => false));
