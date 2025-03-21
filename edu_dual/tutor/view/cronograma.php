@@ -170,10 +170,10 @@ function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empres
 ?>
 <div class="fixed-bottom-visible text-center">
   
-<button type="button" class="btn btn-secondary" id="certificadoBtn" onclick="return imprimirContenido();" disabled>CERTIFICADO</button>
+
 
   
-  <br>
+  
 </div>
 <?php
 // Función para determinar el color de fondo de la celda basado en la descripción
@@ -182,40 +182,4 @@ function getColor($descripcion) {
 }
 
 ?>
-<script>
-    function imprimirContenido() {
-        
-        const nombreAlumno = encodeURIComponent("<?php echo $nombrecompleto_alumno; ?>");
-        const nombreEmpresa = encodeURIComponent("<?php echo $nombre_empresa; ?>");
-        const nombreAsesor = encodeURIComponent("<?php echo $nombreasesordual_docente; ?>");
-        const responsableEmpresa = encodeURIComponent("<?php echo $responsable_empresa; ?>");
-        const nombreAsesor = encodeURIComponent("<?php echo $nombreasesordual_docente; ?>");
-        const responsableEmpresa = encodeURIComponent("<?php echo $responsable_empresa; ?>");
-        const idInscripcion = "<?php echo $idinscripcion; ?>";
-
-        const url = `../../certificado.php?nombreAlumno=${nombreAlumno}&nombreEmpresa=${nombreEmpresa}&nombreAsesor=${nombreAsesor}&responsableEmpresa=${responsableEmpresa}&idInscripcion=${idInscripcion}`;
-
-        // Abrir la nueva ventana con el PDF
-        window.open(url, "_blank");
-}
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        verificarEstatus();
-    });
-    function verificarEstatus() {
-        const filas = document.querySelectorAll("table tbody tr"); // Selecciona todas las filas de la tabla
-        let todosFinalizados = true; // Suponemos que todos están finalizados
-
-        filas.forEach(fila => {
-            const estatus = fila.children[8].textContent.trim(); // La columna "Estatus Semana" está en la posición 9 (índice 8)
-            if (estatus !== "FINALIZADO") {
-                todosFinalizados = false; // Si hay al menos uno que no está finalizado, se cambia la variable
-            }
-        });
-
-        // Habilita o deshabilita el botón según la condición
-        document.getElementById("certificadoBtn").disabled = !todosFinalizados;
-    }
-</script>
 
