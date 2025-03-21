@@ -111,6 +111,12 @@ function verificarRegistros($idinscripcion, $nombrecompleto_alumno, $nombre_empr
         echo "Error al verificar los registros: " . $e->getMessage();
     }
 }
+?>
+<button type="button" class="btn btn-secondary" id="certificadoBtn" onclick="return imprimirContenido();" disabled>CERTIFICADO</button>
+
+<?php
+
+
 
 // Función para mostrar las bitácoras en una tabla
 function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
@@ -172,3 +178,40 @@ function getColor($descripcion) {
     return $descripcion ? '#A1FF9A' : '#FF9A9A'; // Verde si tiene valor, Rojo si no tiene valor
 }
 ?>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        verificarEstatus();
+    });
+
+    function verificarEstatus() {
+        const filas = document.querySelectorAll("table tbody tr"); // Selecciona todas las filas de la tabla
+        let todosFinalizados = true; // Suponemos que todos están finalizados
+
+        filas.forEach(fila => {
+            const estatus = fila.children[8].textContent.trim(); // La columna "Estatus Semana" está en la posición 9 (índice 8)
+            if (estatus !== "FINALIZADO") {
+                todosFinalizados = false; // Si hay al menos uno que no está finalizado, se cambia la variable
+            }
+        });
+
+        // Habilita o deshabilita el botón según la condición
+        document.getElementById("certificadoBtn").disabled = !todosFinalizados;
+    }
+</script>
+<script>
+    function imprimirContenido() {
+        // Obtener valores de los datos del alumno y empresa
+        const nombreAlumno = encodeURIComponent("<?php echo $nombrecompleto_alumno; ?>");
+        const nombreEmpresa = encodeURIComponent("<?php echo $nombre_empresa; ?>");
+        const nombreAsesor = encodeURIComponent("<?php echo $nombreasesordual_docente; ?>");
+        const responsableEmpresa = encodeURIComponent("<?php echo $responsable_empresa; ?>");
+        const idInscripcion = "<?php echo $idinscripcion; ?>";
+
+        const url = `../../certificado.php?nombreAlumno=${nombreAlumno}&nombreEmpresa=${nombreEmpresa}&nombreAsesor=${nombreAsesor}&responsableEmpresa=${responsableEmpresa}&idInscripcion=${idInscripcion}`;
+
+        // Abrir la nueva ventana con el PDF
+        window.open(url, "_blank");
+    }
+</script>
+   
