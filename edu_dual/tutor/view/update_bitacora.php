@@ -16,7 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $observaciones_empresa = $_POST['observaciones_empresa'];
     $vobo_empresa = $_POST['vobo_empresa'];
     $dias_trabajados = $_POST['dias_trabajados'];
-    //$estatus_semana = $_POST['estatus_semana'];
+    if ($vobo_tutordual === "AUTORIZADO" && $vobo_empresa === "AUTORIZADO") {
+        $estatus_semana = "FINALIZADO";
+    } else {
+        $estatus_semana = "PENDIENTE";
+    }
 
     // Preparar la consulta SQL para actualizar la tabla
     $sql = "UPDATE bitacoras SET 
@@ -31,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             vobo_tutordual = ?,
             observaciones_empresa = ?,
             vobo_empresa = ?, 
-            dias_trabajados = ? 
+            dias_trabajados = ?,
+            estatus_semana = ? 
             WHERE idbitacora = ?";
 
     // Ejecutar la consulta utilizando un prepared statement con PDO
@@ -48,7 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bindParam(10, $observaciones_empresa, PDO::PARAM_STR);
     $stmt->bindParam(11, $vobo_empresa, PDO::PARAM_STR);
     $stmt->bindParam(12, $dias_trabajados, PDO::PARAM_INT);
-    $stmt->bindParam(13, $idbitacora, PDO::PARAM_INT);
+    $stmt->bindParam(13, $estatus_semana, PDO::PARAM_STR);
+    $stmt->bindParam(14, $idbitacora, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
         echo "Datos actualizados correctamente";

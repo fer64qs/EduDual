@@ -89,7 +89,7 @@ $dias_trabajados="";
 $puesto="";
 $observaciones_alumno="";
 $estatus_semana="";
-$estatus_semana = "PENDIENTE";
+$estatus_semana = "";
 
 	$idbitacora1 = $_REQUEST['idbitacora'];
 	$query = "SELECT * FROM bitacoras WHERE idbitacora = :idbitacora1 ORDER BY no_semana";
@@ -131,19 +131,6 @@ try {
         $estatus_semana=$fila['estatus_semana'];
         $estatus_semana = $fila["estatus_semana"]; // Asignación inicial
 
-            // Verificar si ambos están autorizados y cambiar el estatus
-            if ($vobo_empresa === "AUTORIZADO" && $vobo_tutordual === "AUTORIZADO") {
-            $estatus_semana = "FINALIZADO"; // Cambiar el estatus a FINALIZADO
-        }
-
-        // Actualizar el estatus en la base de datos si es necesario
-         if ($estatus_semana === "FINALIZADO") {
-            $updateQuery = "UPDATE bitacoras SET estatus_semana = :estatus WHERE idbitacora = :idbitacora";
-            $stmtUpdate = DBC::get()->prepare($updateQuery);
-            $stmtUpdate->bindParam(':estatus', $estatus_semana, PDO::PARAM_STR);
-            $stmtUpdate->bindParam(':idbitacora', $idbitacora1, PDO::PARAM_INT);
-            $stmtUpdate->execute();
-        }
 		}
         
     } else {
