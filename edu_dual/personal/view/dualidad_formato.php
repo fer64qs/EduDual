@@ -88,6 +88,7 @@ $indicador_tutor="";
 $dias_trabajados="";
 $puesto="";
 $observaciones_alumno="";
+$estatus_semana = "PENDIENTE";
 
 	$idbitacora1 = $_REQUEST['idbitacora'];
 	$query = "SELECT * FROM bitacoras WHERE idbitacora = :idbitacora1 ORDER BY no_semana";
@@ -104,28 +105,43 @@ try {
 		
 		foreach ($resultados as $fila) {
             //echo '<option value="' . htmlspecialchars($fila['idbitacora']) . '">' . htmlspecialchars('Semana '.$fila['no_semana']) . '</option>';
-        $semana = $fila["no_semana"];
-		$fecha1=$fila["fecha1"];
-		$descripcion1=$fila["descripcion1"];
-		$fecha2=$fila["fecha2"];
-		$descripcion2=$fila["descripcion2"];
-		$fecha3=$fila["fecha3"];
-		$descripcion3=$fila["descripcion3"];
-		$fecha4=$fila["fecha4"];;
-		$descripcion4=$fila["descripcion4"];
-		$fecha5=$fila["fecha5"];
-		$descripcion5=$fila["descripcion5"];
-		$vobo_empresa=$fila["vobo_empresa"];
-		$observaciones_empresa=$fila["observaciones_empresa"];
-		$indicador_empresa=$fila["indicador_empresa"];
-		$vobo_tutordual=$fila["vobo_tutordual"];
-		$observaciones_tutor=$fila["observaciones_tutor"];
-		$indicador_tutor=$fila["indicador_tutor"];
-		$dias_trabajados=$fila["dias_trabajados"];
-		$puesto=$fila["puesto"];
-		$observaciones_alumno=$fila["observaciones_alumno"];
-        $observaciones_tutor=$fila["observaciones_tutor"];
-        $observaciones_empresa=$fila["observaciones_empresa"];
+            $semana = $fila["no_semana"];
+		    $fecha1=$fila["fecha1"];
+		    $descripcion1=$fila["descripcion1"];
+		    $fecha2=$fila["fecha2"];
+		    $descripcion2=$fila["descripcion2"];
+		    $fecha3=$fila["fecha3"];
+		    $descripcion3=$fila["descripcion3"];
+		    $fecha4=$fila["fecha4"];;
+		    $descripcion4=$fila["descripcion4"];
+		    $fecha5=$fila["fecha5"];
+		    $descripcion5=$fila["descripcion5"];
+		    $vobo_empresa=$fila["vobo_empresa"];
+		    $observaciones_empresa=$fila["observaciones_empresa"];
+		    $indicador_empresa=$fila["indicador_empresa"];
+		    $vobo_tutordual=$fila["vobo_tutordual"];
+		    $observaciones_tutor=$fila["observaciones_tutor"];
+		    $indicador_tutor=$fila["indicador_tutor"];
+		    $dias_trabajados=$fila["dias_trabajados"];
+		    $puesto=$fila["puesto"];
+		    $observaciones_alumno=$fila["observaciones_alumno"];
+            $observaciones_tutor=$fila["observaciones_tutor"];
+            $observaciones_empresa=$fila["observaciones_empresa"];
+            $estatus_semana = $fila["estatus_semana"]; // Asignación inicial
+
+            // Verificar si ambos están autorizados y cambiar el estatus
+            if ($vobo_empresa === "AUTORIZADO" && $vobo_tutordual === "AUTORIZADO") {
+            $estatus_semana = "FINALIZADO"; // Cambiar el estatus a FINALIZADO
+        }
+
+        // Actualizar el estatus en la base de datos si es necesario
+         if ($estatus_semana === "FINALIZADO") {
+            $updateQuery = "UPDATE bitacoras SET estatus_semana = :estatus WHERE idbitacora = :idbitacora";
+            $stmtUpdate = DBC::get()->prepare($updateQuery);
+            $stmtUpdate->bindParam(':estatus', $estatus_semana, PDO::PARAM_STR);
+            $stmtUpdate->bindParam(':idbitacora', $idbitacora1, PDO::PARAM_INT);
+            $stmtUpdate->execute();
+        }
 		}
         
     } else {

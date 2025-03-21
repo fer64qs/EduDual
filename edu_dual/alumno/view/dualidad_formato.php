@@ -88,19 +88,20 @@ $indicador_tutor="";
 $dias_trabajados="";
 $puesto="";
 $observaciones_alumno="";
+$estatus_semana = "PENDIENTE";
 
 	$idbitacora1 = $_REQUEST['idbitacora'];
 	$query = "SELECT * FROM bitacoras WHERE idbitacora = :idbitacora1 ORDER BY no_semana";
 	//echo $query;
     $resultados="";
 try {
-    $stmt = DBC::get()->prepare($query);
-    $stmt->bindParam(':idbitacora1', $idbitacora1, PDO::PARAM_INT);
-    $stmt->execute();
+        $stmt = DBC::get()->prepare($query);
+        $stmt->bindParam(':idbitacora1', $idbitacora1, PDO::PARAM_INT);
+        $stmt->execute();
 
-    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if ($resultados) {
+        if ($resultados) {
 		
 		foreach ($resultados as $fila) {
             //echo '<option value="' . htmlspecialchars($fila['idbitacora']) . '">' . htmlspecialchars('Semana '.$fila['no_semana']) . '</option>';
@@ -126,12 +127,27 @@ try {
 		$observaciones_alumno=$fila["observaciones_alumno"];
         $observaciones_tutor=$fila["observaciones_tutor"];
         $observaciones_empresa=$fila["observaciones_empresa"];
-		}
+        $estatus_semana = $fila["estatus_semana"]; // Asignación inicial
+
+        // Verificar si ambos están autorizados y cambiar el estatus
+        if ($vobo_empresa === "AUTORIZADO" && $vobo_tutordual === "AUTORIZADO") {
+        $estatus_semana = "FINALIZADO"; // Cambiar el estatus a FINALIZADO
+        }
+
+        // Actualizar el estatus en la base de datos si es necesario
+         if ($estatus_semana === "FINALIZADO") {
+            $updateQuery = "UPDATE bitacoras SET estatus_semana = :estatus WHERE idbitacora = :idbitacora";
+            $stmtUpdate = DBC::get()->prepare($updateQuery);
+            $stmtUpdate->bindParam(':estatus', $estatus_semana, PDO::PARAM_STR);
+            $stmtUpdate->bindParam(':idbitacora', $idbitacora1, PDO::PARAM_INT);
+            $stmtUpdate->execute();
+        }
+	}
         
-    } else {
-        echo '<div class="alert alert-warning" role="alert">No se encontraron semanas para esta inscripción dual.</div>';
-    }
-} catch (Exception $e) {
+        } else {
+            echo '<div class="alert alert-warning" role="alert">No se encontraron semanas para esta inscripción dual.</div>';
+        }
+    } catch (Exception $e) {
     echo "Error al ejecutar la consulta: " . $e->getMessage();
 }
 	?>

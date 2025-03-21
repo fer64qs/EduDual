@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $observaciones_empresa = $_POST['observaciones_empresa'];
     $vobo_empresa = $_POST['vobo_empresa'];
     $dias_trabajados = $_POST['dias_trabajados'];
+    //$estatus_semana = $_POST['estatus_semana'];
 
     // Preparar la consulta SQL para actualizar la tabla
     $sql = "UPDATE bitacoras SET 
