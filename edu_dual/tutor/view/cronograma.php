@@ -154,6 +154,7 @@ function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empres
                 echo '<td>' . htmlspecialchars($fila['puesto']) . '</td>';
                 echo '<td>' . htmlspecialchars($fila['estatus_semana']) . '</td>';
                 echo "<td> <a href='#' onclick=\"window.location='dualidad_formato.php?idbitacora=$idbitacora&nombrecompleto_alumno=" . urlencode($nombrecompleto_alumno) . "&nombre_empresa=" . urlencode($nombre_empresa) . "&nombreasesordual_docente=" . urlencode($nombreasesordual_docente) . "&responsable_empresa=" . urlencode($responsable_empresa) . "&idinscripcion=$idinscripcion'; return false;\"><img src='img/write.png'></a></td>";
+                
                 echo '</tr>';
             }
 
@@ -166,9 +167,55 @@ function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empres
         echo "Error al mostrar las bitácoras: " . $e->getMessage();
     }
 }
+?>
+<div class="fixed-bottom-visible text-center">
+  
+<button type="button" class="btn btn-secondary" id="certificadoBtn" onclick="return imprimirContenido();" disabled>CERTIFICADO</button>
 
+  
+  <br>
+</div>
+<?php
 // Función para determinar el color de fondo de la celda basado en la descripción
 function getColor($descripcion) {
     return $descripcion ? '#A1FF9A' : '#FF9A9A'; // Verde si tiene valor, Rojo si no tiene valor
 }
+
 ?>
+<script>
+    function imprimirContenido() {
+        
+        const nombreAlumno = encodeURIComponent("<?php echo $nombrecompleto_alumno; ?>");
+        const nombreEmpresa = encodeURIComponent("<?php echo $nombre_empresa; ?>");
+        const nombreAsesor = encodeURIComponent("<?php echo $nombreasesordual_docente; ?>");
+        const responsableEmpresa = encodeURIComponent("<?php echo $responsable_empresa; ?>");
+        const nombreAsesor = encodeURIComponent("<?php echo $nombreasesordual_docente; ?>");
+        const responsableEmpresa = encodeURIComponent("<?php echo $responsable_empresa; ?>");
+        const idInscripcion = "<?php echo $idinscripcion; ?>";
+
+        const url = `../../certificado.php?nombreAlumno=${nombreAlumno}&nombreEmpresa=${nombreEmpresa}&nombreAsesor=${nombreAsesor}&responsableEmpresa=${responsableEmpresa}&idInscripcion=${idInscripcion}`;
+
+        // Abrir la nueva ventana con el PDF
+        window.open(url, "_blank");
+}
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        verificarEstatus();
+    });
+    function verificarEstatus() {
+        const filas = document.querySelectorAll("table tbody tr"); // Selecciona todas las filas de la tabla
+        let todosFinalizados = true; // Suponemos que todos están finalizados
+
+        filas.forEach(fila => {
+            const estatus = fila.children[8].textContent.trim(); // La columna "Estatus Semana" está en la posición 9 (índice 8)
+            if (estatus !== "FINALIZADO") {
+                todosFinalizados = false; // Si hay al menos uno que no está finalizado, se cambia la variable
+            }
+        });
+
+        // Habilita o deshabilita el botón según la condición
+        document.getElementById("certificadoBtn").disabled = !todosFinalizados;
+    }
+</script>
+
