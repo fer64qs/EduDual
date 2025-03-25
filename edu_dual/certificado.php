@@ -16,6 +16,7 @@ $dompdf = new Dompdf($options);
 $nombreAlumno = isset($_GET['nombreAlumno']) ? urldecode($_GET['nombreAlumno']) : 'Nombre Alumno';
 $nombreEmpresa = isset($_GET['nombreEmpresa']) ? urldecode($_GET['nombreEmpresa']) : 'Empresa';
 $nombreAsesor = isset($_GET['nombreAsesor']) ? urldecode($_GET['nombreAsesor']) : 'Asesor Dual';
+$nombreDirector = isset($_GET['nombreDirector']) ? urldecode($_GET['nombreDirector']) : 'Director';
 $responsableEmpresa = isset($_GET['responsableEmpresa']) ? urldecode($_GET['responsableEmpresa']) : 'Responsable Empresa';
 
 // Plantilla del certificado
@@ -55,6 +56,8 @@ $html = "
         <h2>$nombreAsesor</h2>
         <p class='certificado'>Y la supervisión por parte del personal de la empresa:</p>
         <h2>$responsableEmpresa</h2>
+         <p>_________________________<br>Nombre y firma del director</p>
+         <p>$nombreDirector</p>
         <br><br>
     </div>
 </body>

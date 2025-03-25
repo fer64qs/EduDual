@@ -7,6 +7,7 @@ $nombre_empresa = isset($_REQUEST["nombre_empresa"]) ? $_REQUEST["nombre_empresa
 $idasesordual_docente = isset($_REQUEST["idasesordual_docente"]) ? $_REQUEST["idasesordual_docente"] : '';
 $nombreasesordual_docente = isset($_REQUEST["nombreasesordual_docente"]) ? $_REQUEST["nombreasesordual_docente"] : '';
 $responsable_empresa = isset($_REQUEST["responsable_empresa"]) ? $_REQUEST["responsable_empresa"] : '';
+$nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_director"] : '';
 
 $bitacora_creada = "";
 
@@ -38,7 +39,9 @@ if (isset($_REQUEST['idinscripcion'])) {
         inscripciones.idtutor_academico,
         tutores_academicos.apellido_paterno,
         tutores_academicos.apellido_materno,
-        tutores_academicos.nombre_tutor
+        tutores_academicos.nombre_tutor,
+        configuracion.id_configuracion,
+        configuracion.nombre_director
     FROM 
         inscripciones
     JOIN 
@@ -51,6 +54,8 @@ if (isset($_REQUEST['idinscripcion'])) {
         personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
     JOIN 
        tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
+    JOIN
+        configuracion ON inscripciones.id_configuracion = configuracion.id_configuracion
     WHERE 
         inscripciones.idinscripcion = :idinscripcion
     ";
@@ -66,6 +71,7 @@ if (isset($_REQUEST['idinscripcion'])) {
         $nombre_empresa = $fila['nombre_empresa'];
         $nombreasesordual_docente = $fila['nombre_tutor'] . ' ' . $fila['apellido_paterno'] . ' ' . $fila['apellido_materno'];
         $responsable_empresa = $fila['nombre_personal'] . ' ' . $fila['papellido_paterno'] . ' ' . $fila['papellido_materno'];
+        $nombre_director = $fila['nombre_director'];
 
         // Mostrar los detalles del calendario de actividades
         echo "<h2><center><b>Detalle del calendario de actividades</b></center></h2> <br>";
@@ -111,6 +117,12 @@ function verificarRegistros($idinscripcion, $nombrecompleto_alumno, $nombre_empr
         echo "Error al verificar los registros: " . $e->getMessage();
     }
 }
+?>
+<button type="button" class="btn btn-secondary" id="certificadoBtn" onclick="return imprimirContenido();" disabled>CERTIFICADO</button>
+
+<?php
+
+
 
 // Función para mostrar las bitácoras en una tabla
 function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
@@ -154,7 +166,6 @@ function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empres
                 echo '<td>' . htmlspecialchars($fila['puesto']) . '</td>';
                 echo '<td>' . htmlspecialchars($fila['estatus_semana']) . '</td>';
                 echo "<td> <a href='#' onclick=\"window.location='dualidad_formato.php?idbitacora=$idbitacora&nombrecompleto_alumno=" . urlencode($nombrecompleto_alumno) . "&nombre_empresa=" . urlencode($nombre_empresa) . "&nombreasesordual_docente=" . urlencode($nombreasesordual_docente) . "&responsable_empresa=" . urlencode($responsable_empresa) . "&idinscripcion=$idinscripcion'; return false;\"><img src='img/write.png'></a></td>";
-                
                 echo '</tr>';
             }
 
@@ -167,19 +178,48 @@ function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empres
         echo "Error al mostrar las bitácoras: " . $e->getMessage();
     }
 }
-?>
-<div class="fixed-bottom-visible text-center">
-  
 
-
-  
-  
-</div>
-<?php
 // Función para determinar el color de fondo de la celda basado en la descripción
 function getColor($descripcion) {
     return $descripcion ? '#A1FF9A' : '#FF9A9A'; // Verde si tiene valor, Rojo si no tiene valor
 }
-
 ?>
 
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        verificarEstatus();
+    });
+
+    function verificarEstatus() {
+        const filas = document.querySelectorAll("table tbody tr"); // Selecciona todas las filas de la tabla
+        let todosFinalizados = true; // Suponemos que todos están finalizados
+
+        filas.forEach(fila => {
+            const estatus = fila.children[8].textContent.trim(); // La columna "Estatus Semana" está en la posición 9 (índice 8)
+            if (estatus !== "FINALIZADO") {
+                todosFinalizados = false; // Si hay al menos uno que no está finalizado, se cambia la variable
+            }
+        });
+
+        // Habilita o deshabilita el botón según la condición
+        document.getElementById("certificadoBtn").disabled = !todosFinalizados;
+    }
+</script>
+<script>
+    function imprimirContenido() {
+        // Obtener valores de los datos del alumno y empresa
+        const nombreAlumno = encodeURIComponent("<?php echo $nombrecompleto_alumno; ?>");
+        const nombreEmpresa = encodeURIComponent("<?php echo $nombre_empresa; ?>");
+        const nombreAsesor = encodeURIComponent("<?php echo $nombreasesordual_docente; ?>");
+        const responsableEmpresa = encodeURIComponent("<?php echo $responsable_empresa; ?>");
+        const nombreDirector = encodeURIComponent("<?php echo $nombre_director; ?>");
+        
+        const idInscripcion = "<?php echo $idinscripcion; ?>";
+
+        const url = `../../certificado.php?nombreAlumno=${nombreAlumno}&nombreEmpresa=${nombreEmpresa}&nombreAsesor=${nombreAsesor}&responsableEmpresa=${responsableEmpresa}&nombreDirector=${nombreDirector}&idInscripcion=${idInscripcion}`;
+
+        // Abrir la nueva ventana con el PDF
+        window.open(url, "_blank");
+    }
+</script>
+   
