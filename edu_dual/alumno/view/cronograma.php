@@ -7,6 +7,7 @@ $nombre_empresa = isset($_REQUEST["nombre_empresa"]) ? $_REQUEST["nombre_empresa
 $idasesordual_docente = isset($_REQUEST["idasesordual_docente"]) ? $_REQUEST["idasesordual_docente"] : '';
 $nombreasesordual_docente = isset($_REQUEST["nombreasesordual_docente"]) ? $_REQUEST["nombreasesordual_docente"] : '';
 $responsable_empresa = isset($_REQUEST["responsable_empresa"]) ? $_REQUEST["responsable_empresa"] : '';
+$nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_director"] : '';
 
 $bitacora_creada = "";
 
@@ -38,7 +39,9 @@ if (isset($_REQUEST['idinscripcion'])) {
         inscripciones.idtutor_academico,
         tutores_academicos.apellido_paterno,
         tutores_academicos.apellido_materno,
-        tutores_academicos.nombre_tutor
+        tutores_academicos.nombre_tutor,
+        configuracion.id_configuracion,
+        configuracion.nombre_director
     FROM 
         inscripciones
     JOIN 
@@ -51,6 +54,8 @@ if (isset($_REQUEST['idinscripcion'])) {
         personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
     JOIN 
        tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
+    JOIN
+        configuracion ON inscripciones.id_configuracion = configuracion.id_configuracion
     WHERE 
         inscripciones.idinscripcion = :idinscripcion
     ";
@@ -66,6 +71,7 @@ if (isset($_REQUEST['idinscripcion'])) {
         $nombre_empresa = $fila['nombre_empresa'];
         $nombreasesordual_docente = $fila['nombre_tutor'] . ' ' . $fila['apellido_paterno'] . ' ' . $fila['apellido_materno'];
         $responsable_empresa = $fila['nombre_personal'] . ' ' . $fila['papellido_paterno'] . ' ' . $fila['papellido_materno'];
+        $nombre_director = $fila['nombre_director'];
 
         // Mostrar los detalles del calendario de actividades
         echo "<h2><center><b>Detalle del calendario de actividades</b></center></h2> <br>";
@@ -206,9 +212,11 @@ function getColor($descripcion) {
         const nombreEmpresa = encodeURIComponent("<?php echo $nombre_empresa; ?>");
         const nombreAsesor = encodeURIComponent("<?php echo $nombreasesordual_docente; ?>");
         const responsableEmpresa = encodeURIComponent("<?php echo $responsable_empresa; ?>");
+        const nombreDirector = encodeURIComponent("<?php echo $nombre_director; ?>");
+        
         const idInscripcion = "<?php echo $idinscripcion; ?>";
 
-        const url = `../../certificado.php?nombreAlumno=${nombreAlumno}&nombreEmpresa=${nombreEmpresa}&nombreAsesor=${nombreAsesor}&responsableEmpresa=${responsableEmpresa}&idInscripcion=${idInscripcion}`;
+        const url = `../../certificado.php?nombreAlumno=${nombreAlumno}&nombreEmpresa=${nombreEmpresa}&nombreAsesor=${nombreAsesor}&responsableEmpresa=${responsableEmpresa}&nombreDirector=${nombreDirector}&idInscripcion=${idInscripcion}`;
 
         // Abrir la nueva ventana con el PDF
         window.open(url, "_blank");
