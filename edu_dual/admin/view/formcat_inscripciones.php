@@ -76,6 +76,9 @@
     document.getElementById('cantidadRegistros').textContent = 'Cantidad de registros: <?php echo $totalRegistros; ?>';
   });
 </script>
+
+
+
   <?php
   foreach ($inscripciones as $inscripcion) {
     $icono = 'fa-building';
@@ -109,11 +112,11 @@
     echo "<button class='btn btn-info' onclick='redirigirBitacora({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
           <i class='fas fa-calendar-alt'></i> Crono
           </button>";
-          /*
-    echo "<button class='btn btn-info' onclick='redirigirBitacora({ $inscripcion['idinscripcion']}), "<?= $inscripcion["fecha_inicio"] ?>", "<?= $inscripcion["fecha_fin"] ?>", "<?= $inscripcion["estatus"] ?>")' style='font-size: 14px;'>
-          <i class='fas fa-calendar-alt'></i> Crono
-          </button>&nbsp;"; 
-*/
+
+    echo "<button class='btn btn-info' onclick='redirigirOficio({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
+          <i class='fas fa-calendar-alt'></i> Oficio
+          </button>";
+
     echo "</div>";
     echo "</div>";
     echo "</div>";
@@ -405,6 +408,7 @@ document.addEventListener('DOMContentLoaded', cargarPersonales);
 document.addEventListener('DOMContentLoaded', cargarTutores);
 document.addEventListener('DOMContentLoaded', cargarSemestre);
 </script>
+
   <script>
   /*
 function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
@@ -415,6 +419,14 @@ function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
     window.location.href = url;
 }
 */
+function redirigirBitacora(idinscripcion) {
+    // Construir la URL con los parámetros necesarios
+    const url = `bitacora.php?idinscripcion=${encodeURIComponent(idinscripcion)}`;
+    
+    // Redirigir a bitacora.php
+    window.location.href = url;
+}
+
 function redirigirBitacora(idinscripcion) {
     // Construir la URL con los parámetros necesarios
     const url = `bitacora.php?idinscripcion=${encodeURIComponent(idinscripcion)}`;

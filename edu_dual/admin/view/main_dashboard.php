@@ -178,7 +178,8 @@ if (!empty($_SESSION["userId"])) {
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('view/cargar_datos.html'); cerrarMenu();">Cargar Datos</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">Opción 2</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_configuracion.php'); cerrarMenu();">Configuracion</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_Noticias.php'); cerrarMenu();">Noticias</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
