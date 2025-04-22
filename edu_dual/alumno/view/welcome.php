@@ -1,3 +1,4 @@
+<?php include('cat_noticias/noticias.php'); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -195,28 +196,35 @@
             </div>
         </div>
     </section>
-
     <!-- Sección de Noticias -->
-    <section>
-        <h2 class="section-title">Noticias Recientes</h2>
-        <div class="container" id="news-container">
-            <div class="news-card">
-                <div>
-                    <h4>Nuevo Programa de Becas</h4>
-                    <p>El gobierno lanza un nuevo programa de becas para estudiantes que participen en educación dual.</p>
-                </div>
-                <a href="#noticia1" class="btn btn-link" onclick="mostrarNoticia('noticia1')">Leer más</a>
-            </div>
+    <h2 class='section-title'>Noticias Recientes</h2>";
+    <?php
+     $noticias = cargarNoticias();
+     $totalNoticias = count($noticias);
+    if ($totalNoticias === 0) {
+        echo "<p class='text-center text-muted'>No hay noticias disponibles.</p>";
+      } else {
+        foreach ($noticias as $noticia) {
+            $imagen = $noticia['imagen']; // Ruta de la imagen
+        echo "<section>";
+        
+        echo "<div class='container' id='news-container'>";
 
-            <div class="news-card">
-                <div>
-                    <h4>Empresas que Adoptan la Educación Dual</h4>
-                    <p>Cada vez más empresas se suman al modelo de educación dual para formar talentos jóvenes.</p>
-                </div>
-                <a href="#noticia2" class="btn btn-link" onclick="mostrarNoticia('noticia2')">Leer más</a>
-            </div>
-        </div>
-    </section>
+        echo "<div class='news-card'>";
+        echo "<div>";
+        echo "<h4>{$noticia['titulo']}</h4>";
+        echo "<h5>{$noticia['subtitulo']} </h5>";
+        echo "<h5>{$noticia['fecha']}</h5>";
+       
+        echo "<p>{$noticia['descripcion']}</p>";
+        echo "</div>";
+        echo "<img src='{$imagen}' alt='Imagen de la noticia' style='width: 150px; height: 150px; border-radius: 50%; object-fit: cover;'>";
+        echo "</div>";
+
+        echo "</section>";
+    }
+}
+?>
 
     <!-- Llamada a la acción -->
     <section class="cta-section">

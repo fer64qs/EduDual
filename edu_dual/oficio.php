@@ -16,13 +16,14 @@ $options->set('isRemoteEnabled', true);
 $dompdf = new Dompdf($options);
 
 // Obtener parámetros
-$nombreAlumno = isset($_GET['nombreAlumno']) ? urldecode($_GET['nombreAlumno']) : 'Nombre Alumno';
-$nombreEmpresa = isset($_GET['nombreEmpresa']) ? urldecode($_GET['nombreEmpresa']) : 'Empresa';
-$nombreAsesor = isset($_GET['nombreAsesor']) ? urldecode($_GET['nombreAsesor']) : 'Asesor Dual';
-$nombreDirector = isset($_GET['nombreDirector']) ? urldecode($_GET['nombreDirector']) : 'Director';
+$nombrecompleto_alumno = isset($_GET['nombrecompleto_alumno']) ? urldecode($_GET['nombrecompleto_alumno']) : 'Nombre Alumno';
+$nombre_empresa = isset($_GET['nombre_empresa']) ? urldecode($_GET['nombre_empresa']) : 'Empresa';
+$nombreasesordual_docente = isset($_GET['nombreasesordual_docente']) ? urldecode($_GET['nombreasesordual_docente']) : 'Asesor Dual';
+$nombre_director = isset($_GET['nombre_director']) ? urldecode($_GET['nombre_director']) : 'Director';
 $responsableEmpresa = isset($_GET['responsableEmpresa']) ? urldecode($_GET['responsableEmpresa']) : 'Responsable Empresa';
-$numControl = isset($_GET['numControl']) ? urldecode($_GET['numControl']) : 'No Control';
+$num_control = isset($_GET['num_control']) ? urldecode($_GET['num_control']) : 'No Control';
 $curp = isset($_GET['curp']) ? urldecode($_GET['curp']) : 'curp';
+$nombre_carrera = isset($_GET['nombre_carrera']) ? urldecode($_GET['nombre_carrera']) : 'Nombre de carrera';
 $fecha_inicio = isset($_GET['fecha_inicio']) ? urldecode($_GET['fecha_inicio']) : 'fecha de inicio';
 $fecha_fin = isset($_GET['fecha_fin']) ? urldecode($_GET['fecha_fin']) : 'fecha de fin';
 
@@ -35,11 +36,11 @@ $qrOptions = new QROptions([
 ]);
 
 $urlAlumno = "http://".$_SERVER['HTTP_HOST']."/edu_dual/consultas/consultaCertificado.php?" . http_build_query([
-    'alumno' => $nombreAlumno,
-    'empresa' => $nombreEmpresa,
-    'asesor' => $nombreAsesor,
+    'alumno' => $nombrecompleto_alumno,
+    'empresa' => $nombre_empresa,
+    'asesor' => $nombreasesordual_docente,
     'responsable' => $responsableEmpresa,
-    'numControl' => $numControl,
+    'num_control' => $num_control,
     'curp' => $curp,
     'fecha_inicio' => $fecha_inicio,
     'fecha_fin' => $fecha_fin
@@ -76,7 +77,7 @@ $html = <<<HTML
     <p style="text-align: right;"><strong>ASUNTO:</strong> Asesor interno de Residencias Profesionales.</p>
     <br>
     <br>
-    <p>C. <strong>$nombreAsesor</strong></p>
+    <p>C. <strong>$nombreasesordual_docente</strong></p>
     <br>
     <br>
     <p style="text-align: center;">P r e s e n t e</p>
@@ -91,12 +92,9 @@ $html = <<<HTML
     <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; border: 1px solid #000;">
         <tr>
             <td style="padding: 5px; border: 1px solid #000;"><strong>a)</strong> Nombre del Residente:</td>
-            <td style="padding: 5px; border: 1px solid #000;">$nombreAlumno</td>
+            <td style="padding: 5px; border: 1px solid #000;">$nombrecompleto_alumno</td>
         </tr>
-        <tr>
-            <td style="padding: 5px; border: 1px solid #000;"><strong>b)</strong> Carrera:</td>
-            <td style="padding: 5px; border: 1px solid #000;">Técnico en programación</td>
-        </tr>
+        
         <tr>
             <td style="padding: 5px; border: 1px solid #000;"><strong>c)</strong> Fecha inicio:</td>
             <td style="padding: 5px; border: 1px solid #000;">$fecha_inicio</td>
@@ -107,7 +105,7 @@ $html = <<<HTML
         </tr>
         <tr>
             <td style="padding: 5px; border: 1px solid #000;"><strong>e)</strong> Empresa:</td>
-            <td style="padding: 5px; border: 1px solid #000;">$nombreEmpresa</td>
+            <td style="padding: 5px; border: 1px solid #000;">$nombre_empresa</td>
         </tr>
     </table>
     <br>
@@ -127,7 +125,7 @@ $html = <<<HTML
     <p style="text-align: center;">A t e n t a m e n t e.</p>
     <br><br><br>
     <p style="text-align: center;">_________________________________</p>
-    <p style="text-align: center;">$nombreDirector<br>Director</p>
+    <p style="text-align: center;">$nombre_director<br>Director</p>
 </div>
 </body>
 </html>
@@ -183,4 +181,4 @@ $y = $pageHeight - 30;
 $canvas->text($x, $y, $footerText, $font, $fontSize);
 */
 // Mostrar el PDF en el navegador
-$dompdf->stream("Certificado_$nombreAlumno.pdf", ["Attachment" => false]);
+$dompdf->stream("Certificado_$nombrecompleto_alumno.pdf", ["Attachment" => false]);

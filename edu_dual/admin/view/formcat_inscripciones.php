@@ -1,4 +1,12 @@
-<?php include('cat_inscripciones/inscripciones.php'); ?>
+<?php include('cat_inscripciones/inscripciones.php'); 
+$nombrecompleto_alumno = isset($_REQUEST["nombrecompleto_alumno"]) ? $_REQUEST["nombrecompleto_alumno"] : '';
+$nombre_empresa = isset($_REQUEST["nombre_empresa"]) ? $_REQUEST["nombre_empresa"] : '';
+$idasesordual_docente = isset($_REQUEST["idasesordual_docente"]) ? $_REQUEST["idasesordual_docente"] : '';
+$nombreasesordual_docente = isset($_REQUEST["nombreasesordual_docente"]) ? $_REQUEST["nombreasesordual_docente"] : '';
+$responsable_empresa = isset($_REQUEST["responsable_empresa"]) ? $_REQUEST["responsable_empresa"] : '';
+$nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_director"] : '';
+
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -6,15 +14,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cat de Inscripcion</title>
-  <!--
- <link href="js/bootstrap.min.css" rel="stylesheet">
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/axios.min.js"></script>
-  <link href="js/all.min.css" rel="stylesheet">
-  <script src="js/sweetalert.min.js"></script> 
-  -->
-  
-  <!-- referencias con acceso a CDN online -->
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -22,11 +21,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
   
-  <!-- SweetAlert2 -->
-<!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
-
-
-
   <style>
     .alert-custom {
       position: fixed;
@@ -76,11 +70,14 @@
     document.getElementById('cantidadRegistros').textContent = 'Cantidad de registros: <?php echo $totalRegistros; ?>';
   });
 </script>
-
-
-
   <?php
   foreach ($inscripciones as $inscripcion) {
+    $nombrecompleto_alumno = $inscripcion['nombre'] . ' ' . $inscripcion['apellidop'] . ' ' . $inscripcion['apellidom'];
+    $nombre_empresa = $inscripcion['nombre_empresa'];
+    $nombreasesordual_docente = $inscripcion['nombre_tutor'] . ' ' . $inscripcion['apellido_paterno'] . ' ' . $inscripcion['apellido_materno'];
+    $responsable_empresa = $inscripcion['nombre_personal'] . ' ' . $inscripcion['papellido_paterno'] . ' ' . $inscripcion['papellido_materno'];
+    $nombre_director = $inscripcion['nombre_director'];
+
     $icono = 'fa-building';
     $color = 'black'; 
 
@@ -90,12 +87,12 @@
     echo "<i class='fas {$icono}' style='font-size: 64px; color: {$color};'></i>";
     echo "</div>";
     echo "<div class='card-body'>";
-    echo "<h5 class='card-title text-center'><b>{$inscripcion['nombre']} {$inscripcion['apellidop']} {$inscripcion['apellidom']}</b></h5>";
+    echo "<h5 class='card-title text-center'><b>{$nombrecompleto_alumno}</b></h5>";
 
     echo "<p class='card-text'>";
-    echo "<b>Tutor Academico:</b> {$inscripcion['nombre_tutor']} {$inscripcion['apellido_paterno']} {$inscripcion['apellido_materno']}<br>";
-    echo "<b>Tutor Personal:</b> {$inscripcion['nombre_personal']} {$inscripcion['papellido_paterno']} {$inscripcion['papellido_materno']}<br>";
-    echo "<b>Empresa:</b> {$inscripcion['nombre_empresa']}<br>";
+    echo "<b>Tutor Academico:</b> {$nombreasesordual_docente}<br>";
+    echo "<b>Tutor Personal:</b> {$responsable_empresa}<br>";
+    echo "<b>Empresa:</b> {$nombre_empresa}<br>";
     echo "<b>Ciclo Escolar:</b> {$inscripcion['semestre']}<br>";
     echo "<b>Fecha de Inicio:</b> {$inscripcion['fecha_inicio']}<br>";
     echo "<b>Fecha de Fin:</b> {$inscripcion['fecha_fin']}<br>";
@@ -113,7 +110,7 @@
           <i class='fas fa-calendar-alt'></i> Crono
           </button>";
 
-    echo "<button class='btn btn-info' onclick='redirigirOficio({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-danger' onclick='imprimirOficio(\"{$inscripcion['idinscripcion']}\",\"{$nombrecompleto_alumno}\", \"{$nombre_empresa}\", \"{$nombreasesordual_docente}\", \"{$responsable_empresa}\", \"{$nombre_director}\",\"{$inscripcion['fecha_inicio']}\",\"{$inscripcion['fecha_fin']}\")' style='font-size: 14px;'>
           <i class='fas fa-calendar-alt'></i> Oficio
           </button>";
 
@@ -122,16 +119,11 @@
     echo "</div>";
   }
   ?>
+
 </div>
-
-
-
 	<!-- cards end-->
-     	
   </div>
 <!-- HACER LA INSCRIPCION -->
-
-
   <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -257,14 +249,6 @@
         </div>
     </div>
 </div>
-
-<!-- FORM PARA CREAR LA CUENTA DE USUARIO-->
-<!-- Botón para abrir el modal -->
-
-
-<!-- -->
-
-  
 <script>
     function cargarAlumnos() {
   axios.get('cat_inscripciones/alumnos.php')
@@ -393,15 +377,6 @@ function cargarSemestre() {
     });
 }
 
-    
-
-
-
-
-	
-
-// Llamar a la función al cargar la página
-
 document.addEventListener('DOMContentLoaded', cargarAlumnos);
 document.addEventListener('DOMContentLoaded', cargarEmpresas);
 document.addEventListener('DOMContentLoaded', cargarPersonales);
@@ -410,15 +385,7 @@ document.addEventListener('DOMContentLoaded', cargarSemestre);
 </script>
 
   <script>
-  /*
-function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
-    // Construir la URL con los parámetros
-	const url = `add_user.php?idalumno=${encodeURIComponent(idAlumno)}&nombre=${encodeURIComponent(nombre)}&apellidop=${encodeURIComponent(apellidoP)}&apellidom=${encodeURIComponent(apellidoM)}&correo=${encodeURIComponent(correo)}&celular=${encodeURIComponent(celular)}`;
-//alert(url);
-    // Redirigir al archivo con los parámetros
-    window.location.href = url;
-}
-*/
+
 function redirigirBitacora(idinscripcion) {
     // Construir la URL con los parámetros necesarios
     const url = `bitacora.php?idinscripcion=${encodeURIComponent(idinscripcion)}`;
@@ -486,9 +453,6 @@ function filtrarCards() {
     swal("¡Resultado!", "Ningún registro coincide con la búsqueda", "warning");
   }
 }
-
-	
-	
     // Editar alumno
     // Función para editar el alumno
     function editarInscripcion(id) {
@@ -649,12 +613,6 @@ document.getElementById('formEditar').addEventListener('submit', function (e) {
 	swal("¡Error!", "Error al conectar con el servidor.", "error");
   });
 });
-
-
-
-
-    // Eliminar alumno
-	
 // Función para eliminar un alumno
 function eliminarInscripcion(id) {
 	
@@ -674,14 +632,6 @@ function eliminarInscripcion(id) {
         .then(response => {
             // Manejar la respuesta del servidor
             if (response.data.success) {
-				//#####
-				/*
-                
-				*/
-				//##########
-				
-				/*
-				*/
 				alertaPersonalizada('success', response.data.message);
                     swal("¡Éxito!", "El alumno ha sido eliminado correctamente", "success")
                     .then(() => {
@@ -692,9 +642,6 @@ function eliminarInscripcion(id) {
                             location.reload(); // Recargar la página
                         }, 1000); // 3 segundos de espera antes de recargar
                     });
-				/**/
-				
-				
             } else {
                 alertaPersonalizada('danger', response.data.message || 'Error al eliminar el alumno');
 				swal("¡Error!", response.data.message || 'Error al eliminar el alumno', "error");
@@ -710,17 +657,10 @@ function eliminarInscripcion(id) {
     console.log("Cancelado");
   }
 });
-
-
-	
-    
 }
-
-
-  </script>
-  
-  
+  </script> 
   <script>
+
         // Cargar carreras y manejar el formulario al cargar la página
     document.addEventListener('DOMContentLoaded', function () {
         cargarAlumnos();
@@ -732,9 +672,6 @@ function eliminarInscripcion(id) {
         // Manejar el envío del formulario
         document.getElementById('formAgregar').addEventListener('submit', function (event) {
             event.preventDefault(); // Evitar el envío tradicional del formulario
-			
-			
-
             // Obtener datos del formulario
             const formData = new FormData(this);
 
@@ -775,8 +712,6 @@ function eliminarInscripcion(id) {
             });
         });
     });
-        
-
         // Función para mostrar alertas personalizadas
         function alertaPersonalizada(tipo, mensaje) {
             const alertDiv = document.createElement('div');
@@ -812,8 +747,6 @@ function eliminarInscripcion(id) {
         // Obtener los elementos de fecha
         let fechaInicio = document.getElementById("fecha_inicio");
         let fechaFin = document.getElementById("fecha_fin");
-        
-
         // Agregar evento para validar la fecha de fin
         fechaInicio.addEventListener("change", validarFechas);
         fechaFin.addEventListener("change", validarFechas);
@@ -830,6 +763,15 @@ function eliminarInscripcion(id) {
     });
 </script>
 
-	
+<script>
+  function imprimirOficio(idinscripcion,nombrecompleto_alumno,nombre_empresa,nombreasesordual_docente,responsable_empresa,nombre_director,fecha_inicio,fecha_fin,nombre_carrera) {
+    
+    const url = `../../oficio.php?idinscripcion=${encodeURIComponent(idinscripcion)}&nombrecompleto_alumno=${encodeURIComponent(nombrecompleto_alumno)}&nombre_empresa=${encodeURIComponent(nombre_empresa)}&nombreasesordual_docente=${encodeURIComponent(nombreasesordual_docente)}&responsable_empresa=${encodeURIComponent(responsable_empresa)}&nombre_director=${encodeURIComponent(nombre_director)}&fecha_inicio=${encodeURIComponent(fecha_inicio)}&fecha_fin=${encodeURIComponent(fecha_fin)}`;
+
+        // Abrir la nueva ventana con el PDF
+        window.open(url, "_blank");
+
+    }
+</script>
 </body>
 </html>

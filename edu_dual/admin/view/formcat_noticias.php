@@ -63,29 +63,32 @@
         document.getElementById('cantidadRegistros').textContent = 'Cantidad de registros: <?php echo $totalNoticias; ?>';
       });
     </script>
-    <?php foreach ($noticias as $noticia): ?>
-      <div class='col-md-4 mb-4 card-noticia'>
-        <div class='card h-100 shadow-sm'>
-          <img src='<?= $noticia['imagen'] ?>' class='card-img-top img-noticia' alt='Imagen de la noticia'>
-          <div class='card-body'>
-            <h5 class='card-title'><?= $noticia['titulo'] ?></h5>
-            <h6 class='card-subtitle mb-2 text-muted'><?= $noticia['subtitulo'] ?></h6>
-            <p class='card-text'><small class='text-muted'>Fecha: <?= $noticia['fecha'] ?></small></p>
-            <p class='card-text'><?= substr(strip_tags($noticia['descripcion']), 0, 100) ?>...</p>
-            <div class='d-flex justify-content-between'>
-              <button class='btn btn-warning btn-sm' onclick='abrirModalEditar(<?= json_encode($noticia) ?>)'>
-                <i class='fas fa-edit'></i> Editar
-              </button>
-              <button class='btn btn-danger btn-sm' onclick='eliminarNoticia(<?= $noticia['id_noticia'] ?>)'>
-                <i class='fas fa-trash'></i> Eliminar
-              </button>
-            </div>
+    <?php 
+    foreach ($noticias as $noticia) { 
+      $imagen = $noticia['imagen']; // Ruta de la imagen
+
+    echo "<div class='col-md-4 mb-4'>";
+    echo "<div class='card' style='width: 20rem;'>";
+    echo "<div class='text-center mt-3'>";
+    echo "<img src='{$imagen}' alt='Imagen de la noticia' style='width: 150px; height: 150px; border-radius: 50%; object-fit: cover;'>";
+    echo "</div>";
+    echo "<div class='card-body'>";
+    echo "<h5 class='card-title text-center'><b>{$noticia['titulo']} </b></h5>";
+
+    echo "<p class='card-text'>";
+    echo "<b></b> {$noticia['subtitulo']}<br>";
+    echo "<b></b> {$noticia['fecha']}<br>";
+    echo "<b></b> {$noticia['descripcion']}<br>";
+    
+    echo "</p>";
+   
+
+              echo "</div>";
+              echo "</div>";
+              echo "</div>";
+            }
+            ?>
           </div>
-        </div>
-      </div>
-    <?php endforeach; ?>
-  </div>
-</div>
 
 <!-- Modal Agregar -->
 <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">

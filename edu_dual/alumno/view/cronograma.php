@@ -229,7 +229,7 @@ function getColor($descripcion) {
         
         const idInscripcion = "<?php echo $idinscripcion; ?>";
 
-        const url = `../../oficio.php?nombreAlumno=${nombreAlumno}&nombreEmpresa=${nombreEmpresa}&nombreAsesor=${nombreAsesor}&responsableEmpresa=${responsableEmpresa}&nombreDirector=${nombreDirector}&numControl=${numControl}&curp=${curp}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}&idInscripcion=${idInscripcion}`;
+        const url = `../../certificado.php?nombreAlumno=${nombreAlumno}&nombreEmpresa=${nombreEmpresa}&nombreAsesor=${nombreAsesor}&responsableEmpresa=${responsableEmpresa}&nombreDirector=${nombreDirector}&numControl=${numControl}&curp=${curp}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}&idInscripcion=${idInscripcion}`;
 
         // Abrir la nueva ventana con el PDF
         window.open(url, "_blank");

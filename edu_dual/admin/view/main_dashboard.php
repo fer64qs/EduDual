@@ -88,7 +88,7 @@ if (!empty($_SESSION["userId"])) {
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #A57F2C;">
     <div class="container-fluid">
         <!--<a class="navbar-brand" href="#">Mi Sitio</a> -->
-		<a class="navbar-brand" href="" onclick="cargarVista('view/welcome.html');"><i class="fas fa-home"></i></a>
+		<a class="navbar-brand" href="" onclick="cargarVista('view/welcome.php');"><i class="fas fa-home"></i></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -96,7 +96,7 @@ if (!empty($_SESSION["userId"])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" onclick="cargarVista('bienvenida.html'); cerrarMenu();">Inicio</a>
+                    <a class="nav-link active" href="#" onclick="cargarVista('bienvenida.php'); cerrarMenu();">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="cargarVista('registros.html'); cerrarMenu();">Registros</a>
@@ -193,7 +193,7 @@ if (!empty($_SESSION["userId"])) {
 
     <!-- Main Content con iframe -->
 	<div class="container mt-5" id="contenido">
-    <iframe src="view/welcome.html" id="vistaFrame" style="width: 100%; height: 600px; border: none;"></iframe>
+    <iframe src="view/welcome.php" id="vistaFrame" style="width: 100%; height: 600px; border: none;"></iframe>
 </div>
 
 	<!--

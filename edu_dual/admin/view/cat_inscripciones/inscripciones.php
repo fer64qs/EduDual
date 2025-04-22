@@ -24,15 +24,16 @@ function cargarInscripcion() {
         tutores_academicos.apellido_paterno,
         tutores_academicos.apellido_materno,
         semestres.idSemestre,
-        semestres.semestre
-
-       
+        semestres.semestre,
+        configuracion.id_configuracion,
+        configuracion.nombre_director
     FROM inscripciones
     INNER JOIN alumnos ON inscripciones.idalumno = alumnos.idalumno 
     INNER JOIN empresas ON inscripciones.idempresa = empresas.idempresa
     INNER JOIN personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
     INNER JOIN tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
     INNER JOIN semestres ON inscripciones.idSemestre = semestres.idSemestre   
+    INNER JOIN configuracion ON inscripciones.id_configuracion = configuracion.id_configuracion   
     ");
     return $stmt->fetchAll();
 }
@@ -87,6 +88,7 @@ function obtenerInscripcion($id) {
             tutores_academicos.apellido_materno,
             semestres.idSemestre,
             semestres.semestre
+
         FROM inscripciones
         INNER JOIN alumnos ON inscripciones.idalumno = alumnos.idalumno 
         INNER JOIN empresas ON inscripciones.idempresa = empresas.idempresa
@@ -210,10 +212,6 @@ function eliminarInscripcion($id) {
         echo json_encode(['success' => false, 'message' => 'Error al eliminar el alumno: ' . $e->getMessage()]);
     }
 }
-
-
-
-
 function agregarInscripcion($data) {
     $pdo = DBC::get();
 	$data['fecha_inicio'] = mb_strtoupper($data['fecha_inicio'], 'UTF-8');
@@ -221,8 +219,6 @@ function agregarInscripcion($data) {
     $data['estatus'] = mb_strtoupper($data['estatus'], 'UTF-8');
    
     try {
-       
-
         // Si no existe, proceder con la inserción
         $stmt = $pdo->prepare("INSERT INTO inscripciones (fecha_inicio, fecha_fin, estatus, idalumno, idempresa, idpersonal, idtutor_academico, idSemestre) 
                                VALUES (:fecha_inicio, :fecha_fin, :estatus, :idalumno, :idempresa, :idpersonal, :idtutor_academico, :idSemestre)");
@@ -237,13 +233,10 @@ function agregarInscripcion($data) {
             ':idSemestre' => $data['idSemestre']
            
         ]);
-
         echo json_encode(['success' => true, 'message' => 'Alumno agregado exitosamente.']);
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => 'Error al agregar el alumno: ' . $e->getMessage()]);
     }
 }
-
-
 
 ?>
