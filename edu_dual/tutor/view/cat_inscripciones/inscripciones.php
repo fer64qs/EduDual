@@ -39,13 +39,16 @@ function cargarInscripcion($idusuario) {
             tutores_academicos.apellido_paterno,
             tutores_academicos.apellido_materno,
             semestres.idSemestre,
-            semestres.semestre
+            semestres.semestre,
+            configuracion.id_configuracion,
+            configuracion.nombre_director
         FROM inscripciones
         INNER JOIN alumnos ON inscripciones.idalumno = alumnos.idalumno 
         INNER JOIN personal_empresas ON inscripciones.idpersonal = personal_empresas.idpersonal
         INNER JOIN empresas ON inscripciones.idempresa = empresas.idempresa
         INNER JOIN tutores_academicos ON inscripciones.idtutor_academico = tutores_academicos.idtutor_academico
         INNER JOIN semestres ON inscripciones.idSemestre = semestres.idSemestre
+        INNER JOIN configuracion ON inscripciones.id_configuracion = configuracion.id_configuracion
         INNER JOIN usuarios ON usuarios.email = tutores_academicos.email 
         WHERE usuarios.idusuario = :idusuario
     ");

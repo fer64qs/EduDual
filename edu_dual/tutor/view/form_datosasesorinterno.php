@@ -1,4 +1,12 @@
-<?php include('cat_inscripciones/inscripciones.php'); ?>
+<?php include('cat_inscripciones/inscripciones.php'); 
+$nombrecompleto_alumno = isset($_REQUEST["nombrecompleto_alumno"]) ? $_REQUEST["nombrecompleto_alumno"] : '';
+$nombre_empresa = isset($_REQUEST["nombre_empresa"]) ? $_REQUEST["nombre_empresa"] : '';
+$idasesordual_docente = isset($_REQUEST["idasesordual_docente"]) ? $_REQUEST["idasesordual_docente"] : '';
+$nombreasesordual_docente = isset($_REQUEST["nombreasesordual_docente"]) ? $_REQUEST["nombreasesordual_docente"] : '';
+$responsable_empresa = isset($_REQUEST["responsable_empresa"]) ? $_REQUEST["responsable_empresa"] : '';
+$nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_director"] : '';
+?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -112,6 +120,11 @@
         echo "<p class='text-center text-muted'>No hay inscripciones disponibles.</p>";
       } else {
         foreach ($inscripciones as $inscripcion) {
+          $nombrecompleto_alumno = $inscripcion['nombre'] . ' ' . $inscripcion['apellidop'] . ' ' . $inscripcion['apellidom'];
+          $nombre_empresa = $inscripcion['nombre_empresa'];
+          $nombreasesordual_docente = $inscripcion['nombre_tutor'] . ' ' . $inscripcion['apellido_paterno'] . ' ' . $inscripcion['apellido_materno'];
+          $responsable_empresa = $inscripcion['nombre_personal'] . ' ' . $inscripcion['papellido_paterno'] . ' ' . $inscripcion['papellido_materno'];
+          $nombre_director = $inscripcion['nombre_director'];
           echo "<div class='col-md-4 mb-4'>"; 
           echo "<div class='card'>";
           echo "<div class='card-body'>";
@@ -136,6 +149,9 @@
           echo "<button class='btn btn-warning' onclick='viewcronograma({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
                   <i class='fas fa-calendar-alt'></i> Cronograma
                 </button>";
+          echo "<button class='btn btn-warning' onclick='imprimirOficio(\"{$inscripcion['idinscripcion']}\",\"{$nombrecompleto_alumno}\", \"{$nombre_empresa}\", \"{$nombreasesordual_docente}\", \"{$responsable_empresa}\", \"{$nombre_director}\",\"{$inscripcion['fecha_inicio']}\",\"{$inscripcion['fecha_fin']}\")' style='font-size: 14px;'>
+                <i class='fas fa-calendar-alt'></i> Oficio
+          </button>";
           echo "</div>";
 
           echo "</div>";
@@ -161,6 +177,14 @@
         const cardText = card.innerText.toLowerCase();
         card.style.display = cardText.includes(searchValue) ? 'block' : 'none';
       });
+    }
+    function imprimirOficio(idinscripcion,nombrecompleto_alumno,nombre_empresa,nombreasesordual_docente,responsable_empresa,nombre_director,fecha_inicio,fecha_fin) {
+    
+    const url = `../../oficio.php?idinscripcion=${encodeURIComponent(idinscripcion)}&nombrecompleto_alumno=${encodeURIComponent(nombrecompleto_alumno)}&nombre_empresa=${encodeURIComponent(nombre_empresa)}&nombreasesordual_docente=${encodeURIComponent(nombreasesordual_docente)}&responsable_empresa=${encodeURIComponent(responsable_empresa)}&nombre_director=${encodeURIComponent(nombre_director)}&fecha_inicio=${encodeURIComponent(fecha_inicio)}&fecha_fin=${encodeURIComponent(fecha_fin)}`;
+
+        // Abrir la nueva ventana con el PDF
+        window.open(url, "_blank");
+
     }
   </script>
 </body>
