@@ -177,7 +177,7 @@ if (!empty($_SESSION["userId"])) {
                         Administraci&oacute;n
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#" onclick="cargarVista('view/cargar_datos.html'); cerrarMenu();">Cargar Datos</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/reporte.php'); cerrarMenu();">Reporte</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_configuracion.php'); cerrarMenu();">Configuracion</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_Noticias.php'); cerrarMenu();">Noticias</a></li>
                     </ul>
