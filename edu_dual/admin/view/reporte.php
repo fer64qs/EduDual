@@ -49,56 +49,41 @@ $nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_direc
       </div>
 
       <!-- Fila con checkboxes y select -->
-      <div class="row text-center align-items-center">
-        <div class="col-md-2 offset-md-0">
-          <div class="form-check d-flex justify-content-center">
-            <input class="form-check-input" type="checkbox" id="check1">
-            <label class="form-check-label ms-2" for="check1">ACTIVO</label>
-          </div>
+      <div class="row mt-3 justify-content-center">
+        <div class="col-auto">
+          <input type="checkbox" id="chkActivo"> <label for="chkActivo">ACTIVO</label>
         </div>
-        <div class="col-md-2">
-          <div class="form-check d-flex justify-content-center">
-            <input class="form-check-input" type="checkbox" id="check2">
-            <label class="form-check-label ms-2" for="check2">INACTIVO</label>
-          </div>
+        <div class="col-auto">
+          <input type="checkbox" id="chkInactivo"> <label for="chkInactivo">INACTIVO</label>
         </div>
-        <div class="col-md-2">
-          <div class="form-check d-flex justify-content-center">
-            <input class="form-check-input" type="checkbox" id="check3">
-            <label class="form-check-label ms-2" for="check3">ASCENDENTES</label>
-          </div>
+        <div class="col-auto">
+          <input type="checkbox" id="chkAsc"> <label for="chkAsc">ASCENDENTE</label>
         </div>
-        <div class="col-md-2">
-          <div class="form-check d-flex justify-content-center">
-            <input class="form-check-input" type="checkbox" id="check4">
-            <label class="form-check-label ms-2" for="check4">DESCENDENTES</label>
-          </div>
+        <div class="col-auto">
+          <input type="checkbox" id="chkDesc"> <label for="chkDesc">DESCENDENTE</label>
         </div>
-        <div class="col-md-2">
-          <div class="form-check d-flex justify-content-center">
-            <input class="form-check-input" type="checkbox" id="check5">
-            <label class="form-check-label ms-2" for="check5">TODOS</label>
-          </div>
+        <div class="col-auto">
+          <input type="checkbox" id="chkTodos" checked> <label for="chkTodos">TODOS</label>
         </div>
+      </div>
 
-        <!-- Select de ciclo escolar -->
-        <div class="col-md-2 mt-2 mt-md-0">
-          <label for="ciclo_escolar" class="form-label"><b>Ciclo Escolar:</b></label>
-          <select class="form-control text-center" id="ciclo_escolar" name="ciclo_escolar">
-            <option value="">Selecciona un ciclo escolar</option>
-            <?php
-            $inscripciones = cargarInscripcion();
-            $ciclosUnicos = [];
-            foreach ($inscripciones as $inscripcion) {
-              $semestre = $inscripcion['semestre'];
-              if (!in_array($semestre, $ciclosUnicos)) {
-                $ciclosUnicos[] = $semestre;
-                echo "<option value=\"" . htmlspecialchars($semestre) . "\">" . htmlspecialchars($semestre) . "</option>";
-              }
+      <!-- Select de ciclo escolar -->
+      <div class="col-md-2 mt-2 mt-md-0">
+        <label for="ciclo_escolar" class="form-label"><b>Ciclo Escolar:</b></label>
+        <select class="form-control text-center" id="ciclo_escolar" name="ciclo_escolar">
+          <option value="">Selecciona un ciclo escolar</option>
+          <?php
+          $inscripciones = cargarInscripcion();
+          $ciclosUnicos = [];
+          foreach ($inscripciones as $inscripcion) {
+            $semestre = $inscripcion['semestre'];
+            if (!in_array($semestre, $ciclosUnicos)) {
+              $ciclosUnicos[] = $semestre;
+              echo "<option value=\"" . htmlspecialchars($semestre) . "\">" . htmlspecialchars($semestre) . "</option>";
             }
-            ?>
-          </select>
-        </div>
+          }
+          ?>
+        </select>
       </div>
 
       <?php
@@ -115,35 +100,154 @@ $nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_direc
         </div>
       </div>
 
-        <?php
-        $inscripciones = cargarInscripcion();
-        ?>
+      <?php
+      $inscripciones = cargarInscripcion();
+      ?>
 
-        <div class="table-responsive mt-4">
-          <table class="table table-bordered table-striped">
-            <thead class="table-dark text-center">
+      <div class="table-responsive mt-4">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark text-center">
+            <tr>
+              <th>Nombre del Alumno</th>
+              <th>Empresa</th>
+              <th>Ciclo Escolar</th>
+              <th>Estatus</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <?php foreach ($inscripciones as $inscripcion): ?>
               <tr>
-                <th>Nombre del Alumno</th>
-                <th>Empresa</th>
-                <th>Ciclo Escolar</th>
-                <th>Estatus</th>
+                <td><?= htmlspecialchars($inscripcion['nombre'] . ' ' . $inscripcion['apellidop'] . ' ' . $inscripcion['apellidom']) ?></td>
+                <td><?= htmlspecialchars($inscripcion['nombre_empresa']) ?></td>
+                <td><?= htmlspecialchars($inscripcion['semestre']) ?></td>
+                <td><?= htmlspecialchars($inscripcion['estatus']) ?></td>
               </tr>
-            </thead>
-            <tbody class="text-center">
-              <?php foreach ($inscripciones as $inscripcion): ?>
-                <tr>
-                  <td><?= htmlspecialchars($inscripcion['nombre'] . ' ' . $inscripcion['apellidop'] . ' ' . $inscripcion['apellidom']) ?></td>
-                  <td><?= htmlspecialchars($inscripcion['nombre_empresa']) ?></td>
-                  <td><?= htmlspecialchars($inscripcion['semestre']) ?></td>
-                  <td><?= htmlspecialchars($inscripcion['estatus']) ?></td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
       </div>
-
     </div>
   </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const chkActivo = document.getElementById('chkActivo');
+    const chkInactivo = document.getElementById('chkInactivo');
+    const chkTodos = document.getElementById('chkTodos');
+    const chkAsc = document.getElementById('chkAsc');
+    const chkDesc = document.getElementById('chkDesc');
+    const cicloEscolarSelect = document.getElementById('ciclo_escolar');
+    const tbody = document.querySelector('table tbody');
+
+    // Función para filtrar la tabla según los checkboxes
+  function actualizarFiltro() {
+  let mostrarActivos = chkActivo.checked;
+  let mostrarInactivos = chkInactivo.checked;
+  let mostrarTodos = chkTodos.checked;
+  const cicloEscolarSeleccionado = cicloEscolarSelect.value;
+  const filas = Array.from(tbody.querySelectorAll('tr'));
+
+  // Si no hay ningún checkbox de estado marcado, asumimos que es "TODOS"
+  if (!mostrarActivos && !mostrarInactivos && !mostrarTodos) {
+    mostrarTodos = true;
+  }
+
+  filas.forEach(fila => {
+    const estatus = fila.cells[3].innerText.trim().toUpperCase();
+    const cicloEscolar = fila.cells[2].innerText.trim().toUpperCase();
+    let mostrarFila = true;
+
+    // Filtrar por ESTATUS
+    if (!mostrarTodos && !(mostrarActivos && estatus === 'ACTIVO') && !(mostrarInactivos && estatus === 'INACTIVO')) {
+      mostrarFila = false;
+    }
+
+    // Filtrar por CICLO ESCOLAR
+    if (cicloEscolarSeleccionado && cicloEscolar !== cicloEscolarSeleccionado.toUpperCase()) {
+      mostrarFila = false;
+    }
+
+    fila.style.display = mostrarFila ? '' : 'none';
+  });
+
+  actualizarContador();
+}
+
+    // Actualizar el contador de registros visibles
+    function actualizarContador() {
+      const visibles = Array.from(tbody.querySelectorAll('tr')).filter(f => f.style.display !== 'none');
+      document.getElementById('cantidadRegistros').innerHTML =
+        `<strong>Cantidad de registros: ${visibles.length}</strong>`;
+    }
+
+    // Ordenar la tabla alfabéticamente (ascendente o descendente)
+    function ordenarTabla(ascendente = true) {
+      const filas = Array.from(tbody.querySelectorAll('tr')).filter(f => f.style.display !== 'none');
+      const filasOrdenadas = filas.sort((a, b) => {
+        const nombreA = a.cells[0].innerText.toUpperCase();
+        const nombreB = b.cells[0].innerText.toUpperCase();
+        return ascendente
+          ? nombreA.localeCompare(nombreB)
+          : nombreB.localeCompare(nombreA);
+      });
+
+      filasOrdenadas.forEach(fila => tbody.appendChild(fila)); // Reinsertar ordenadas
+    }
+
+    // Evento para el checkbox de ACTIVO
+    chkActivo.addEventListener('change', () => {
+      if (chkActivo.checked) {
+        chkInactivo.checked = false;
+        chkTodos.checked = false;
+      } else if (!chkInactivo.checked) {
+        chkTodos.checked = true;
+      }
+      actualizarFiltro();
+    });
+
+    // Evento para el checkbox de INACTIVO
+    chkInactivo.addEventListener('change', () => {
+      if (chkInactivo.checked) {
+        chkActivo.checked = false;
+        chkTodos.checked = false;
+      } else if (!chkActivo.checked) {
+        chkTodos.checked = true;
+      }
+      actualizarFiltro();
+    });
+
+    // Evento para el checkbox de TODOS
+    chkTodos.addEventListener('change', () => {
+      if (chkTodos.checked) {
+        chkActivo.checked = false;
+        chkInactivo.checked = false;
+        cicloEscolarSelect.selectedIndex = 0; // Resetear el select a la opción predeterminada
+      }
+      actualizarFiltro();
+    });
+
+    // Evento para el checkbox ASCENDENTE
+    chkAsc.addEventListener('change', () => {
+      if (chkAsc.checked) {
+        chkDesc.checked = false;
+        ordenarTabla(true);
+      }
+    });
+
+    // Evento para el checkbox DESCENDENTE
+    chkDesc.addEventListener('change', () => {
+      if (chkDesc.checked) {
+        chkAsc.checked = false;
+        ordenarTabla(false);
+      }
+    });
+
+    // Evento para el select de ciclo escolar
+    cicloEscolarSelect.addEventListener('change', () => {
+      chkTodos.checked = false; // Desmarcar el checkbox "TODOS"
+      actualizarFiltro();
+    });
+  });
+</script>
 </body>
 </html>
