@@ -148,7 +148,7 @@ $nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_direc
           echo "<div class='btn-container'>";
           echo "<button class='btn btn-warning' onclick='viewcronograma({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
                   <i class='fas fa-calendar-alt'></i> Cronograma
-                </button>";
+                </button>&nbsp;";
           echo "<button class='btn btn-warning' onclick='imprimirOficio(\"{$inscripcion['idinscripcion']}\",\"{$nombrecompleto_alumno}\", \"{$nombre_empresa}\", \"{$nombreasesordual_docente}\", \"{$responsable_empresa}\", \"{$nombre_director}\",\"{$inscripcion['fecha_inicio']}\",\"{$inscripcion['fecha_fin']}\")' style='font-size: 14px;'>
                 <i class='fas fa-calendar-alt'></i> Oficio
           </button>";

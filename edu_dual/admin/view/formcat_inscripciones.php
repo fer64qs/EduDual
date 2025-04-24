@@ -98,19 +98,19 @@ $nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_direc
     echo "<b>Fecha de Fin:</b> {$inscripcion['fecha_fin']}<br>";
     echo "<b>Estatus:</b> {$inscripcion['estatus']}<br>";
     echo "</p>";
-    echo "<button class='btn btn-warning' onclick='editarInscripcion({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-warning' onclick='editarInscripcion({$inscripcion['idinscripcion']})' style='font-size: 10px;'>
             <i class='fas fa-edit'></i> Editar
           </button>&nbsp;";
           
-    echo "<button class='btn btn-danger' onclick='eliminarInscripcion({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-danger' onclick='eliminarInscripcion({$inscripcion['idinscripcion']})' style='font-size: 10px;'>
             <i class='fas fa-trash'></i> Eliminar
           </button>&nbsp;";
     
-    echo "<button class='btn btn-info' onclick='redirigirBitacora({$inscripcion['idinscripcion']})' style='font-size: 14px;'>
+    echo "<button class='btn btn-info' onclick='redirigirBitacora({$inscripcion['idinscripcion']})' style='font-size: 10px;'>
           <i class='fas fa-calendar-alt'></i> Crono
-          </button>";
+          </button>&nbsp;";
 
-    echo "<button class='btn btn-danger' onclick='imprimirOficio(\"{$inscripcion['idinscripcion']}\",\"{$nombrecompleto_alumno}\", \"{$nombre_empresa}\", \"{$nombreasesordual_docente}\", \"{$responsable_empresa}\", \"{$nombre_director}\",\"{$inscripcion['fecha_inicio']}\",\"{$inscripcion['fecha_fin']}\")' style='font-size: 14px;'>
+    echo "<button class='btn btn-danger' onclick='imprimirOficio(\"{$inscripcion['idinscripcion']}\",\"{$nombrecompleto_alumno}\", \"{$nombre_empresa}\", \"{$nombreasesordual_docente}\", \"{$responsable_empresa}\", \"{$nombre_director}\",\"{$inscripcion['fecha_inicio']}\",\"{$inscripcion['fecha_fin']}\")' style='font-size: 10px;'>
           <i class='fas fa-calendar-alt'></i> Oficio
           </button>";
 

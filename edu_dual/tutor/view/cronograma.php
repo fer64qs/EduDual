@@ -117,11 +117,11 @@ function verificarRegistros($idinscripcion, $nombrecompleto_alumno, $nombre_empr
         echo "Error al verificar los registros: " . $e->getMessage();
     }
 }
-?>
-<button type="button" class="btn btn-secondary" id="certificadoBtn" onclick="return imprimirContenido();" disabled>CERTIFICADO</button>
+/*?>
+    <button type="button" class="btn btn-secondary" id="certificadoBtn" onclick="return imprimirContenido();" disabled>CERTIFICADO</button>
 
 <?php
-
+*/
 
 
 // Función para mostrar las bitácoras en una tabla
