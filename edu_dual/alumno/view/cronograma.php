@@ -114,24 +114,24 @@ function verificarRegistros($idinscripcion, $nombrecompleto_alumno, $nombre_empr
         if ($numRows > 0) {
             echo "<input type='text' id='estatus' name='estatus' value='CREADO' hidden>";
             echo "<div class='alert alert-success' role='alert'> <b>El Calendario de Actividades ya ha sido creado</b></div>";
-            echo "<script>document.getElementById('insertarBitacoras').style.display = 'none';</script>";
+            echo "<button class='btn btn-secondary' id='certificadoBtn' onclick='return imprimirContenido();' disabled>CERTIFICADO</button>";
             // Mostrar la tabla con la bitácora
             mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa);
         } else {
             echo "<input type='text' id='estatus' name='estatus' value='NO CREADO' hidden>";
-            echo "<div class='alert alert-danger' role='alert'> <b>El Calendario de Actividades No ha sido creado<b></div>";
+            echo "<div class='alert alert-danger' role='alert'> <b>El Calendario de Actividades No ha sido creado</b></div>";
+            echo "<script>document.getElementById('certificadoBtn').style.display = 'none';</script>";
+
+
         }
     } catch (Exception $e) {
         echo "Error al verificar los registros: " . $e->getMessage();
     }
 }
 ?>
-<button type="button" class="btn btn-secondary" id="certificadoBtn" onclick="return imprimirContenido();" disabled>CERTIFICADO</button>
+
 
 <?php
-
-
-
 // Función para mostrar las bitácoras en una tabla
 function mostrarBitacoras($idinscripcion, $nombrecompleto_alumno, $nombre_empresa, $nombreasesordual_docente, $responsable_empresa) {
     $query = "SELECT * FROM bitacoras WHERE idinscripcion = :idinscripcion ORDER BY bitacoras.no_semana";
