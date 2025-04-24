@@ -180,6 +180,7 @@ if (!empty($_SESSION["userId"])) {
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('view/cargar_datos.html'); cerrarMenu();">Cargar Datos</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_configuracion.php'); cerrarMenu();">Configuracion</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_Noticias.php'); cerrarMenu();">Noticias</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/reporte.php'); cerrarMenu();">Reportes</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

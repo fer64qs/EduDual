@@ -101,12 +101,45 @@ $nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_direc
         </div>
       </div>
 
+      <?php
+      $inscripciones = cargarInscripcion();
+      $cantidadRegistros = count($inscripciones);
+      ?>
+
       <!-- Label para cantidad de registros -->
       <div class="row mt-2">
         <div class="col-12 text-center">
           <label id="cantidadRegistros" class="form-label" style="font-weight: bold; color: #A57F2C;">
-            <strong>Cantidad de registros: 0</strong>
+            <strong>Cantidad de registros: <?= $cantidadRegistros ?></strong>
           </label>
+        </div>
+      </div>
+
+        <?php
+        $inscripciones = cargarInscripcion();
+        ?>
+
+        <div class="table-responsive mt-4">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark text-center">
+              <tr>
+                <th>Nombre del Alumno</th>
+                <th>Empresa</th>
+                <th>Ciclo Escolar</th>
+                <th>Estatus</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <?php foreach ($inscripciones as $inscripcion): ?>
+                <tr>
+                  <td><?= htmlspecialchars($inscripcion['nombre'] . ' ' . $inscripcion['apellidop'] . ' ' . $inscripcion['apellidom']) ?></td>
+                  <td><?= htmlspecialchars($inscripcion['nombre_empresa']) ?></td>
+                  <td><?= htmlspecialchars($inscripcion['semestre']) ?></td>
+                  <td><?= htmlspecialchars($inscripcion['estatus']) ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
         </div>
       </div>
 
