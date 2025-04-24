@@ -220,8 +220,8 @@ function agregarInscripcion($data) {
    
     try {
         // Si no existe, proceder con la inserción
-        $stmt = $pdo->prepare("INSERT INTO inscripciones (fecha_inicio, fecha_fin, estatus, idalumno, idempresa, idpersonal, idtutor_academico, idSemestre) 
-                               VALUES (:fecha_inicio, :fecha_fin, :estatus, :idalumno, :idempresa, :idpersonal, :idtutor_academico, :idSemestre)");
+        $stmt = $pdo->prepare("INSERT INTO inscripciones (fecha_inicio, fecha_fin, estatus, idalumno, idempresa, idpersonal, idtutor_academico, idSemestre, id_configuracion) 
+                               VALUES (:fecha_inicio, :fecha_fin, :estatus, :idalumno, :idempresa, :idpersonal, :idtutor_academico, :idSemestre, :id_configuracion)");
         $stmt->execute([
             ':fecha_inicio' => $data['fecha_inicio'],
             ':fecha_fin' => $data['fecha_fin'],
@@ -230,7 +230,8 @@ function agregarInscripcion($data) {
             ':idempresa' => $data['idempresa'],
             ':idpersonal' => $data['idpersonal'],
             ':idtutor_academico' => $data['idtutor_academico'],
-            ':idSemestre' => $data['idSemestre']
+            ':idSemestre' => $data['idSemestre'],
+            ':id_configuracion' => 1
            
         ]);
         echo json_encode(['success' => true, 'message' => 'Alumno agregado exitosamente.']);
