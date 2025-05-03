@@ -11,6 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
   <style>
     .alert-custom {
@@ -79,16 +80,19 @@
     echo "<b></b> {$noticia['subtitulo']}<br>";
     echo "<b></b> {$noticia['fecha']}<br>";
     echo "<b></b> {$noticia['descripcion']}<br>";
-    
     echo "</p>";
-   
+    
+    echo "<div class='d-flex justify-content-between'>";
+    echo '<button class="btn btn-warning btn-sm" onclick=\'abrirModalEditar(' . json_encode($noticia) . ')\'><i class="fas fa-edit"></i> Editar</button>';
+    echo "<button class='btn btn-danger btn-sm' onclick='eliminarNoticia({$noticia['id_noticia']})'><i class='fas fa-trash'></i> Eliminar</button>";
+    echo "</div>";
 
-              echo "</div>";
-              echo "</div>";
-              echo "</div>";
-            }
-            ?>
-          </div>
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
+    }
+    ?>
+    </div>
 
 <!-- Modal Agregar -->
 <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
@@ -104,7 +108,7 @@
           <div class="mb-3"><label class="form-label">Título</label><input type="text" class="form-control" name="titulo" required></div>
           <div class="mb-3"><label class="form-label">Subtítulo</label><input type="text" class="form-control" name="subtitulo"></div>
           <div class="mb-3"><label class="form-label">Fecha</label><input type="date" class="form-control" name="fecha" required></div>
-          <div class="mb-3"><label class="form-label">Descripción</label><textarea class="form-control" name="descripcion"></textarea></div>
+          <div class="mb-3"><label class="form-label">Descripción</label><textarea class="form-control" name="descripcion" id="descripcionAgregar"></textarea></div>
           <div class="mb-3"><label class="form-label">Imagen</label><input type="file" class="form-control" name="imagen" accept="image/*"></div>
         </div>
         <div class="modal-footer">
@@ -145,18 +149,36 @@
 </div>
 
 <script>
+  let editorAgregar;
+
+document.addEventListener('DOMContentLoaded', () => {
+  ClassicEditor
+    .create(document.querySelector('#descripcionAgregar'))
+    .then(editor => {
+      editorAgregar = editor;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+});
   // Enviar el formulario para agregar una nueva noticia
   document.getElementById('formAgregar').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    axios.post('cat_noticias/noticias.php', formData)
-      .then(res => {
-        swal("¡Éxito!", "Noticia agregada correctamente", "success").then(() => location.reload());
-      })
-      .catch(() => swal("Error", "Error al agregar la noticia", "error"));
-  });
+  e.preventDefault();
+  
+  // Sincronizar contenido de CKEditor con el textarea
+  if (editorAgregar) {
+    document.querySelector('#descripcionAgregar').value = editorAgregar.getData();
+  }
 
-  // Enviar el formulario para editar la noticia
+  const formData = new FormData(this);
+  axios.post('cat_noticias/noticias.php', formData)
+    .then(res => {
+      swal("¡Éxito!", "Noticia agregada correctamente", "success").then(() => location.reload());
+    })
+    .catch(() => swal("Error", "Error al agregar la noticia", "error"));
+});
+
+  /* Enviar el formulario para editar la noticia
   document.getElementById('formEditar').addEventListener('submit', function (e) {
     e.preventDefault();
     const formData = new FormData(this);
@@ -166,7 +188,7 @@
       })
       .catch(() => swal("Error", "Error al actualizar la noticia", "error"));
   });
-
+*/
   // Función para eliminar noticia
   function eliminarNoticia(id) {
     swal({
@@ -185,33 +207,66 @@
     });
   }
 
-  // Función para abrir el modal de edición y cargar los datos
+
+  let editorEditar;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    ClassicEditor
+      .create(document.querySelector('#descripcionEditar'))
+      .then(editor => {
+        editorEditar = editor;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  });
 // Función para abrir el modal de edición y cargar los datos
 function abrirModalEditar(noticia) {
-    document.getElementById('idEditar').value = noticia.id_noticia;
-    document.getElementById('tituloEditar').value = noticia.titulo;
-    document.getElementById('subtituloEditar').value = noticia.subtitulo;
-    document.getElementById('fechaEditar').value = noticia.fecha;
-    document.getElementById('descripcionEditar').value = noticia.descripcion;
-    document.getElementById('imagenActualEditar').src = noticia.imagen;
+  document.getElementById('idEditar').value = noticia.id_noticia;
+  document.getElementById('tituloEditar').value = noticia.titulo;
+  document.getElementById('subtituloEditar').value = noticia.subtitulo;
+  document.getElementById('fechaEditar').value = noticia.fecha;
+  document.getElementById('imagenActualEditar').src = noticia.imagen;
 
-    // Obtener el nombre del archivo desde la ruta
-    const nombreArchivo = noticia.imagen.split('/').pop();
-    document.getElementById('nombreImagenEditar').textContent = nombreArchivo;
+  // Obtener el nombre del archivo desde la ruta
+  const nombreArchivo = noticia.imagen.split('/').pop();
+  document.getElementById('nombreImagenEditar').textContent = nombreArchivo;
 
-    // Mostrar el modal
-    new bootstrap.Modal(document.getElementById('editarModal')).show();
+  // Cargar la descripción en el editor
+  if (editorEditar) {
+    editorEditar.setData(noticia.descripcion);
+  } else {
+    // Si el editor aún no está inicializado, esperar a que lo esté
+    ClassicEditor
+      .create(document.querySelector('#descripcionEditar'))
+      .then(editor => {
+        editorEditar = editor;
+        editorEditar.setData(noticia.descripcion);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  // Mostrar el modal
+  new bootstrap.Modal(document.getElementById('editarModal')).show();
 }
 
 // Enviar el formulario para editar la noticia
 document.getElementById('formEditar').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    axios.post('cat_noticias/noticias.php', formData)
-      .then(res => {
-        swal("¡Éxito!", "Noticia actualizada correctamente", "success").then(() => location.reload());
-      })
-      .catch(() => swal("Error", "Error al actualizar la noticia", "error"));
+  e.preventDefault();
+
+  // Sincronizar contenido de CKEditor con el textarea
+  if (editorEditar) {
+    document.querySelector('#descripcionEditar').value = editorEditar.getData();
+  }
+
+  const formData = new FormData(this);
+  axios.post('cat_noticias/noticias.php', formData)
+    .then(res => {
+      swal("¡Éxito!", "Noticia actualizada correctamente", "success").then(() => location.reload());
+    })
+    .catch(() => swal("Error", "Error al actualizar la noticia", "error"));
 });
 </script>
 

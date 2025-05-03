@@ -164,7 +164,7 @@ function actualizarNoticia($id, $data) {
                 }
             }
             // Asigna el nombre de la nueva imagen a la variable $imagen
-            $imagen = 'uploads/' . $nombreArchivo; // Actualiza la ruta de la imagen
+            $imagen = '/edu_dual/admin/uploads/' . $nombreArchivo;
         } else {
             // Si ocurre un error al guardar la nueva imagen
             echo json_encode(['success' => false, 'message' => 'Error al guardar la nueva imagen.']);
@@ -199,4 +199,5 @@ function actualizarNoticia($id, $data) {
         echo json_encode(['success' => false, 'message' => 'Error al actualizar la noticia: ' . $e->getMessage()]);
     }
 }
+
 ?>

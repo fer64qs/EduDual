@@ -87,7 +87,9 @@ $nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_direc
           ?>
         </select>
       </div>
+      <button type="button" class="btn btn-danger" onclick="generarPDF()">Generar PDF</button>
 
+      
       <?php
       $inscripciones = cargarInscripcion();
       $cantidadRegistros = count($inscripciones);
@@ -278,6 +280,31 @@ $nombre_director = isset($_REQUEST["nombre_director"]) ? $_REQUEST["nombre_direc
   // Llamamos a actualizarFiltro para aplicar filtros al cargar la página
   actualizarFiltro();
 });
+
+
+function generarPDF() {
+  const chkActivo = document.getElementById('chkActivo');
+  const chkInactivo = document.getElementById('chkInactivo');
+  const chkTodos = document.getElementById('chkTodos');
+  const chkAsc = document.getElementById('chkAsc');
+  const chkDesc = document.getElementById('chkDesc');
+  const cicloEscolarSelect = document.getElementById('ciclo_escolar');
+  const buscadorInput = document.getElementById('buscador');
+
+  const filtro = {
+    estatus: chkActivo.checked ? "ACTIVO" :
+             chkInactivo.checked ? "INACTIVO" :
+             chkTodos.checked ? "TODOS" : "",
+    ciclo_escolar: cicloEscolarSelect.value,
+    busqueda: buscadorInput.value.trim(),
+    orden: chkAsc.checked ? "ASC" :
+           chkDesc.checked ? "DESC" : ""
+  };
+
+  const url = `../../exportar_pdf.php?filtros=${encodeURIComponent(JSON.stringify(filtro))}`;
+  window.open(url, '_blank');
+}
+
   </script>
 </body>
 </html>
