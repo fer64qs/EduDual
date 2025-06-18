@@ -98,9 +98,9 @@ if (!empty($_SESSION["userId"])) {
                 <li class="nav-item">
                     <a class="nav-link active" href="#" onclick="cargarVista('bienvenida.html'); cerrarMenu();">Inicio</a>
                 </li>
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link" href="#" onclick="cargarVista('registros.html'); cerrarMenu();">Registros</a>
-                </li>
+                </li>-->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Mis Cursos                    
@@ -120,7 +120,7 @@ if (!empty($_SESSION["userId"])) {
                     </ul>
                 </li>
                 
-                <li class="nav-item dropdown">
+                <!--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Administraci&oacute;n
                     </a>
@@ -128,7 +128,7 @@ if (!empty($_SESSION["userId"])) {
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('view/cargar_datos.html'); cerrarMenu();">Cargar Datos</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">Opción 2</a></li>
                     </ul>
-                </li>
+                --></li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="cerrarMenu();">Contacto</a>
                 </li>

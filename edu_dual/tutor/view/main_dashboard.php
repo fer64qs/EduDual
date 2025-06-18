@@ -98,9 +98,6 @@ if (!empty($_SESSION["userId"])) {
                 <li class="nav-item">
                     <a class="nav-link active" href="#" onclick="cargarVista('bienvenida.html'); cerrarMenu();">Inicio</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="cargarVista('registros.html'); cerrarMenu();">Registros</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Mis Cursos                    
@@ -111,22 +108,7 @@ if (!empty($_SESSION["userId"])) {
                                 <i class="fas fa-user-graduate"></i> Datos
                             </a>
                         </li>
-                        <li>
-                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/dualidad_formato.php'); cerrarMenu();">
-                                <i class="fas fa-graduation-cap"></i> Carreras
-                            </a>
-                        </li>
                        
-                    </ul>
-                </li>
-                
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Administraci&oacute;n
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#" onclick="cargarVista('view/cargar_datos.html'); cerrarMenu();">Cargar Datos</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">Opción 2</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
