@@ -95,9 +95,6 @@ if (!empty($_SESSION["userId"])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#" onclick="cargarVista('bienvenida.html'); cerrarMenu();">Inicio</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Mis Cursos                    
@@ -110,9 +107,6 @@ if (!empty($_SESSION["userId"])) {
                         </li>
                        
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="cerrarMenu();">Contacto</a>
                 </li>
             </ul>
         </div>

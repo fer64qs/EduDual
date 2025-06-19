@@ -197,7 +197,7 @@
         </div>
     </section>
     <!-- Sección de Noticias -->
-    <h2 class='section-title'>Noticias Recientes</h2>";
+    <h2 class='section-title'>Noticias Recientes</h2>
     <?php
      $noticias = cargarNoticias();
      $totalNoticias = count($noticias);

@@ -95,12 +95,6 @@ if (!empty($_SESSION["userId"])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#" onclick="cargarVista('bienvenida.html'); cerrarMenu();">Inicio</a>
-                </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link" href="#" onclick="cargarVista('registros.html'); cerrarMenu();">Registros</a>
-                </li>-->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Mis Cursos                    
@@ -110,28 +104,10 @@ if (!empty($_SESSION["userId"])) {
                         <a class="dropdown-item" href="#" onclick="cargarVista('./view/form_datosalumno.php'); cerrarMenu();">
                                 <i class="fas fa-user-graduate"></i> Cronograma
                             </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#" onclick="cargarVista('./view/dualidad_formato.php'); cerrarMenu();">
-                                <i class="fas fa-graduation-cap"></i> Carreras
-                            </a>
-                        </li>
-                       
+                        </li>    
                     </ul>
                 </li>
                 
-                <!--<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Administraci&oacute;n
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#" onclick="cargarVista('view/cargar_datos.html'); cerrarMenu();">Cargar Datos</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="cargarVista('opcion2.php?value=chiquiña'); cerrarMenu();">Opción 2</a></li>
-                    </ul>
-                --></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="cerrarMenu();">Contacto</a>
-                </li>
             </ul>
         </div>
     </div>
