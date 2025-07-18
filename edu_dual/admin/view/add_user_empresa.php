@@ -228,28 +228,6 @@ var url = "send_mailregistro.php?apellidos=" + encodeURIComponent(apellidos) +
                     cuenta: cuenta,
                     pass: contrasenia
                 };
-/* INICIA COMO ESTABA
-                $.ajax({
-                    url: 'send_mailregistro.php',
-                    type: 'POST',
-                    data: formDataAccount,
-                    success: function(response) {
-                        console.log("Respuesta recibida:", response);
-                        var res = JSON.parse(response);
-                        alert(res.success ? "Mensaje enviado correctamente: " + res.message : "Error al enviar el mensaje: " + res.message);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        alert("Error al enviar la solicitud: " + textStatus + ": " + errorThrown);
-                    }
-                });
-		  
-		
-		
-        // Resetear el formulario
-        $('#userForm')[0].reset();
-		// Redireccionar al archivo
-        window.location.href = "formcat_alumnos.php";
-		AQUI FINALIZA COMO ESTABA */
 		$.ajax({
     url: 'send_mailregistro.php',
     type: 'POST',
@@ -334,13 +312,6 @@ var url = "send_mailregistro.php?apellidos=" + encodeURIComponent(apellidos) +
                 alert("Las contraseñas no coinciden.");
                 return false;
             }
-			/*
-			var idperfil = document.getElementById("perfil").value;
-if (idperfil=="SELECCIONE UN REGISTRO"){
-	alert("Debe seleccionar un Perfil de Usuario");
-	return false;
-}
-*/
 
             return true;
         }
@@ -359,33 +330,6 @@ if (idperfil=="SELECCIONE UN REGISTRO"){
 
 	
 	<script>
-	/*
-$(document).ready(function(){
-    // Hacer la solicitud AJAX para obtener los perfiles
-    $.ajax({
-        url: '../controller/obtener_perfiles.php',  // Archivo PHP que obtiene los perfiles
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            var select = $('#perfil');
-            select.empty();  // Limpiar el select
-            
-            // Opción por defecto
-            select.append('<option value="">SELECCIONE UN REGISTRO</option>');
-            
-            // Recorrer los perfiles y agregarlos al select
-            $.each(data, function(index, perfil) {
-                select.append('<option value="' + perfil.idperfil + '">' + perfil.nombre_perfil + '</option>');
-            });
-			// Seleccionar automáticamente el valor "ALUMNO"
-            //select.val('ALUMNO');
-        },
-        error: function() {
-            alert('Hubo un error al cargar los perfiles.');
-        }
-    });
-});
-*/
 
 </script>
 <script>
@@ -490,9 +434,6 @@ $(document).ready(function(){
         // Establecer la contraseña generada en ambos campos
         document.getElementById('contrasenia').value = password;
         document.getElementById('confirm_contrasenia').value = password;
-
-        // Mostrar la contraseña generada al usuario (opcional)
-       // alert('Se ha generado la siguiente contraseña: ' + password);
     });
 
     document.getElementById('toggle_visibility').addEventListener('change', function () {

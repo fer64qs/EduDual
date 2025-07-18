@@ -95,9 +95,6 @@ if (!empty($_SESSION["userId"])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#" onclick="cargarVista('bienvenida.php'); cerrarMenu();">Inicio</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Cat&aacute;logos
@@ -176,6 +173,7 @@ if (!empty($_SESSION["userId"])) {
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_configuracion.php'); cerrarMenu();">Configuracion</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_Noticias.php'); cerrarMenu();">Noticias</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/reporte.php'); cerrarMenu();">Reportes</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/contrasena_nueva.php'); cerrarMenu();">Contraseña</a></li>
                     </ul>
                 </li>
             </ul>
@@ -189,11 +187,7 @@ if (!empty($_SESSION["userId"])) {
     <iframe src="view/welcome.php" id="vistaFrame" style="width: 100%; height: 600px; border: none;"></iframe>
 </div>
 
-	<!--
-    <div class="container mt-5" id="contenido">
-        <iframe src="" id="vistaFrame" style="width: 100%; height: 600px; border: none;"></iframe>
-    </div>
-	-->
+
 
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 mt-5">

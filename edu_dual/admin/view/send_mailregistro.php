@@ -33,16 +33,7 @@ if (isset($_REQUEST['cuenta'])){
 	 
 	 $perfil=$_REQUEST['perfil'];
  }
- /*
- $cuenta = isset($_POST['cuenta']) ? htmlspecialchars($_POST['cuenta'], ENT_QUOTES, 'UTF-8') : '';
-$pass = isset($_POST['pass']) ? htmlspecialchars($_POST['pass'], ENT_QUOTES, 'UTF-8') : '';
-$nombre = isset($_POST['nombre']) ? htmlspecialchars($_POST['nombre'], ENT_QUOTES, 'UTF-8') : '';
-$email = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : '';
-$perfil = isset($_POST['perfil']) ? htmlspecialchars($_POST['perfil'], ENT_QUOTES, 'UTF-8') : '';
 
- */
- //echo $email;
-// $email="isc.jsantamaria@gmail.com";
  
  $nombre_destinatario = "Juan Pérez"; // Ejemplo de variable dinámica
 $asunto = "¡Bienvenido a EduDual! Aquí están tus datos de acceso";

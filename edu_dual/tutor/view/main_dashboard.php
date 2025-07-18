@@ -104,9 +104,16 @@ if (!empty($_SESSION["userId"])) {
                         <a class="dropdown-item" href="#" onclick="cargarVista('./view/form_datosasesorinterno.php'); cerrarMenu();">
                                 <i class="fas fa-user-graduate"></i> Datos
                             </a>
-                        </li>
-                       
+                        </li> 
                     </ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Opciones
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/contrasena_nueva.php'); cerrarMenu();">Contraseña</a></li>
+                    </ul>
+                </li>
                 </li>
             </ul>
         </div>

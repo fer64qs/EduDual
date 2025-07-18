@@ -61,7 +61,7 @@ if (isset($_REQUEST['idinscripcion'])) {
     foreach ($resultados as $fila) {
 		$fechaInicial=$fila['fecha_inicio'];
 		$fechaFinal=$fila['fecha_fin'];
-        //echo "ID Inscripción: " . $fila['idinscripcion'] . "<br>";
+
 		echo "<h2><center><b>Detalle del calendario de actividades</b></center></h2> <br>";
         echo "Alumno: <b>" . $fila['nombre'] . " " . $fila['apellidop'] . " " . $fila['apellidom'] . "</b><br>";
         echo "Número de Control: <b>" . $fila['num_control'] . "</b><br>";
@@ -100,9 +100,6 @@ function verificarRegistros($idInscripcion) {
         return "ERROR";
     }
 }
-
-//echo "la bitacora vale:" . $bitacora_creada;
-
 
 ?>
 <link rel="stylesheet" href="alert/style.css" />

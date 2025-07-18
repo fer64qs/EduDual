@@ -232,54 +232,6 @@
         <p>Descubre más sobre cómo puedes formar parte de este innovador modelo educativo que te prepara para el futuro.</p>
         <a href="#" class="cta-btn">Más Información</a>
     </section>
-
-    <!-- Detalle de Noticias -->
-    <div id="noticia1" class="news-detail" style="display:none;">
-        <div>
-            <h4>Nuevo Programa de Becas</h4>
-            <p>Detalles completos sobre el nuevo programa de becas para estudiantes en el modelo de educación dual.</p>
-            <p><strong>Fecha de publicación:</strong> 1 de noviembre de 2024</p>
-            <p>Este programa proporciona recursos financieros a los estudiantes que se inscriban en instituciones educativas que ofrezcan programas de educación dual...</p>
-        </div>
-        <button class="btn btn-secondary" onclick="cerrarNoticia()">Cerrar</button>
-    </div>
-
-    <div id="noticia2" class="news-detail" style="display:none;">
-        <div>
-            <h4>Empresas que Adoptan la Educación Dual</h4>
-            <p>Detalles completos sobre cómo las empresas están adoptando la educación dual como parte de su estrategia de contratación.</p>
-            <p><strong>Fecha de publicación:</strong> 20 de noviembre de 2024</p>
-            <p>Las empresas están reconociendo el valor de los estudiantes con experiencia práctica, lo que ha llevado a más empresas a implementar programas...</p>
-        </div>
-        <button class="btn btn-secondary" onclick="cerrarNoticia()">Cerrar</button>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Función para mostrar la noticia completa
-        function mostrarNoticia(noticiaId) {
-            const detallesNoticias = document.querySelectorAll('.news-detail');
-            detallesNoticias.forEach(detail => detail.style.display = 'none');
-            const noticia = document.getElementById(noticiaId);
-            noticia.style.display = 'block';
-            window.location.hash = noticiaId;
-        }
-
-        // Función para cerrar la noticia
-        function cerrarNoticia() {
-            const detallesNoticias = document.querySelectorAll('.news-detail');
-            detallesNoticias.forEach(detail => detail.style.display = 'none');
-            window.location.hash = '';
-        }
     </script>
-
-    <!-- Pie de página -->
-	<!--
-    <footer>
-        <p>&copy; 2024 Educación Dual. Todos los derechos reservados.</p>
-        <a href="#">Términos de uso</a> | <a href="#">Política de privacidad</a>
-    </footer>
--->
 </body>
 </html>

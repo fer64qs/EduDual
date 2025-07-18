@@ -69,7 +69,7 @@ body {
 					</div>
 				</div>
 				<div class="form-nav-row">
-					<a href="#" class="form-link">¿Olvidaste la Contrase&ntilde;a?</a>
+					<a href="/edu_dual/admin/view/recuperar_contrasena.php" class="form-link">¿Olvidaste la Contrase&ntilde;a?</a>
 					
 				</div>
 				<div class="form-nav-row">

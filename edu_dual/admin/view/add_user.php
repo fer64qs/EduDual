@@ -41,23 +41,11 @@
     $apellidoM = $_GET['apellidom'];
     $correo = $_GET['correo'];
     $celular = $_GET['celular'];
-/*
-    echo "ID Alumno: $idAlumno<br>";
-    echo "Nombre: $nombre $apellidoP $apellidoM<br>";
-    echo "Correo: $correo<br>";
-    echo "Celular: $celular<br>";*/
 } else {
     echo "No se recibieron los datos.";
 }
 ?>
-
-
 <body>
-<!--
-<div class="container container-form">
-        <h5 class="text-center">Datos del Alumno</h5><br>
-</div>
--->
     <div class="container container-form">
         <h5 class="text-center">Registrar Cuenta de Usuario para Alumno</h5><br>
         <form id="userForm" enctype="multipart/form-data">
@@ -101,7 +89,6 @@
                     <label for="photo"><b>Foto de Perfil:</b></label>
                     <input type="file" class="form-control" id="photo" name="photo" accept="image/*" onchange="previewImage(event)">
                     <img id="preview" class="preview-img" src="#" alt="Vista previa de imagen" style="display: none;">
-                <!--<button type="button" onclick="validateFile()">Validar Selección</button>-->
 				</div>
             </div>
 			
@@ -170,7 +157,6 @@
         }
 			//fin de validacion
 
-
             var formData = new FormData(this);
 
             $.ajax({
@@ -184,8 +170,6 @@
 
     try {
         var jsonResponse = response;
-		//var jsonResponse = JSON.parse(response);
-		//alert(jsonResponse);
 
         if (jsonResponse.status === "success") {
 
@@ -206,7 +190,7 @@
 		
 		
 		
-		/*AQUI ANTES DE REDIRECCIONAR SE DEBE ENVIAR EL CORREO ELECTRONICO*/
+/*AQUI ANTES DE REDIRECCIONAR SE DEBE ENVIAR EL CORREO ELECTRONICO*/
 var apellidos = document.getElementById("apellidos").value;
 var nombre = document.getElementById("nombres").value;
 var email = document.getElementById("email").value;
@@ -227,28 +211,7 @@ var url = "send_mailregistro.php?apellidos=" + encodeURIComponent(apellidos) +
                     cuenta: cuenta,
                     pass: contrasenia
                 };
-/* INICIA COMO ESTABA
-                $.ajax({
-                    url: 'send_mailregistro.php',
-                    type: 'POST',
-                    data: formDataAccount,
-                    success: function(response) {
-                        console.log("Respuesta recibida:", response);
-                        var res = JSON.parse(response);
-                        alert(res.success ? "Mensaje enviado correctamente: " + res.message : "Error al enviar el mensaje: " + res.message);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        alert("Error al enviar la solicitud: " + textStatus + ": " + errorThrown);
-                    }
-                });
-		  
-		
-		
-        // Resetear el formulario
-        $('#userForm')[0].reset();
-		// Redireccionar al archivo
-        window.location.href = "formcat_alumnos.php";
-		AQUI FINALIZA COMO ESTABA */
+
 		$.ajax({
     url: 'send_mailregistro.php',
     type: 'POST',
@@ -282,10 +245,7 @@ var url = "send_mailregistro.php?apellidos=" + encodeURIComponent(apellidos) +
         });
     }
 });
-//SE AGREGO ESTO NUEVO
-		
-		
-		
+//SE AGREGO ESTO NUEVO	
     }
 });
 			
@@ -333,13 +293,6 @@ var url = "send_mailregistro.php?apellidos=" + encodeURIComponent(apellidos) +
                 alert("Las contraseñas no coinciden.");
                 return false;
             }
-			/*
-			var idperfil = document.getElementById("perfil").value;
-if (idperfil=="SELECCIONE UN REGISTRO"){
-	alert("Debe seleccionar un Perfil de Usuario");
-	return false;
-}
-*/
 
             return true;
         }
@@ -358,33 +311,6 @@ if (idperfil=="SELECCIONE UN REGISTRO"){
 
 	
 	<script>
-	/*
-$(document).ready(function(){
-    // Hacer la solicitud AJAX para obtener los perfiles
-    $.ajax({
-        url: '../controller/obtener_perfiles.php',  // Archivo PHP que obtiene los perfiles
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            var select = $('#perfil');
-            select.empty();  // Limpiar el select
-            
-            // Opción por defecto
-            select.append('<option value="">SELECCIONE UN REGISTRO</option>');
-            
-            // Recorrer los perfiles y agregarlos al select
-            $.each(data, function(index, perfil) {
-                select.append('<option value="' + perfil.idperfil + '">' + perfil.nombre_perfil + '</option>');
-            });
-			// Seleccionar automáticamente el valor "ALUMNO"
-            //select.val('ALUMNO');
-        },
-        error: function() {
-            alert('Hubo un error al cargar los perfiles.');
-        }
-    });
-});
-*/
 
 </script>
 <script>

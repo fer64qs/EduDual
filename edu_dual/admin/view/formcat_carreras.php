@@ -186,42 +186,6 @@
 
 </script>
   <script>
-  /*
-function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
-    // Construir la URL con los parámetros
-	const url = `add_user.php?idalumno=${encodeURIComponent(idAlumno)}&nombre=${encodeURIComponent(nombre)}&apellidop=${encodeURIComponent(apellidoP)}&apellidom=${encodeURIComponent(apellidoM)}&correo=${encodeURIComponent(correo)}&celular=${encodeURIComponent(celular)}`;
-//alert(url);
-    // Redirigir al archivo con los parámetros
-    window.location.href = url;
-}
-*/
-/*
-function crearCuenta(idAlumno, nombre, apellidoP, apellidoM, correo, celular) {
-    // Verificar si el alumno ya tiene una cuenta
-    axios.post('cat_alumnos/alumnos.php', new URLSearchParams({
-        action: 'verificarcuenta',
-        correo: correo,
-        idperfil: 5 // ID del perfil "Alumno"
-    }))
-    .then(function (response) {
-        if (response.data.success) {
-            // Alumno ya tiene cuenta, detener el flujo
-            swal("¡Atención!", response.data.message, "info");
-            return; // Detener aquí
-        } 
-        
-        // Alumno no tiene cuenta, proceder a la creación
-        const url = `add_user.php?idalumno=${encodeURIComponent(idAlumno)}&nombre=${encodeURIComponent(nombre)}&apellidop=${encodeURIComponent(apellidoP)}&apellidom=${encodeURIComponent(apellidoM)}&correo=${encodeURIComponent(correo)}&celular=${encodeURIComponent(celular)}`;
-        window.location.href = url; // Redirigir al archivo
-    })
-    .catch(function (error) {
-        // Manejo del error en la solicitud
-        console.error('Error en la solicitud:', error);
-        swal("¡Error!", "Error al conectar con el servidor.", "error");
-    });
-}
-*/
-
 
     function alertaPersonalizada(tipo, mensaje) {
       const alerta = document.createElement('div');
