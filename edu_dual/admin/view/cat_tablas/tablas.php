@@ -9,9 +9,12 @@ function cargarTablas() {
     $stmt = $pdo->query("SHOW TABLES FROM edu_dual");
     $todas = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-    // Excluir la tabla perfiles_usuarios
-    return array_filter($todas, fn($tabla) => $tabla !== 'perfiles_usuarios');
+    // Excluir las tablas que no deben truncarse
+    $excluidas = ['perfiles_usuarios', 'configuracion'];
+
+    return array_filter($todas, fn($tabla) => !in_array($tabla, $excluidas));
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
