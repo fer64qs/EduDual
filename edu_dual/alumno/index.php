@@ -14,21 +14,30 @@ if(!empty($_SESSION["userId"])) {
 	
 	switch($variable){
 		case 1: //se trata del perfil ADMINISTRADOR
-		break;
 		case 2: // se trata del perfil DOCENTE
-		require_once __DIR__ . '/view/main_dashboard.php';
-		break;
 		case 3: // se trata del perfil COORDINACION
-		break;
 		case 4: // se trata del perfil PADRE DE FAMILIA/TUTOR
-		break;
+		            // Mostrar mensaje de que el módulo no está disponible
+            echo "<script>
+                    alert('El módulo al que ha ingresado no es el correcto.');
+                    window.location.href = '../index.html';
+                  </script>";
+            session_destroy(); // opcional: cerrar sesión
+            exit;
+            break;
 		case 5: // se trata del perfil ALUMNO
 		require_once __DIR__ . '/view/main_dashboard.php';
 		break;
 		case 6: //se trata del AUXILIAR DE COORDINACION
-		break;
 		case 7: // se trata del perfil TUTOR
-		break;
+		            // Mostrar mensaje de que el módulo no está disponible
+            echo "<script>
+                    alert('El módulo al que ha ingresado no es el correcto.');
+                    window.location.href = '../index.html';
+                  </script>";
+            session_destroy(); // opcional: cerrar sesión
+            exit;
+            break;
 	}
 	
 } 
