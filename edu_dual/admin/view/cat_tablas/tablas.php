@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $resultado[] = "$tabla (excepto usuario actual)";
                 } else {
                     $pdo->exec("TRUNCATE TABLE `$tabla`");
-                    $resultado[] = "$tabla truncada";
+                    $resultado[] = "$tabla eliminada";
                 }
             }
         }
@@ -55,12 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo json_encode([
             'success' => true,
-            'message' => 'Tablas procesadas correctamente: ' . implode(', ', $resultado)
+            'message' => 'Tablas eliminadas correctamente: ' . implode(', ', $resultado)
         ]);
     } catch (Exception $e) {
         echo json_encode([
             'success' => false,
-            'message' => 'Error al truncar: ' . $e->getMessage()
+            'message' => 'Error al eliminar: ' . $e->getMessage()
         ]);
     }
 
