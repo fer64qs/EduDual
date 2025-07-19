@@ -173,6 +173,7 @@ if (!empty($_SESSION["userId"])) {
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_configuracion.php'); cerrarMenu();">Configuracion</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/formcat_Noticias.php'); cerrarMenu();">Noticias</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/reporte.php'); cerrarMenu();">Reportes</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/eliminar_datos.php'); cerrarMenu();">Eliminar Datos</a></li>
                         <li><a class="dropdown-item" href="#" onclick="cargarVista('./view/contrasena_nueva.php'); cerrarMenu();">Contraseña</a></li>
                     </ul>
                 </li>
