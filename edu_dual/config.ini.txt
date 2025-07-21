@@ -1,0 +1,5 @@
+[conexion]
+host=localhost
+db=edu_dual
+user=root
+password=
